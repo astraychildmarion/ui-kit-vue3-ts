@@ -1,0 +1,71 @@
+$error-color: rgb(245, 34, 45);
+$success-color: #06d6a0;
+$primary-color: #0488c5;
+$warn-color: #ed952e;
+$box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.1);
+$box-radius: 5px;
+$box-border: 1px solid rgba(0, 0, 0, 0.1);
+
+// sider color start
+$sider-bg-light: #f0f0f0;
+$sider-item-text-light: #3c3c3c;
+$sider-item-selected-light: #d9d9d9;
+$sider-item-active-light: #d9d9d9;
+$sider-item-selected-border-light: #102e4d;
+
+$sider-bg-dark: #051322;
+$sider-item-icon-dark: #fafafa;
+$sider-item-text-dark: #fafafa;
+$sider-item-selected-dark: #334c66;
+$sider-item-active-dark: #334c66;
+$sider-item-selected-border-dark: #0488c5;
+// sider color end
+
+// header variables start
+$header-text: #ffffff;
+$header-bg: #102e4d;
+$header-bar-icon-bg: #0d1b29;
+$header-hover-bg: #334c66;
+$header-dropdown-bg: #0d1b29;
+$header-dropdown-hover-bg: #10253a;
+$header-height: 72px;
+// header variables end
+
+// table variables start
+$table-head-bg: #fafafa;
+$table-head-text: #334c66;
+$table-body-text: #5c666f;
+// table variables end
+
+// table pagination variables start
+$table-pagination-text-color: #5c666f;
+// table pagination variables end
+
+//customize display start
+$customizeModal-text: #051322;
+$customizeModal-title: #334c66;
+//customize display end
+
+// filter variables start
+$filter-title-color: #102e4d;
+$filter-text-color: #5c666f;
+$filter-bg: #ffffff;
+// filter variables end
+
+// alert start
+$alert-error-bg: #fac7d3;
+$alert-success-bg: #b4f2e2;
+$alert-text: #051322;
+// alert end
+
+//server detail start
+$server-detail-modal-title: #0488c5;
+$server-detail-card-title: #102e4d;
+$server-detail-card-bg: #fafafa;
+$server-detail-card-text: #5c666f;
+$server-detail-card-border: solid 1px #dadcde;
+//server detail end
+
+// toolbar start
+$toolbar-text-color: #5c666f;
+// toobar end
