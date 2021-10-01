@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "ant-design-vue": "^2.2.8",
+    "dayjs": "^1.10.7",
     "vue": "^3.2.16"
   },
   "devDependencies": {
@@ -19,6 +20,7 @@
     "@storybook/addon-links": "^6.4.0-beta.1",
     "@storybook/vue3": "^6.4.0-beta.1",
     "@vitejs/plugin-vue": "^1.9.2",
+    "antd-dayjs-webpack-plugin": "^1.0.6",
     "babel-loader": "^8.2.2",
     "less": "^4.1.1",
     "less-loader": "^6.2.0",

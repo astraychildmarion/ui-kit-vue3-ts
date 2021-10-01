@@ -122,9 +122,10 @@
   </Dropdown>
 </template>
 <script lang="ts">
-import { PropType, defineComponent, reactive, ref, watch, watchEffect, isReactive } from 'vue'
+import { PropType, defineComponent, reactive, ref, watchEffect } from 'vue'
 import { Button, Dropdown, Select, Input, Form, DatePicker } from 'ant-design-vue';
 import { CheckCircleOutlined, FilterOutlined, PlusOutlined, DeleteOutlined } from '@ant-design/icons-vue';
+import dayjs from 'dayjs'
   interface FilterOption {
       title: string
       dataIndex: string
@@ -154,8 +155,7 @@ export default defineComponent({
   emits: ['filterChange'],
   setup(props, { emit }) {
     const visible = ref(false);
-    let filterItems = reactive([]) as any[];
-    console.log('init filterItems' ,filterItems);
+    let filterItems = reactive([]) as Array<FilterDefaultValue>;
     const handleMenuClick = () => {
       visible.value = true;
     }
@@ -177,8 +177,13 @@ export default defineComponent({
       emit('filterChange', filterItems);
     }
 
+    const disabledDate = (current: any) => {
+      // Can not select days after today
+      return current > dayjs().endOf('day');
+    }
+
     watchEffect(() => {
-      if (props.filterDefaultValue?.length > 0) { filterItems = reactive(props.filterDefaultValue); }
+      if (props.filterDefaultValue?.length > 0) filterItems = reactive(props.filterDefaultValue);
     })
 
     return { 
@@ -186,7 +191,8 @@ export default defineComponent({
       handleMenuClick,
       addFilter,
       deleteFilter,
-      hideFilterPopup
+      hideFilterPopup,
+      disabledDate
     }
   },
   components: {
@@ -237,11 +243,6 @@ export default defineComponent({
     window.removeEventListener('resize', this.hideFilterPopup);
   },
   methods: {
-    // moment,
-    // disabledDate(current) {
-      // Can not select days after today
-    //   return current > moment().endOf('day');
-    // },
     checkSortDisable(dataIndex: string) {
       const type = this.checkOptionType(dataIndex);
       this.filterItems.forEach((item: FilterDefaultValue) => {
@@ -267,10 +268,10 @@ export default defineComponent({
 
         this.filterItems.forEach((item: FilterDefaultValue) => {
           // eslint-disable-next-line no-param-reassign
-        if (item.dataIndex === dataIndex) item.value = '';
-      });
-        }
-        // this.debounceFilterEmit()
+          if (item.dataIndex === dataIndex) item.value = '';
+        });
+      }
+      this.debounceFilterEmit()
     },
     onFilterChange() {
       this.$emit('filterChange', this.filterItems);
@@ -288,7 +289,7 @@ export default defineComponent({
     },
     /* eslint-disable */
     debounceFilterEmit() {
-      this.debounce(this.onFilterChange, 500)
+      this.debounce(this.onFilterChange(), 5500)
     },
   },
 })

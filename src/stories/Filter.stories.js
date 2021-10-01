@@ -12,7 +12,7 @@ export default {
       control: 'array',
       description: 'To set default filter condition. You can use it in `change log` page.',
     },
-    filterChange: {
+    onFilterChange: {
       description:
         'The function would be trigger when all displayed inputs are filled, and emit a object of value.',
       action: 'filterChange',
@@ -28,7 +28,7 @@ const Template = (args) => ({
     return { args };
   },
   // And then the `args` are bound to your component with `v-bind="args"`
-  template: '<x-y-filter v-bind="args" @filterChange="filterChange" />',
+  template: '<x-y-filter v-bind="args" />',
 });
 
 export const Default = Template.bind({});

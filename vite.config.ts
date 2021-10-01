@@ -2,6 +2,7 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 const { resolve } = require('path');
 import styleImport from 'vite-plugin-style-import';
+const AntdDayjsWebpackPlugin = require('antd-dayjs-webpack-plugin');
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -43,6 +44,7 @@ export default defineConfig({
           },
         }
       ]
-    })
+    }),
+    new AntdDayjsWebpackPlugin()
   ]
 })
