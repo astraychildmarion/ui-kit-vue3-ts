@@ -16,12 +16,7 @@ export default {
       description:
         'The function would be trigger when all displayed inputs are filled, and emit a object of value.',
       action: 'filterChange',
-    },
-    filterSelectorChange: {
-      description:
-        'The function would be trigger when selector changes, and emit current selected dataIndex.',
-      action: 'filterSelectorChange',
-    },
+    }
   },
 };
 
@@ -33,7 +28,7 @@ const Template = (args) => ({
     return { args };
   },
   // And then the `args` are bound to your component with `v-bind="args"`
-  template: '<x-y-filter v-bind="args" />',
+  template: '<x-y-filter v-bind="args" @filterChange="filterChange" />',
 });
 
 export const Default = Template.bind({});

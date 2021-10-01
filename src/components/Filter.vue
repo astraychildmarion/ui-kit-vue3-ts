@@ -29,15 +29,15 @@
               Please click "Add a filter" to start, user may use multiple filters to get specific
               results.
             </p>
-
             <Form ref="formRef">
               <FormItem
                 v-for="(filterItem, index) in filterItems"
                 :key="index"
                 class="xy-filter__body-item"
               >
+               {{ filterItem }}
                 <Select
-                  v-model="filterItem.dataIndex"
+                  v-model:value="filterItem.dataIndex"
                   class="xy-filter__body-item-select"
                   @change="checkFormVaildation(filterItem.dataIndex)"
                 >
@@ -122,14 +122,14 @@
   </Dropdown>
 </template>
 <script lang="ts">
-import { PropType, defineComponent, reactive, ref } from 'vue'
+import { PropType, defineComponent, reactive, ref, watch, watchEffect, isReactive } from 'vue'
 import { Button, Dropdown, Select, Input, Form, DatePicker } from 'ant-design-vue';
 import { CheckCircleOutlined, FilterOutlined, PlusOutlined, DeleteOutlined } from '@ant-design/icons-vue';
   interface FilterOption {
       title: string
       dataIndex: string
       type?: string
-      typeOption?: [] 
+      typeOption?: any[] 
   }
   interface FilterDefaultValue {
       dataIndex: string
@@ -137,14 +137,15 @@ import { CheckCircleOutlined, FilterOutlined, PlusOutlined, DeleteOutlined } fro
       value: string
   }
   interface FilterTemplate {
-    dataIndex: string,
-    value: string,
-    sort: string,
+    dataIndex: string
+    value: string
+    sort: string
   }
 export default defineComponent({
   props: {
     filterOption: {
-      type: Array as PropType<FilterOption[]>
+      type: Array as PropType<FilterOption[]>,
+      required: true
     },
     filterDefaultValue: {
       type: Array as PropType<FilterDefaultValue[]>
@@ -153,30 +154,36 @@ export default defineComponent({
   emits: ['filterChange'],
   setup(props, { emit }) {
     const visible = ref(false);
-    const filterItems = reactive([]);
-    const filterTemplate: FilterTemplate = {
-        dataIndex: '',
-        value: '',
-        sort: 'contain',
-      };
+    let filterItems = reactive([]) as any[];
+    console.log('init filterItems' ,filterItems);
     const handleMenuClick = () => {
       visible.value = true;
     }
     const hideFilterPopup = () => {
       visible.value = false;
     }
-    const addFilter = (e:any) => {
-      e.preventDefault();
-      filterItems.push({ ...filterTemplate });
+    const addFilter = () => {
+      // e.preventDefault();
+      const filterTemplate: FilterTemplate = {
+        dataIndex: '',
+        value: '',
+        sort: 'contain',
+      };
+      filterItems.push({...filterTemplate});
     }
     const deleteFilter = (index: number) => {
+      console.log('delete filter index', index);
       filterItems.splice(index, 1);
       emit('filterChange', filterItems);
     }
 
+    watchEffect(() => {
+      if (props.filterDefaultValue?.length > 0) { filterItems = reactive(props.filterDefaultValue); }
+    })
+
     return { 
-      handleMenuClick,
       filterItems,
+      handleMenuClick,
       addFilter,
       deleteFilter,
       hideFilterPopup
@@ -209,16 +216,6 @@ export default defineComponent({
         },
       ],
     };
-  },
-  watch: {
-    filterDefaultValue: { 
-      handler(newV) {
-        if (newV.length > 0) {
-          this.filterItems = newV;
-        }
-      },
-      immediate: true,
-    },
   },
   computed: {
     addFilterBtnDisabled() {
@@ -278,10 +275,21 @@ export default defineComponent({
     onFilterChange() {
       this.$emit('filterChange', this.filterItems);
     },
+    debounce(fn: any, delay: number) {
+      let timer: any
+      return function () {
+        var context = this
+        var args = arguments
+        clearTimeout(timer)
+        timer = setTimeout(function () {
+          fn.apply(context, args)
+        }, delay)
+      }
+    },
     /* eslint-disable */
-    // debounceFilterEmit: debounce(function () {
-    //   this.onFilterChange();
-    // }, 500),
+    debounceFilterEmit() {
+      this.debounce(this.onFilterChange, 500)
+    },
   },
 })
 </script>
@@ -292,8 +300,8 @@ menu.ant-dropdown-content {
 }
 .xy-filter {
   &--active {
-    color: #0488c5;
-    border-color: #0488c5;
+    color: $filter-active-icon;
+    border-color: $filter-active-icon;
     background-color: #fff;
   }
   &--media-query {
