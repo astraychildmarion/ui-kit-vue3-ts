@@ -316,7 +316,7 @@ menu.ant-dropdown-content {
     border: $box-border;
     width: 530px;
     background-color: $filter-bg;
-    ::v-deep .ant-select-selection-selected-value {
+    :deep(.ant-select-selection-selected-value) {
       color: $filter-title-color;
     }
   }
@@ -333,7 +333,7 @@ menu.ant-dropdown-content {
     &-item {
       &-button {
         display: inline-block;
-        ::v-deep &.ant-btn {
+        :deep(&.ant-btn) {
           border: none;
           box-shadow: none;
           color: $filter-text-color;
@@ -364,7 +364,7 @@ menu.ant-dropdown-content {
         position: relative;
         right: -350px;
       }
-      ::v-deep .ant-btn {
+      :deep(.ant-btn) {
         color: $filter-text-color;
         .anticon {
           font-size: initial;
