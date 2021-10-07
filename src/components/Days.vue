@@ -50,14 +50,13 @@ export default defineComponent({
   },
   setup(props, { emit }) {
       const value = ref('') as any;
-      let currentValue = ref('') as any;
+      const currentValue = ref('') as any;
 
       const emitChangeDefaultValue = (payload: any) => {
         emit('changeDefaultValue', payload);
       }
 
-      const calculateDateObjsInRange = (amountOfDaysBefore: number) => {
-        return Array.from({ length: amountOfDaysBefore }, (_, index) => {
+      const calculateDateObjsInRange = (amountOfDaysBefore: number) => Array.from({ length: amountOfDaysBefore }, (_, index) => {
           const todayDateObj = new Date();
           const todayDate = todayDateObj.getDate();
           todayDateObj.setDate(todayDate - index);
@@ -67,12 +66,11 @@ export default defineComponent({
             todayDateObj.setSeconds(0);
           }
           return new Date(todayDateObj);
-        });
-      }
+        })
 
-      const generateEventPayload = (value: any ) => {
+      const generateEventPayload = (val: any ) => {
         const isNumber = (n:any) => typeof n === typeof 0;
-        const amountOfDaysBefore = isNumber(value) ? value : parseInt(value, 10);
+        const amountOfDaysBefore = isNumber(val) ? val : parseInt(val, 10);
         let payload;
         if (isNumber(amountOfDaysBefore)) {
           const dateObjsInRange = calculateDateObjsInRange(amountOfDaysBefore);
@@ -87,6 +85,11 @@ export default defineComponent({
       return payload;
     }
 
+    const onClickDayButtonEvent = (val: string | object) => {
+      const payload = generateEventPayload(val);
+      emit('clickDayButton', payload);
+    }
+
     const clickRadioButton = ({ target }: clickRadioButtonEvent) => {
       if (target.tagName === 'INPUT') {
         if (target.value === currentValue.value) {
@@ -98,10 +101,6 @@ export default defineComponent({
         onClickDayButtonEvent(target.value);
         }
       }
-    }
-    const onClickDayButtonEvent = (value: string | object) => {
-      const payload = generateEventPayload(value);
-      emit('clickDayButton', payload);
     }
 
     watchEffect(() => {

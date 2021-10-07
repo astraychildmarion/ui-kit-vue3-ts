@@ -1,0 +1,8 @@
+package.json 
+package-lock.json 
+yarn-lock.json 
+.prettierrc.js
+src/assets/**
+src/stories/assets/**
+src/**/*.css
+src/**/*.mdx
