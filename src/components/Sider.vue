@@ -8,7 +8,7 @@
         @click="$emit('clickMenu', $event)"
       >
         <MenuItem v-if="firstData.path" :key="firstData.key">
-          <slot v-if="firstData.icon" :name="firstData.icon" />
+          <slot v-if="firstData.icon" :name="firstData.icon"></slot>
           <img v-if="firstData.iconPath" :src="firstData.iconPath" class="anticon" />
           <span>{{ firstData.name }}</span>
         </MenuItem>
@@ -18,15 +18,14 @@
     <div class="xy-sider__menu-wrapper__second">
       <Menu
         mode="inline"
-        v-model:selectedKeys="selectedKeys"
-        v-model:openKeys="defaultOpenKeys"
+        v-model:selectedKeys="selectedKeysInnerData"
         :inline-collapsed="collapsed"
         :theme="theme"
         @click="$emit('clickMenu', $event)"
       >
         <template v-for="item in restData">
           <MenuItem v-if="item.path" :key="item.key">
-            <slot v-if="item.icon" :name="item.icon" /> 
+            <slot v-if="item.icon" :name="item.icon"></slot> 
             <img v-if="item.iconPath" :src="item.iconPath" class="anticon" />
             <span>{{ item.name }}</span>
           </MenuItem>
@@ -37,9 +36,8 @@
 </template>
 <script lang="ts">
   import { Menu } from 'ant-design-vue';
-  import { ProfileOutlined } from '@ant-design/icons-vue';
-  import { PropType } from 'vue';
-  import { defineComponent } from 'vue'
+  import { PropType , defineComponent, reactive } from 'vue';
+  
   interface SiderData {
     icon: string,
     name: string,
@@ -60,9 +58,6 @@ export default defineComponent({
         return ['1'];
       },
     },
-    defaultOpenKeys: {
-      type: Array,
-    },
     siderData: {
       type: Array as PropType<SiderData[]>,
       required: true
@@ -77,22 +72,23 @@ export default defineComponent({
   },
   setup(props) {
     const firstData =  props.siderData[0];
-    const restData = getRestData();
+    const selectedKeysInnerData = reactive(props.selectedKeys)
     function getRestData(){
       const copy = [...props.siderData];
       copy.shift();
       return copy;
     }
+    const restData = getRestData();
     return {
       firstData,
-      restData
+      restData,
+      selectedKeysInnerData
     }
   },
   components: {
     Menu,
     MenuItem: Menu.Item,
     Divider: Menu.Divider,
-    ProfileOutlined
   },
   computed: {
     goToStyle() {
