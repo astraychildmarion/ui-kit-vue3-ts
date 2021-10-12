@@ -1,5 +1,5 @@
 import { TeamOutlined, SmileOutlined } from '@ant-design/icons-vue';
-import MyHeader from '../components/XYHeader.vue';
+import MyHeader from '../components/layout/XYHeader.vue';
 
 export default {
   title: 'UI-KIT/Header',
@@ -30,11 +30,11 @@ export default {
       description:
         'User information, including user name and avatar. Avatar is ant design avatar, please prepare content you want to show.',
     },
-    logOut: {
+    clickLogOut: {
       action: 'logOut',
       description: 'Emit function for logout',
     },
-    clickTopLeftCorner: {
+    onClickTopLeftCorner: {
       action: 'clickTopLeftCorner',
       description: 'To control app list drawer.',
     },

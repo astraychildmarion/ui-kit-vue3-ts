@@ -8,7 +8,9 @@
         @click="$emit('clickMenu', $event)"
       >
         <MenuItem v-if="firstData.path" :key="firstData.key">
-          <slot v-if="firstData.icon" :name="firstData.icon"></slot>
+          <span class="fix-icon-position">
+            <slot v-if="firstData.icon" :name="firstData.icon"></slot>
+          </span>
           <img v-if="firstData.iconPath" :src="firstData.iconPath" class="anticon" />
           <span>{{ firstData.name }}</span>
         </MenuItem>
@@ -25,7 +27,9 @@
       >
         <template v-for="item in restData">
           <MenuItem v-if="item.path" :key="item.key">
-            <slot v-if="item.icon" :name="item.icon"></slot> 
+            <span class="fix-icon-position">
+              <slot v-if="item.icon" :name="item.icon"></slot> 
+            </span>
             <img v-if="item.iconPath" :src="item.iconPath" class="anticon" />
             <span>{{ item.name }}</span>
           </MenuItem>
@@ -71,7 +75,7 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const firstData =  props.siderData[0];
+    const firstData = props.siderData[0];
     const selectedKeysInnerData = reactive(props.selectedKeys)
     function getRestData(){
       const copy = [...props.siderData];
@@ -102,15 +106,16 @@ export default defineComponent({
         '--wrapper--bg': this.theme === 'dark' ? '#051322' : '#f0f0f0',
       };
     },
-  },
-  methods: {
-    goTo(val:string) {
-      window.location.replace(val)
-    },
-  },
+  }
 })
 </script>
 <style lang="scss" scoped>
+.fix-icon-position {
+  :deep(.anticon) {
+    vertical-align: text-top;
+    padding-right: 16px;
+  }
+}
 .xy-sider {
   &__wrapper {
     width: var(--wrapper--width);
@@ -227,7 +232,8 @@ export default defineComponent({
     &__second {
       padding-bottom: 56px;
       overflow: hidden overlay;
-      height: calc(100vh - 140px)
+      height: calc(100vh - 140px);
+      background-color: var(--wrapper--bg);
     }
   }
   .goTo--style {
