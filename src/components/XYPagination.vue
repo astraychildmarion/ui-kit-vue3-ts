@@ -40,18 +40,16 @@ export default defineComponent({
     },
   },
   setup(props, { emit }) {
-    let page = ref<number>(1);
-    let pageSize = ref<number>(30);
+    const page = ref<number>(1);
+    const pageSize = ref<number>(30);
     const defaultCurrent = ref(props.defaultCurrent);
     const defaultPageSize = ref(props.defaultPageSize);
     const total = ref(props.total);
 
-    const pageInfo = (total: number, range: string[]) => {
-      return `${range[0].toLocaleString()}-${range[1].toLocaleString()} of ${total.toLocaleString()}`;
-    };
-    const onChangePage = (pagenum: number, pageSize: number) => {
+    const pageInfo = (totalPage: number, range: string[]) => `${range[0].toLocaleString()}-${range[1].toLocaleString()} of ${totalPage.toLocaleString()}`;
+    const onChangePage = (pagenum: number, pagesize: number) => {
       page.value = pagenum;
-      emit("changePage", { pagenum, pageSize });
+      emit("changePage", { pagenum, pagesize });
     };
     const OnShowSizeChange = (current: number, size: number) => {
       const exceedTotalAmount = page.value * pageSize.value > total.value;
