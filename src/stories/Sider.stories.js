@@ -1,4 +1,16 @@
-import { ProfileOutlined, DatabaseOutlined, HistoryOutlined, ControlOutlined } from '@ant-design/icons-vue';
+import { ProfileOutlined, 
+  DatabaseOutlined, 
+  HistoryOutlined, 
+  ControlOutlined,
+  SmileOutlined,
+  SkinOutlined,
+  StarOutlined,
+  SkypeOutlined,
+  QqOutlined,
+  MediumOutlined,
+  AmazonOutlined,
+  SketchOutlined
+ } from '@ant-design/icons-vue';
 import Sider from '../components/layout/Sider.vue';
 
 export default {
@@ -63,61 +75,75 @@ export default {
         key: '4',
       },
       // KEEP: to demo long sider
-      // {
-      //   icon: 'SmileOutlined',
-      //   name: 'XY Compute',
-      //   path: '/compute',
-      //   key: '5',
-      // },
-      // {
-      //   icon: 'skinOutlined',
-      //   name: 'Request Manager',
-      //   path: '/Chart',
-      //   key: '6',
-      // },
-      // {
-      //   icon: 'starOutlined',
-      //   name: 'Console',
-      //   path: '/',
-      //   key: '7',
-      // },
-      // {
-      //   icon: 'SkypeOutlined',
-      //   name: 'XY Compute',
-      //   path: '/compute',
-      //   key: '8',
-      // },
-      // {
-      //   icon: 'QqOutlined',
-      //   name: 'Request Manager',
-      //   path: '/Chart',
-      //   key: '9',
-      // },
-      // {
-      //   icon: 'MediumOutlined',
-      //   name: 'Console',
-      //   path: '/',
-      //   key: '10',
-      // },
-      // {
-      //   icon: 'AmazonOutlined',
-      //   name: 'Last 2',
-      //   path: '/compute',
-      //   key: '12',
-      // },
-      // {
-      //   icon: 'SketchOutlined',
-      //   name: 'Last 1',
-      //   path: '/Chart',
-      //   key: '13',
-      // },
+      {
+        icon: 'SmileOutlined',
+        name: 'XY Compute',
+        path: '/compute',
+        key: '5',
+      },
+      {
+        icon: 'SkinOutlined',
+        name: 'Request Manager',
+        path: '/Chart',
+        key: '6',
+      },
+      {
+        icon: 'StarOutlined',
+        name: 'Console',
+        path: '/',
+        key: '7',
+      },
+      {
+        icon: 'SkypeOutlined',
+        name: 'XY Compute',
+        path: '/compute',
+        key: '8',
+      },
+      {
+        icon: 'QqOutlined',
+        name: 'Request Manager',
+        path: '/Chart',
+        key: '9',
+      },
+      {
+        icon: 'MediumOutlined',
+        name: 'Console',
+        path: '/',
+        key: '10',
+      },
+      {
+        icon: 'AmazonOutlined',
+        name: 'Last 2',
+        path: '/compute',
+        key: '12',
+      },
+      {
+        icon: 'SketchOutlined',
+        name: 'Last 1',
+        path: '/Chart',
+        key: '13',
+      },
     ],
   },
 };
 
 const Template = (args) => ({
   // Components used in your story `template` are defined in the `components` object
-  components: { Sider, ProfileOutlined, DatabaseOutlined, HistoryOutlined, ControlOutlined },
+  components: { 
+    Sider, 
+    ProfileOutlined, 
+    DatabaseOutlined, 
+    HistoryOutlined, 
+    ControlOutlined,
+    SmileOutlined,
+    SkinOutlined,
+    StarOutlined,
+    SkypeOutlined,
+    QqOutlined,
+    MediumOutlined,
+    AmazonOutlined,
+    SketchOutlined
+  },
   // The story's `args` need to be mapped into the template through the `setup()` method
   setup() {
     return { args };
@@ -125,17 +151,41 @@ const Template = (args) => ({
   // And then the `args` are bound to your component with `v-bind="args"`
   template: `
   <sider v-bind="args" >
-    <template #ProfileOutlined>
+    <template #sider_ControlOutlined>
       <ProfileOutlined />
     </template>
-    <template #DatabaseOutlined>
+    <template #sider_DatabaseOutlined>
       <DatabaseOutlined />
     </template>
-    <template #HistoryOutlined>
+    <template #sider_ProfileOutlined>
+      <ProfileOutlined />
+    </template>
+    <template #sider_HistoryOutlined>
       <HistoryOutlined />
     </template>
-    <template #ControlOutlined>
-      <ControlOutlined />
+    <template #sider_SmileOutlined>
+      <SmileOutlined />
+    </template>
+    <template #sider_SkinOutlined>
+      <SkinOutlined />
+    </template>
+    <template #sider_StarOutlined>
+      <StarOutlined />
+    </template>
+    <template #sider_SkypeOutlined>
+      <SkypeOutlined />
+    </template>
+    <template #sider_QqOutlined>
+      <QqOutlined />
+    </template>
+    <template #sider_MediumOutlined>
+      <MediumOutlined />
+    </template>
+    <template #sider_AmazonOutlined>
+      <AmazonOutlined />
+    </template>
+    <template #sider_SketchOutlined>
+      <SketchOutlined />
     </template>
   </sider>
   `,

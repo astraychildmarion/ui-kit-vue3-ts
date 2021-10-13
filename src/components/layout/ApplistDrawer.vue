@@ -38,7 +38,7 @@
             <span class="fix-icon-position">
               <slot v-if="item.icon" :name="`appListDrawer_${item.icon}`" />
             </span>
-            <img v-if="item.iconPath" :src="item.iconPath" class="anticon" />
+            <img v-if="item.iconPath" :src="item.iconPath" className="anticon" />
             <span>{{ item.name }}</span>
           </MenuItem>
         </template>
@@ -94,7 +94,7 @@ export default defineComponent({
     };
   },
   setup(props) {
-    const isDrawerShow = ref(false);
+    const isDrawerShow = ref(props.appListDrawerShow);
     // get applist item
     const firstData = props.appListDrawerData[0];
     const selectedKeysInnerData = reactive(props.selectAppListDrawerKey)
@@ -110,9 +110,7 @@ export default defineComponent({
     }
 
     watchEffect(() => {
-      if (props.appListDrawerShow) {
-        isDrawerShow.value = props.appListDrawerShow;
-      }
+      isDrawerShow.value = props.appListDrawerShow;
     })
 
     return {

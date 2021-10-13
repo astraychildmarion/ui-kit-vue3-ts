@@ -9,7 +9,7 @@
       >
         <MenuItem v-if="firstData.path" :key="firstData.key">
           <span class="fix-icon-position">
-            <slot v-if="firstData.icon" :name="firstData.icon"></slot>
+            <slot v-if="firstData.icon" :name="`sider_${firstData.icon}`"></slot>
           </span>
           <img v-if="firstData.iconPath" :src="firstData.iconPath" class="anticon" />
           <span>{{ firstData.name }}</span>
@@ -28,7 +28,7 @@
         <template v-for="item in restData">
           <MenuItem v-if="item.path" :key="item.key">
             <span class="fix-icon-position">
-              <slot v-if="item.icon" :name="item.icon"></slot> 
+              <slot v-if="item.icon" :name="`sider_${item.icon}`"></slot> 
             </span>
             <img v-if="item.iconPath" :src="item.iconPath" class="anticon" />
             <span>{{ item.name }}</span>
@@ -70,8 +70,8 @@ export default defineComponent({
       type: Boolean,
       default: false
     },
-    collapsedWidth: {
-      type: String as PropType<string>,
+    isSiderCollapse: {
+      type: Boolean,
     },
   },
   setup(props) {
@@ -102,7 +102,7 @@ export default defineComponent({
     },
     collapseStyle() {
       return {
-        '--wrapper--width': this.collapsedWidth ? '72px' : '256px',
+        '--wrapper--width': this.isSiderCollapse ? '72px' : '256px',
         '--wrapper--bg': this.theme === 'dark' ? '#051322' : '#f0f0f0',
       };
     },
@@ -233,7 +233,6 @@ export default defineComponent({
       padding-bottom: 56px;
       overflow: hidden overlay;
       height: calc(100vh - 140px);
-      background-color: var(--wrapper--bg);
     }
   }
   .goTo--style {

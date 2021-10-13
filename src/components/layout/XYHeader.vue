@@ -117,7 +117,7 @@ export default defineComponent({
     const isDrawerClose = ref(true);
     function clickTopLeftCorner() {
       isDrawerClose.value = !isDrawerClose.value;
-      emit('clickTopLeftCorner', isDrawerClose);
+      emit('clickTopLeftCorner', isDrawerClose.value);
     }
     return {
       manageMenuVisible,
@@ -148,7 +148,6 @@ a:hover {
   color: inherit;
 }
 .xy-header {
-  width: 100%;
   height: 72px;
   display: grid;
   grid-template-columns: 72px 1fr;
