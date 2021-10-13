@@ -1,5 +1,6 @@
 package.json 
-package-lock.json 
+package-lock.json
+tsconfig.json
 yarn-lock.json 
 .prettierrc.js
 src/assets/**

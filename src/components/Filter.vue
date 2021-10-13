@@ -1,7 +1,7 @@
 <template>
   <Dropdown
     v-model:visible="visible"
-    overlayClassName="xy-filter"
+    overlayclass="xy-filter"
     :class="{ 'xy-filter--active': active }"
     :trigger="['click']"
     :overlayStyle="{ zIndex: 998 }"
@@ -18,13 +18,13 @@
         <CheckCircleOutlined v-if="active" />
         <FilterOutlined v-else />
       </template>
-      <span class="xy-filter--media-query">Filter</span>
+      <span className="xy-filter--media-query">Filter</span>
     </Button>
     <template #overlay>
       <Menu @click="handleMenuClick">
-        <div class="xy-filter__wrapper">
-          <div class="xy-filter__title">{{ titleText }}</div>
-          <div class="xy-filter__body">
+        <div className="xy-filter__wrapper">
+          <div className="xy-filter__title">{{ titleText }}</div>
+          <div className="xy-filter__body">
             <p v-show="filterItems.length < 1">
               Please click "Add a filter" to start, user may use multiple filters to get specific
               results.
@@ -35,7 +35,6 @@
                 :key="index"
                 class="xy-filter__body-item"
               >
-               {{ filterItem }}
                 <Select
                   v-model:value="filterItem.dataIndex"
                   class="xy-filter__body-item-select"
@@ -184,7 +183,8 @@ export default defineComponent({
       if (props.filterDefaultValue?.length > 0) filterItems = reactive(props.filterDefaultValue);
     })
 
-    return { 
+    return {
+      visible,
       filterItems,
       handleMenuClick,
       addFilter,
@@ -257,7 +257,7 @@ export default defineComponent({
       const result = this.filterOption.find((item) => item.dataIndex === dataIndex && item?.type !== undefined);
       return result?.typeOption;
     },
-    checkFormVaildation(dataIndex = null) {
+    checkFormVaildation(dataIndex: null | string ) {
       if (dataIndex !== null) {
 
         this.filterItems.forEach((item: FilterDefaultValue) => {

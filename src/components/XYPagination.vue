@@ -1,5 +1,5 @@
 <template>
-  <div class="xy-table-pagination">
+  <div className="xy-table-pagination">
     <Pagination
       show-size-changer
       :current="page"

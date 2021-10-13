@@ -9,7 +9,7 @@
     :bodyStyle="{ padding: '0px' }"
     @close="closeDrawer"
   >
-    <div class="xy-applist-drawer__wrapper">
+    <div className="xy-applist-drawer__wrapper">
       <Menu
         mode="inline"
         :inline-collapsed="false"
@@ -18,10 +18,10 @@
         class="xy-applist-drawer__first-item"
       >
         <MenuItem v-if="firstData.path" :key="firstData.key">
-          <span class="fix-icon-position">
+          <span className="fix-icon-position">
             <slot v-if="firstData.icon" :name="`appListDrawer_${firstData.icon}`" />
           </span>
-          <img v-if="firstData.iconPath" :src="firstData.iconPath" class="anticon" />
+          <img v-if="firstData.iconPath" :src="firstData.iconPath" className="anticon" />
           <span>{{ firstData.name }}</span>
         </MenuItem>
         <Divider />
@@ -35,7 +35,7 @@
       >
         <template v-for="item in restData">
           <MenuItem v-if="item.path" :key="item.key">
-            <span class="fix-icon-position">
+            <span className="fix-icon-position">
               <slot v-if="item.icon" :name="`appListDrawer_${item.icon}`" />
             </span>
             <img v-if="item.iconPath" :src="item.iconPath" className="anticon" />
@@ -109,7 +109,7 @@ export default defineComponent({
       isDrawerShow.value = false;
     }
 
-    watchEffect(() => {
+    watchEffect((): void => {
       isDrawerShow.value = props.appListDrawerShow;
     })
 

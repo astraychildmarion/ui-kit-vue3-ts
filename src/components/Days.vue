@@ -2,8 +2,8 @@
   <div>
     <Space size="small">
       <RadioGroup
-        :cleanDayValue="cleanDayValue"
-        :defaultValue="defaultValue"
+        :cleanDayValue="cleanDayInnerValue"
+        :defaultValue="defaultInnerValue"
         button-style="solid"
         v-for="item in dayOption"
         :key="item.value"
@@ -40,18 +40,19 @@ export default defineComponent({
       },
     },
     defaultValue: {
+      type: String as PropType<string>,
       default: '7',
-      type: String,
     },
     cleanDayValue: {
+      type: Boolean as PropType<boolean>,
       default: false,
-      type: Boolean,
     },
   },
   setup(props, { emit }) {
       const value = ref('') as any;
       const currentValue = ref('') as any;
-
+      const defaultInnerValue = ref(props.defaultValue);
+      const cleanDayInnerValue = ref(props.cleanDayValue);
       const emitChangeDefaultValue = (payload: any) => {
         emit('changeDefaultValue', payload);
       }
@@ -119,6 +120,8 @@ export default defineComponent({
     return {
       value,
       currentValue,
+      defaultInnerValue,
+      cleanDayInnerValue,
       generateEventPayload,
       clickRadioButton,
       emitChangeDefaultValue,
