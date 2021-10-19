@@ -27,7 +27,7 @@ export default {
       description:
         "Triggered after user clicked app list drawer's item, it would return path of clicked item.",
     },
-  }
+  },
 };
 
 const Template = (args) => ({
@@ -84,4 +84,4 @@ Default.args = {
       key: '4',
     },
   ],
-}
+};

@@ -74,5 +74,5 @@ Default.args = {
   userInfo: {
     name: 'Amberiel Cheng',
     avatar: 'AC',
-  }
+  },
 };

@@ -9,7 +9,7 @@
     :bodyStyle="{ padding: '0px' }"
     @close="closeDrawer"
   >
-    <div className="xy-applist-drawer__wrapper">
+    <div class="xy-applist-drawer__wrapper">
       <Menu
         mode="inline"
         :inline-collapsed="false"
@@ -18,10 +18,10 @@
         class="xy-applist-drawer__first-item"
       >
         <MenuItem v-if="firstData.path" :key="firstData.key">
-          <span className="fix-icon-position">
+          <span class="fix-icon-position">
             <slot v-if="firstData.icon" :name="`appListDrawer_${firstData.icon}`" />
           </span>
-          <img v-if="firstData.iconPath" :src="firstData.iconPath" className="anticon" />
+          <img v-if="firstData.iconPath" :src="firstData.iconPath" class="anticon" />
           <span>{{ firstData.name }}</span>
         </MenuItem>
         <Divider />
@@ -35,10 +35,10 @@
       >
         <template v-for="item in restData">
           <MenuItem v-if="item.path" :key="item.key">
-            <span className="fix-icon-position">
+            <span class="fix-icon-position">
               <slot v-if="item.icon" :name="`appListDrawer_${item.icon}`" />
             </span>
-            <img v-if="item.iconPath" :src="item.iconPath" className="anticon" />
+            <img v-if="item.iconPath" :src="item.iconPath" class="anticon" />
             <span>{{ item.name }}</span>
           </MenuItem>
         </template>
@@ -53,7 +53,7 @@
   </Drawer>
 </template>
 <script lang="ts">
-import { defineComponent, ref, reactive ,watchEffect  } from 'vue';
+import { defineComponent, ref, reactive, watchEffect } from 'vue';
 import { Drawer, Menu } from 'ant-design-vue';
 import packageJson from '../../../package.json';
 
@@ -96,14 +96,14 @@ export default defineComponent({
   setup(props) {
     const isDrawerShow = ref(props.appListDrawerShow);
     // get applist item
-    const firstData = props.appListDrawerData[0];
-    const selectedKeysInnerData = reactive(props.selectAppListDrawerKey)
+    const firstData = ref(props.appListDrawerData[0]);
+    const selectedKeysInnerData = reactive(props.selectAppListDrawerKey);
     function appListDrawerData() {
       const copy = [...props.appListDrawerData];
       copy.shift();
       return copy;
     }
-    const restData = appListDrawerData()
+    const restData = appListDrawerData();
 
     function closeDrawer() {
       isDrawerShow.value = false;
@@ -111,16 +111,16 @@ export default defineComponent({
 
     watchEffect((): void => {
       isDrawerShow.value = props.appListDrawerShow;
-    })
+    });
 
     return {
       firstData,
       restData,
       isDrawerShow,
       closeDrawer,
-      selectedKeysInnerData
-    }
-  }
+      selectedKeysInnerData,
+    };
+  },
 });
 </script>
 <style lang="scss" scoped>

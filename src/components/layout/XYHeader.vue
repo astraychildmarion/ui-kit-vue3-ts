@@ -72,13 +72,28 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
-import { LogoutOutlined, AppstoreOutlined, DownOutlined, UpOutlined, BellOutlined } from '@ant-design/icons-vue';
+import { defineComponent, ref } from 'vue';
+import {
+  LogoutOutlined,
+  AppstoreOutlined,
+  DownOutlined,
+  UpOutlined,
+  BellOutlined,
+} from '@ant-design/icons-vue';
 import { Dropdown, Avatar, Badge } from 'ant-design-vue';
 
 export default defineComponent({
   name: 'XYHeader',
-  components: { LogoutOutlined, AppstoreOutlined, DownOutlined, UpOutlined, BellOutlined, Dropdown, Avatar, Badge },
+  components: {
+    LogoutOutlined,
+    AppstoreOutlined,
+    DownOutlined,
+    UpOutlined,
+    BellOutlined,
+    Dropdown,
+    Avatar,
+    Badge,
+  },
   props: {
     logoUrl: {
       type: String,
@@ -109,7 +124,7 @@ export default defineComponent({
     manageAuth: {
       type: Boolean,
       default: false,
-    }
+    },
   },
   emits: ['clickTopLeftCorner', 'logOut'],
   setup(props, { emit }) {
@@ -122,8 +137,8 @@ export default defineComponent({
     return {
       manageMenuVisible,
       isDrawerClose,
-      clickTopLeftCorner
-    }
+      clickTopLeftCorner,
+    };
   },
   data() {
     return {
@@ -135,9 +150,9 @@ export default defineComponent({
       bellStyle: {
         color: '#ffffff',
         fontSize: '18px',
-      }
-    }
-  }
+      },
+    };
+  },
 });
 </script>
 

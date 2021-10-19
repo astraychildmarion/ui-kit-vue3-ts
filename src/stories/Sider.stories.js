@@ -1,6 +1,7 @@
-import { ProfileOutlined, 
-  DatabaseOutlined, 
-  HistoryOutlined, 
+import {
+  ProfileOutlined,
+  DatabaseOutlined,
+  HistoryOutlined,
   ControlOutlined,
   SmileOutlined,
   SkinOutlined,
@@ -9,8 +10,8 @@ import { ProfileOutlined,
   QqOutlined,
   MediumOutlined,
   AmazonOutlined,
-  SketchOutlined
- } from '@ant-design/icons-vue';
+  SketchOutlined,
+} from '@ant-design/icons-vue';
 import Sider from '../components/layout/Sider.vue';
 
 export default {
@@ -44,7 +45,7 @@ export default {
       action: 'clickMenu',
       description:
         'Action triggered by clicking menu items. You can update `selectKey` by this function',
-    }
+    },
   },
   args: {
     selectedKeys: ['1'],
@@ -129,11 +130,11 @@ export default {
 
 const Template = (args) => ({
   // Components used in your story `template` are defined in the `components` object
-  components: { 
-    Sider, 
-    ProfileOutlined, 
-    DatabaseOutlined, 
-    HistoryOutlined, 
+  components: {
+    Sider,
+    ProfileOutlined,
+    DatabaseOutlined,
+    HistoryOutlined,
     ControlOutlined,
     SmileOutlined,
     SkinOutlined,
@@ -142,7 +143,7 @@ const Template = (args) => ({
     QqOutlined,
     MediumOutlined,
     AmazonOutlined,
-    SketchOutlined
+    SketchOutlined,
   },
   // The story's `args` need to be mapped into the template through the `setup()` method
   setup() {

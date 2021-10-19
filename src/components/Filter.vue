@@ -1,18 +1,18 @@
 <template>
   <Dropdown
     v-model:visible="visible"
-    overlayclass="xy-filter"
+    overlayClassName="xy-filter"
     :class="{ 'xy-filter--active': active }"
     :trigger="['click']"
     :overlayStyle="{ zIndex: 998 }"
   >
     <Button
-      class="xy-filter__button"
+      className="xy-filter__button"
       @click="
-        (e:any) => {
-          e.preventDefault;
-        }
-      "
+				(e: any) => {
+					e.preventDefault;
+				}
+			"
     >
       <template #icon>
         <CheckCircleOutlined v-if="active" />
@@ -47,9 +47,8 @@
                     :disabled="
                       filterItems.some((filterItem) => filterItem.dataIndex === option.dataIndex)
                     "
+                    >{{ option.title }}</Option
                   >
-                    {{ option.title }}
-                  </Option>
                 </Select>
                 <Select
                   v-model:value="filterItem.sort"
@@ -57,9 +56,9 @@
                   @change="checkFormVaildation"
                   :disabled="checkSortDisable(filterItem.dataIndex)"
                 >
-                  <Option v-for="sort in filterSort" :key="sort.value" :value="sort.value">
-                    {{ sort.title }}
-                  </Option>
+                  <Option v-for="sort in filterSort" :key="sort.value" :value="sort.value">{{
+                    sort.title
+                  }}</Option>
                 </Select>
                 <template v-if="checkOptionType(filterItem.dataIndex) === 'dropdown'">
                   <Select
@@ -71,9 +70,8 @@
                       v-for="subOption in getSuboption(filterItem.dataIndex)"
                       :key="subOption.dataIndex"
                       :value="subOption.dataIndex"
+                      >{{ subOption.title }}</Option
                     >
-                      {{ subOption.title }}
-                    </Option>
                   </Select>
                 </template>
                 <template v-if="checkOptionType(filterItem.dataIndex) === 'date'">
@@ -92,10 +90,7 @@
                     :key="filterItem.dataIndex"
                   />
                 </template>
-                <Button
-                  class="xy-filter__body-item-button"
-                  @click="deleteFilter(index)"
-                >
+                <Button class="xy-filter__body-item-button" @click="deleteFilter(index)">
                   <template #icon>
                     <DeleteOutlined />
                   </template>
@@ -108,9 +103,9 @@
                 :disabled="addFilterBtnDisabled"
                 @click="addFilter"
               >
-              <template #icon>
-                <PlusOutlined />
-              </template>
+                <template #icon>
+                  <PlusOutlined />
+                </template>
                 Add a filter
               </Button>
             </Form>
@@ -121,36 +116,43 @@
   </Dropdown>
 </template>
 <script lang="ts">
-import { PropType, defineComponent, reactive, ref, watchEffect } from 'vue'
-import { Button, Dropdown, Select, Input, Form, DatePicker } from 'ant-design-vue';
-import { CheckCircleOutlined, FilterOutlined, PlusOutlined, DeleteOutlined } from '@ant-design/icons-vue';
-import dayjs from 'dayjs'
+import { PropType, defineComponent, reactive, ref, watchEffect } from 'vue';
+import { Button, Dropdown, Select, Input, Form, DatePicker, Menu } from 'ant-design-vue';
+import {
+  CheckCircleOutlined,
+  FilterOutlined,
+  PlusOutlined,
+  DeleteOutlined,
+} from '@ant-design/icons-vue';
+/* eslint-disable import/no-extraneous-dependencies */
+import moment from 'moment';
 
 interface FilterOption {
-    title: string
-    dataIndex: string
-    type?: string
-    typeOption?: any[] 
+  title: string;
+  dataIndex: string;
+  type?: string;
+  typeOption?: any[];
 }
 interface FilterDefaultValue {
-    dataIndex: string
-    sort: string
-    value: string
+  dataIndex: string;
+  sort: string;
+  value: string;
 }
 interface FilterTemplate {
-  dataIndex: string
-  value: string
-  sort: string
+  dataIndex: string;
+  value: string;
+  sort: string;
 }
 export default defineComponent({
+  name: 'XYFilter',
   props: {
     filterOption: {
       type: Array as PropType<FilterOption[]>,
-      required: true
+      required: true,
     },
     filterDefaultValue: {
-      type: Array as PropType<FilterDefaultValue[]>
-    }
+      type: Array as PropType<FilterDefaultValue[]>,
+    },
   },
   emits: ['filterChange'],
   setup(props, { emit }) {
@@ -158,10 +160,10 @@ export default defineComponent({
     let filterItems = reactive([]) as Array<FilterDefaultValue>;
     const handleMenuClick = () => {
       visible.value = true;
-    }
+    };
     const hideFilterPopup = () => {
       visible.value = false;
-    }
+    };
     const addFilter = () => {
       // e.preventDefault();
       const filterTemplate: FilterTemplate = {
@@ -169,19 +171,18 @@ export default defineComponent({
         value: '',
         sort: 'contain',
       };
-      filterItems.push({...filterTemplate});
-    }
+      filterItems.push({ ...filterTemplate });
+    };
     const deleteFilter = (index: number) => {
       filterItems.splice(index, 1);
       emit('filterChange', filterItems);
-    }
+    };
 
     // Can not select days after today
-    const disabledDate = (current: any) => current > dayjs().endOf('day')
-
+    const disabledDate = (current: any) => current > moment().endOf('day');
     watchEffect(() => {
       if (props.filterDefaultValue?.length > 0) filterItems = reactive(props.filterDefaultValue);
-    })
+    });
 
     return {
       visible,
@@ -190,8 +191,8 @@ export default defineComponent({
       addFilter,
       deleteFilter,
       hideFilterPopup,
-      disabledDate
-    }
+      disabledDate,
+    };
   },
   components: {
     Button,
@@ -202,6 +203,7 @@ export default defineComponent({
     Form,
     FormItem: Form.Item,
     DatePicker,
+    Menu,
     CheckCircleOutlined,
     FilterOutlined,
     PlusOutlined,
@@ -237,7 +239,7 @@ export default defineComponent({
   beforeMount() {
     window.addEventListener('resize', this.hideFilterPopup);
   },
-  beforeDestroy() {
+  beforeUnmount() {
     window.removeEventListener('resize', this.hideFilterPopup);
   },
   methods: {
@@ -250,44 +252,47 @@ export default defineComponent({
       return type !== undefined;
     },
     checkOptionType(dataIndex: string) {
-      const result = this.filterOption.find((item) => item.dataIndex === dataIndex && item?.type !== undefined);
+      const result = this.filterOption.find(
+        (item) => item.dataIndex === dataIndex && item?.type !== undefined,
+      );
       return result?.type;
     },
     getSuboption(dataIndex: string) {
-      const result = this.filterOption.find((item) => item.dataIndex === dataIndex && item?.type !== undefined);
+      const result = this.filterOption.find(
+        (item) => item.dataIndex === dataIndex && item?.type !== undefined,
+      );
       return result?.typeOption;
     },
-    checkFormVaildation(dataIndex: null | string ) {
+    checkFormVaildation(dataIndex: null | string) {
       if (dataIndex !== null) {
-
         this.filterItems.forEach((item: FilterDefaultValue) => {
           // eslint-disable-next-line no-param-reassign
           if (item.dataIndex === dataIndex) item.value = '';
         });
       }
-      this.debounceFilterEmit()
+      this.debounceFilterEmit();
     },
     onFilterChange() {
       this.$emit('filterChange', this.filterItems);
     },
     debounce(fn: any, delay: number) {
-      let timer: any
+      let timer: any;
       /* eslint-disable */
       return function () {
-        const _this = this
-        const args = arguments
-        clearTimeout(timer)
+        const _this = this;
+        const args = arguments;
+        clearTimeout(timer);
         function applyTimer(context: any, args: any) {
-          return fn.apply(context, args)
+          return fn.apply(context, args);
         }
-        timer = setTimeout(applyTimer(_this, args), delay)
-      }
+        timer = setTimeout(applyTimer(_this, args), delay);
+      };
     },
     debounceFilterEmit() {
-      this.debounce(this.onFilterChange(), 5500)
+      this.debounce(this.onFilterChange(), 5500);
     },
   },
-})
+});
 </script>
 <style lang="scss" scoped>
 menu.ant-dropdown-content {
@@ -366,6 +371,10 @@ menu.ant-dropdown-content {
         }
       }
     }
+  }
+  .ant-dropdown-menu {
+    box-shadow: none;
+    padding: 0;
   }
 }
 </style>

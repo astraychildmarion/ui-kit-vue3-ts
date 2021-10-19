@@ -16,7 +16,7 @@ export default {
       description:
         'The function would be trigger when all displayed inputs are filled, and emit a object of value.',
       action: 'filterChange',
-    }
+    },
   },
 };
 

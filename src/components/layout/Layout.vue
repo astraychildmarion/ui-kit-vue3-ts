@@ -92,8 +92,8 @@
                 backgroundColor: '#051322',
               }"
             >
-              <MenuUnfoldOutlined v-if="isSiderCollapse"/>
-              <MenuFoldOutlined v-else/>
+              <MenuUnfoldOutlined v-if="isSiderCollapse" />
+              <MenuFoldOutlined v-else />
               <span v-show="!isSiderCollapse" :style="{ paddingLeft: '10px' }">Close</span>
             </div>
           </template>
@@ -107,7 +107,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watchEffect  } from 'vue';
+import { defineComponent, ref, watchEffect } from 'vue';
+import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons-vue';
 import { Layout } from 'ant-design-vue';
 import XYHeader from './XYHeader.vue';
 import XYSider from './Sider.vue';
@@ -123,6 +124,8 @@ export default defineComponent({
     XYHeader,
     XYSider,
     XYAppListDrawer,
+    MenuUnfoldOutlined,
+    MenuFoldOutlined,
   },
   data() {
     return {
@@ -130,10 +133,10 @@ export default defineComponent({
         padding: '0',
         margin: '0',
         maxWidth: 'inherit',
-      }
-    }
+      },
+    };
   },
-  emits: ['clickAppListDrawerMenu', 'clickMenu', 'onBreakpoint'],
+  emits: ['clickAppListDrawerMenu', 'clickMenu', 'onBreakpoint', 'logOut'],
   props: {
     hideUI: {
       type: Boolean,
@@ -196,10 +199,10 @@ export default defineComponent({
     },
   },
   setup(props, { emit }) {
-    const isSiderCollapse = ref(false)
-    const appListDrawerShow = ref(false)
-    const selectedInnerKeys = ref(props.selectedKeys)
-    
+    const isSiderCollapse = ref<boolean>(false);
+    const appListDrawerShow = ref<boolean>(false);
+    const selectedInnerKeys = ref(props.selectedKeys);
+
     function clickAppListDrawerMenu($event: Event) {
       emit('clickAppListDrawerMenu', $event);
     }
@@ -220,7 +223,7 @@ export default defineComponent({
 
     watchEffect(() => {
       selectedInnerKeys.value = props.selectedKeys;
-    })
+    });
 
     return {
       isSiderCollapse,
@@ -230,9 +233,9 @@ export default defineComponent({
       clickTopLeftCorner,
       clickMenu,
       siderCollapse,
-      onBreakpoint
-    }
-  }
+      onBreakpoint,
+    };
+  },
 });
 </script>
 

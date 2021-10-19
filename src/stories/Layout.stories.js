@@ -1,10 +1,9 @@
-
-import { 
-  TeamOutlined, 
-  SmileOutlined, 
-  ControlOutlined, 
-  ProfileOutlined, 
-  DatabaseOutlined, 
+import {
+  TeamOutlined,
+  SmileOutlined,
+  ControlOutlined,
+  ProfileOutlined,
+  DatabaseOutlined,
   HistoryOutlined,
   SkinOutlined,
   StarOutlined,
@@ -12,7 +11,7 @@ import {
   QqOutlined,
   MediumOutlined,
   AmazonOutlined,
-  SketchOutlined
+  SketchOutlined,
 } from '@ant-design/icons-vue';
 import XYAppLayout from '../components/layout/Layout.vue';
 import * as appListData from './ApplistDrawer.stories';
@@ -117,12 +116,12 @@ export default {
 };
 
 const Template = (args) => ({
-  components: { 
-    XYAppLayout, 
-    ControlOutlined, 
-    TeamOutlined, 
-    ProfileOutlined, 
-    DatabaseOutlined, 
+  components: {
+    XYAppLayout,
+    ControlOutlined,
+    TeamOutlined,
+    ProfileOutlined,
+    DatabaseOutlined,
     HistoryOutlined,
     SmileOutlined,
     SkinOutlined,
@@ -131,7 +130,7 @@ const Template = (args) => ({
     QqOutlined,
     MediumOutlined,
     AmazonOutlined,
-    SketchOutlined
+    SketchOutlined,
   },
   setup() {
     return { args };

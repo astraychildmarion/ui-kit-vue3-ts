@@ -15,15 +15,16 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, ref, watchEffect, PropType } from 'vue'
+import { defineComponent, ref, watchEffect, PropType } from 'vue';
 import { Radio, Space } from 'ant-design-vue';
 
-  interface DayOption {
-    title: string, value: string 
-  }
-  interface clickRadioButtonEvent {
-    target: { value : string, tagName: string}
-  }
+interface DayOption {
+  title: string;
+  value: string;
+}
+interface clickRadioButtonEvent {
+  target: { value: string; tagName: string };
+}
 export default defineComponent({
   name: 'XYDayButton',
   components: { RadioButton: Radio.Button, RadioGroup: Radio.Group, Space },
@@ -49,60 +50,61 @@ export default defineComponent({
     },
   },
   setup(props, { emit }) {
-      const value = ref('') as any;
-      const currentValue = ref('') as any;
-      const defaultInnerValue = ref(props.defaultValue);
-      const cleanDayInnerValue = ref(props.cleanDayValue);
-      const emitChangeDefaultValue = (payload: any) => {
-        emit('changeDefaultValue', payload);
-      }
+    const value = ref('') as any;
+    const currentValue = ref('') as any;
+    const defaultInnerValue = ref(props.defaultValue);
+    const cleanDayInnerValue = ref(props.cleanDayValue);
+    const emitChangeDefaultValue = (payload: any) => {
+      emit('changeDefaultValue', payload);
+    };
 
-      const calculateDateObjsInRange = (amountOfDaysBefore: number) => Array.from({ length: amountOfDaysBefore }, (_, index) => {
-          const todayDateObj = new Date();
-          const todayDate = todayDateObj.getDate();
-          todayDateObj.setDate(todayDate - index);
-          if (index > 0) {
-            todayDateObj.setHours(0);
-            todayDateObj.setMinutes(0);
-            todayDateObj.setSeconds(0);
-          }
-          return new Date(todayDateObj);
-        })
-
-      const generateEventPayload = (val: any ) => {
-        const isNumber = (n:any) => typeof n === typeof 0;
-        const amountOfDaysBefore = isNumber(val) ? val : parseInt(val, 10);
-        let payload;
-        if (isNumber(amountOfDaysBefore)) {
-          const dateObjsInRange = calculateDateObjsInRange(amountOfDaysBefore);
-          if (dateObjsInRange.length > 0) {
-            payload = {
-              start: dateObjsInRange[dateObjsInRange.length - 1],
-              end: dateObjsInRange[0],
-              dates: dateObjsInRange,
-            };
-          }
+    const calculateDateObjsInRange = (amountOfDaysBefore: number) =>
+      Array.from({ length: amountOfDaysBefore }, (_, index) => {
+        const todayDateObj = new Date();
+        const todayDate = todayDateObj.getDate();
+        todayDateObj.setDate(todayDate - index);
+        if (index > 0) {
+          todayDateObj.setHours(0);
+          todayDateObj.setMinutes(0);
+          todayDateObj.setSeconds(0);
         }
+        return new Date(todayDateObj);
+      });
+
+    const generateEventPayload = (val: any) => {
+      const isNumber = (n: any) => typeof n === typeof 0;
+      const amountOfDaysBefore = isNumber(val) ? val : parseInt(val, 10);
+      let payload;
+      if (isNumber(amountOfDaysBefore)) {
+        const dateObjsInRange = calculateDateObjsInRange(amountOfDaysBefore);
+        if (dateObjsInRange.length > 0) {
+          payload = {
+            start: dateObjsInRange[dateObjsInRange.length - 1],
+            end: dateObjsInRange[0],
+            dates: dateObjsInRange,
+          };
+        }
+      }
       return payload;
-    }
+    };
 
     const onClickDayButtonEvent = (val: string | object) => {
       const payload = generateEventPayload(val);
       emit('clickDayButton', payload);
-    }
+    };
 
     const clickRadioButton = ({ target }: clickRadioButtonEvent) => {
       if (target.tagName === 'INPUT') {
         if (target.value === currentValue.value) {
           value.value = null;
-        currentValue.value = null;
-        onClickDayButtonEvent({});
-      } else if (target.value !== currentValue) {
-        currentValue.value = target.value;
-        onClickDayButtonEvent(target.value);
+          currentValue.value = null;
+          onClickDayButtonEvent({});
+        } else if (target.value !== currentValue) {
+          currentValue.value = target.value;
+          onClickDayButtonEvent(target.value);
         }
       }
-    }
+    };
 
     watchEffect(() => {
       if (props.cleanDayValue === true) {
@@ -113,9 +115,9 @@ export default defineComponent({
         value.value = props.defaultValue;
         currentValue.value = props.defaultValue;
         const payload = generateEventPayload(props.defaultValue);
-        emitChangeDefaultValue(payload)
+        emitChangeDefaultValue(payload);
       }
-    })
+    });
 
     return {
       value,
@@ -125,8 +127,8 @@ export default defineComponent({
       generateEventPayload,
       clickRadioButton,
       emitChangeDefaultValue,
-      onClickDayButtonEvent
-    }
-  }
+      onClickDayButtonEvent,
+    };
+  },
 });
 </script>

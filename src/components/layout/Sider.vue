@@ -1,6 +1,6 @@
 <template>
   <div class="xy-sider__wrapper" :style="collapseStyle">
-    <div class="xy-sider__menu-wrapper__first">
+    <div className="xy-sider__menu-wrapper__first">
       <Menu
         mode="inline"
         :inline-collapsed="collapsed"
@@ -8,16 +8,16 @@
         @click="$emit('clickMenu', $event)"
       >
         <MenuItem v-if="firstData.path" :key="firstData.key">
-          <span class="fix-icon-position">
+          <span className="fix-icon-position">
             <slot v-if="firstData.icon" :name="`sider_${firstData.icon}`"></slot>
           </span>
-          <img v-if="firstData.iconPath" :src="firstData.iconPath" class="anticon" />
+          <img v-if="firstData.iconPath" :src="firstData.iconPath" className="anticon" />
           <span>{{ firstData.name }}</span>
         </MenuItem>
         <Divider />
       </Menu>
     </div>
-    <div class="xy-sider__menu-wrapper__second">
+    <div className="xy-sider__menu-wrapper__second">
       <Menu
         mode="inline"
         v-model:selectedKeys="selectedKeysInnerData"
@@ -27,10 +27,10 @@
       >
         <template v-for="item in restData">
           <MenuItem v-if="item.path" :key="item.key">
-            <span class="fix-icon-position">
-              <slot v-if="item.icon" :name="`sider_${item.icon}`"></slot> 
+            <span className="fix-icon-position">
+              <slot v-if="item.icon" :name="`sider_${item.icon}`"></slot>
             </span>
-            <img v-if="item.iconPath" :src="item.iconPath" class="anticon" />
+            <img v-if="item.iconPath" :src="item.iconPath" className="anticon" />
             <span>{{ item.name }}</span>
           </MenuItem>
         </template>
@@ -39,18 +39,18 @@
   </div>
 </template>
 <script lang="ts">
-  import { Menu } from 'ant-design-vue';
-  import { PropType , defineComponent, reactive } from 'vue';
-  
-  interface SiderData {
-    icon: string,
-    name: string,
-    path: string,
-    key: string,
-  }
+import { Menu } from 'ant-design-vue';
+import { PropType, defineComponent, reactive, ref } from 'vue';
+
+interface SiderData {
+  icon: string;
+  name: string;
+  path: string;
+  key: string;
+}
 export default defineComponent({
   name: 'XYSider',
-  emits:['clickMenu'],
+  emits: ['clickMenu'],
   props: {
     theme: {
       type: String,
@@ -64,20 +64,20 @@ export default defineComponent({
     },
     siderData: {
       type: Array as PropType<SiderData[]>,
-      required: true
+      required: true,
     },
     collapsed: {
       type: Boolean,
-      default: false
+      default: false,
     },
     isSiderCollapse: {
       type: Boolean,
     },
   },
   setup(props) {
-    const firstData = props.siderData[0];
-    const selectedKeysInnerData = reactive(props.selectedKeys)
-    function getRestData(){
+    const firstData = ref(props.siderData[0]);
+    const selectedKeysInnerData = reactive(props.selectedKeys);
+    function getRestData() {
       const copy = [...props.siderData];
       copy.shift();
       return copy;
@@ -86,8 +86,8 @@ export default defineComponent({
     return {
       firstData,
       restData,
-      selectedKeysInnerData
-    }
+      selectedKeysInnerData,
+    };
   },
   components: {
     Menu,
@@ -98,7 +98,7 @@ export default defineComponent({
     goToStyle() {
       return {
         '--goTo--color': this.theme === 'dark' ? '#ffffff' : '#3c3c3c',
-      }
+      };
     },
     collapseStyle() {
       return {
@@ -106,8 +106,8 @@ export default defineComponent({
         '--wrapper--bg': this.theme === 'dark' ? '#051322' : '#f0f0f0',
       };
     },
-  }
-})
+  },
+});
 </script>
 <style lang="scss" scoped>
 .fix-icon-position {
