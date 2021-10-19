@@ -1,5 +1,5 @@
-import Sider from '../components/Sider.vue';
 import { ProfileOutlined, DatabaseOutlined, HistoryOutlined, ControlOutlined } from '@ant-design/icons-vue';
+import Sider from '../components/Sider.vue';
 
 export default {
   title: 'UI-KIT/Sider',

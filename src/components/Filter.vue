@@ -9,7 +9,7 @@
     <Button
       class="xy-filter__button"
       @click="
-        (e) => {
+        (e:any) => {
           e.preventDefault;
         }
       "
@@ -126,22 +126,23 @@ import { PropType, defineComponent, reactive, ref, watchEffect } from 'vue'
 import { Button, Dropdown, Select, Input, Form, DatePicker } from 'ant-design-vue';
 import { CheckCircleOutlined, FilterOutlined, PlusOutlined, DeleteOutlined } from '@ant-design/icons-vue';
 import dayjs from 'dayjs'
-  interface FilterOption {
-      title: string
-      dataIndex: string
-      type?: string
-      typeOption?: any[] 
-  }
-  interface FilterDefaultValue {
-      dataIndex: string
-      sort: string
-      value: string
-  }
-  interface FilterTemplate {
+
+interface FilterOption {
+    title: string
     dataIndex: string
-    value: string
+    type?: string
+    typeOption?: any[] 
+}
+interface FilterDefaultValue {
+    dataIndex: string
     sort: string
-  }
+    value: string
+}
+interface FilterTemplate {
+  dataIndex: string
+  value: string
+  sort: string
+}
 export default defineComponent({
   props: {
     filterOption: {
@@ -172,15 +173,12 @@ export default defineComponent({
       filterItems.push({...filterTemplate});
     }
     const deleteFilter = (index: number) => {
-      console.log('delete filter index', index);
       filterItems.splice(index, 1);
       emit('filterChange', filterItems);
     }
 
-    const disabledDate = (current: any) => {
-      // Can not select days after today
-      return current > dayjs().endOf('day');
-    }
+    // Can not select days after today
+    const disabledDate = (current: any) => current > dayjs().endOf('day')
 
     watchEffect(() => {
       if (props.filterDefaultValue?.length > 0) filterItems = reactive(props.filterDefaultValue);
@@ -252,15 +250,11 @@ export default defineComponent({
       return type !== undefined;
     },
     checkOptionType(dataIndex: string) {
-      const result = this.filterOption.find((item) => {
-        return item.dataIndex === dataIndex && item?.type !== undefined;
-      });
+      const result = this.filterOption.find((item) => item.dataIndex === dataIndex && item?.type !== undefined);
       return result?.type;
     },
     getSuboption(dataIndex: string) {
-      const result = this.filterOption.find((item) => {
-        return item.dataIndex === dataIndex && item?.type !== undefined;
-      });
+      const result = this.filterOption.find((item) => item.dataIndex === dataIndex && item?.type !== undefined);
       return result?.typeOption;
     },
     checkFormVaildation(dataIndex = null) {
@@ -278,16 +272,17 @@ export default defineComponent({
     },
     debounce(fn: any, delay: number) {
       let timer: any
+      /* eslint-disable */
       return function () {
-        var context = this
-        var args = arguments
+        const _this = this
+        const args = arguments
         clearTimeout(timer)
-        timer = setTimeout(function () {
-          fn.apply(context, args)
-        }, delay)
+        function applyTimer(context: any, args: any) {
+          return fn.apply(context, args)
+        }
+        timer = setTimeout(applyTimer(_this, args), delay)
       }
     },
-    /* eslint-disable */
     debounceFilterEmit() {
       this.debounce(this.onFilterChange(), 5500)
     },
