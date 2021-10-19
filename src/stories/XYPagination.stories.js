@@ -1,30 +1,30 @@
-import XYPagination from "../components/XYPagination.vue";
+import XYPagination from '../components/XYPagination.vue';
 
 export default {
-  title: "UI-KIT/XYPagination",
+  title: 'UI-KIT/XYPagination',
   component: XYPagination,
   argTypes: {
     total: {
-      type: "number",
-      description: "Qualtity of data",
+      type: 'number',
+      description: 'Qualtity of data',
     },
     defaultCurrent: {
-      type: "number",
-      description: "Default initial page number",
+      type: 'number',
+      description: 'Default initial page number',
     },
     defaultPageSize: {
-      type: "number",
-      description: "Default number of data displayed per page",
+      type: 'number',
+      description: 'Default number of data displayed per page',
     },
     onChangePage: {
-      action: "changePage",
+      action: 'changePage',
       description:
-        "A callback function, executed when the pages changed, and it takes the resulting page number and pageSize as its arguments",
+        'A callback function, executed when the pages changed, and it takes the resulting page number and pageSize as its arguments',
     },
     onShowSizeChange: {
-      action: "showSizeChange",
+      action: 'showSizeChange',
       description:
-        "A callback function, executed when the quantity of displayed data per page is changed, and it takes the resulting page number and pageSize as its arguments",
+        'A callback function, executed when the quantity of displayed data per page is changed, and it takes the resulting page number and pageSize as its arguments',
     },
   },
 };
