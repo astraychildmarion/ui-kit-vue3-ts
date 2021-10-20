@@ -18,7 +18,7 @@ import * as appListData from './ApplistDrawer.stories';
 import * as siderData from './Sider.stories';
 
 export default {
-  title: 'UI-KIT/AppLayout',
+  title: 'UI-KIT/Layout/AppLayout',
   component: XYAppLayout,
   parameters: {
     docs: {

@@ -1,8 +1,8 @@
-import XYPagination from '../components/XYPagination.vue';
+import Pagination from '../components/Pagination.vue';
 
 export default {
-  title: 'UI-KIT/XYPagination',
-  component: XYPagination,
+  title: 'UI-KIT/Pagination',
+  component: Pagination,
   argTypes: {
     total: {
       type: 'number',
@@ -31,7 +31,7 @@ export default {
 
 const Template = (args) => ({
   // Components used in your story `template` are defined in the `components` object
-  components: { XYPagination },
+  components: { Pagination },
   // The story's `args` need to be mapped into the template through the `setup()` method
   setup() {
     return { args };
@@ -39,7 +39,7 @@ const Template = (args) => ({
   // And then the `args` are bound to your component with `v-bind="args"`
   template: `
       <div style="padding: 1rem">
-      <XYPagination v-bind="args" />
+      <Pagination v-bind="args" />
       </div>
     `,
 });

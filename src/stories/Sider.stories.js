@@ -15,7 +15,7 @@ import {
 import Sider from '../components/layout/Sider.vue';
 
 export default {
-  title: 'UI-KIT/Sider',
+  title: 'UI-KIT/Layout/Sider',
   component: Sider,
   argTypes: {
     theme: {

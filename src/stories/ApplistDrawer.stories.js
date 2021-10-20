@@ -2,7 +2,7 @@ import { ControlOutlined } from '@ant-design/icons-vue';
 import Applist from '../components/layout/ApplistDrawer.vue';
 
 export default {
-  title: 'UI-KIT/ApplistDrawer',
+  title: 'UI-KIT/Layout/ApplistDrawer',
   component: Applist,
   argTypes: {
     appListDrawerShow: {

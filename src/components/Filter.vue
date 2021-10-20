@@ -126,6 +126,7 @@ import {
 } from '@ant-design/icons-vue';
 /* eslint-disable import/no-extraneous-dependencies */
 import moment from 'moment';
+import debounce from 'lodash/debounce';
 
 interface FilterOption {
   title: string;
@@ -275,22 +276,10 @@ export default defineComponent({
     onFilterChange() {
       this.$emit('filterChange', this.filterItems);
     },
-    debounce(fn: any, delay: number) {
-      let timer: any;
-      /* eslint-disable */
-      return function () {
-        const _this = this;
-        const args = arguments;
-        clearTimeout(timer);
-        function applyTimer(context: any, args: any) {
-          return fn.apply(context, args);
-        }
-        timer = setTimeout(applyTimer(_this, args), delay);
-      };
-    },
-    debounceFilterEmit() {
-      this.debounce(this.onFilterChange(), 5500);
-    },
+    /* eslint-disable */
+    debounceFilterEmit: debounce(function () {
+      this.onFilterChange();
+    }, 500)
   },
 });
 </script>
