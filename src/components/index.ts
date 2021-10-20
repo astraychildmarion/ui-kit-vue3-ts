@@ -5,6 +5,8 @@ export { default as XYLayout } from './layout/Layout.vue';
 export { default as XYHeader } from './layout/XYHeader.vue';
 export { default as XYSidert } from './layout/Sider.vue';
 export { default as XYApplistDrawer } from './layout/ApplistDrawer.vue';
+export { default as XYAlertMsg } from './XYAlertMsg.vue';
+export { default as XYCustomizeDisplay } from './XYCustomizeDisplay.vue';
 
 // const componentList = require.context('@/components/', true, /\.vue$/);
 
