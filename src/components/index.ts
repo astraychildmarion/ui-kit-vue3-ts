@@ -7,6 +7,8 @@ export { default as XYSider } from './layout/Sider.vue';
 export { default as XYActionButton } from './ActionButton.vue';
 export { default as XYExportExcelButton } from './ExportExcelButton.vue';
 export { default as XYToolbar } from './Toolbar.vue';
+export { default as XYAlertMsg } from './XYAlertMsg.vue';
+export { default as XYCustomizeDisplay } from './XYCustomizeDisplay.vue';
 
 // const componentList = require.context('@/components/', true, /\.vue$/);
 
