@@ -19,53 +19,65 @@ export default {
     customizeDisplayCheckboxOption: {
       type: 'array',
       description:
-        "Props data for Customize display component 's checkboxOption. You can see XYCustomizeDisplay for more info.",
+        "Props data for Customize display component 's checkboxOption. You can see CustomizeDisplay for more info.",
     },
     customizeDisplayDefaultSelected: {
       type: 'array',
       description:
-        "Props data for Customize display component 's defaultSelected. You can see XYCustomizeDisplay for more info.",
+        "Props data for Customize display component 's defaultSelected. You can see CustomizeDisplay for more info.",
     },
     filterOption: {
       type: 'object',
       description:
-        'Props data for Filter component in Object format.<br>The object include 1 attrubute: filterOption, please see XYFilter for more info.',
+        "Props data for Filter component in Object format to render filter's option. please see Filter for more info.",
     },
     exportExcelOption: {
       type: 'object',
       description:
-        'Props data for Dropdown icon button component in Object format.<br>The object include 3 attributes: buttontext, icon, loading. For more info pls see XYDropdownIconButton.',
+        'Props data for ExportExcelOption in Object format.For more info pls see ExportExcelOption.',
     },
     tablePageSetting: {
       type: 'object',
       description:
-        'Props data for Table paginition component in Object format.<br>The object include 3 attributes: total, defaultCurrent, defaultPageSize. For more info pls see XYTablePaginition.',
+        'Props data for Paginition component in Object format.<br>The object include 2 attributes: total, defaultPageSize. For more info pls see Paginition.',
+    },
+    tablePageSettingDefaultCurrent: {
+      type: 'string',
+      description: 'Default page number.',
+    },
+    isExportLoading: {
+      type: 'boolean',
+      description: 'Set the loading status of button. Default is false.',
     },
     onFilterChange: {
       action: 'filterChange',
-      description: "Callback when filter changes. Refering to XYFilter's event.",
+      description:
+        "Event name is `filterChange`. Callback when filter changes. Refering to Filter's event.",
     },
     onClickAction: {
       action: 'clickAction',
-      description: "Callback when filter changes. Refering to XYFilter's event.",
+      description:
+        "Event name is `clickAction`. Callback when filter changes. Refering to Action's event.",
     },
     onClickExport: {
       action: 'clickExport',
-      description: "Callback when dropdown changes. Refering to XYDropdownIconButton's event.",
+      description:
+        "Event name is `clickExport`. Callback when click. Refering to ExportExcelButton's event.",
     },
     onChangePage: {
       action: 'changePage',
-      description: 'Callback when page changes. Refering to XYTablePaginition event.',
+      description:
+        "Event name is `changePage`. Callback when page changes. Refering to Paginition's event.",
     },
     onShowSizeChange: {
       action: 'showSizeChange',
       description:
-        'A callback function, executed when the quantity of displayed data per page is changed, and it takes the resulting page number and pageSize as its arguments',
+        'Event name is `showSizeChange`. A callback function, executed when the quantity of displayed data per page is changed, and it takes the resulting page number and pageSize as its arguments',
     },
     onClickCustomizeConfirm: {
       action: 'clickCustomizeConfirm',
       description:
-        'A callback function, executed when clicked confirm. Throw back an array of selected item.',
+        'Event name is `clickCustomizeConfirm`. A callback function, executed when clicked confirm. Throw back an array of selected item.',
     },
   },
 };
@@ -93,5 +105,6 @@ Default.args = {
     total: tablePager.Default.args.total,
     defaultPageSize: tablePager.Default.args.defaultPageSize,
   },
+  isExportLoading: false,
   tablePageSettingDefaultCurrent: tablePager.Default.args.defaultCurrent,
 };

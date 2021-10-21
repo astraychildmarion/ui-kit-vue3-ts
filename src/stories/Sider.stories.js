@@ -30,21 +30,14 @@ export default {
     collapsed: {
       description: 'A props to open or fold the sider.',
     },
-    collapsedWidth: {
-      description: "A props to set sider's width. Just give the same property as collapsed.",
-    },
     selectedKeys: {
       control: 'array',
       description: "Current selected menu item's key. It sould be synchronous with route.",
     },
-    defaultOpenKeys: {
-      control: 'array',
-      description: "Select a sub menu item's key beforehand",
-    },
     onClickMenu: {
       action: 'clickMenu',
       description:
-        'Action triggered by clicking menu items. You can update `selectKey` by this function',
+        'Event name is `clickMenu`. Action triggered by clicking menu items. You can update `selectKey` by this function',
     },
   },
   args: {

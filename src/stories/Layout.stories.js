@@ -39,10 +39,6 @@ export default {
       control: 'array',
       description: "Current selected menu item's key. It sould be synchronous with route.",
     },
-    defaultOpenKeys: {
-      control: 'array',
-      description: "Select a sub menu item's key beforehand",
-    },
     // App drawer list data
     appListDrawerData: {
       control: 'array',
@@ -95,18 +91,18 @@ export default {
     onClickAppListDrawerMenu: {
       action: 'clickAppListDrawerMenu',
       description:
-        "Triggered after user clicked app list drawer's item, it would return path of clicked item.",
+        "Event name is `clickAppListDrawerMenu`. Triggered after user clicked app list drawer's item, it would return path of clicked item.",
     },
     // sider action
     onClickMenu: {
       action: 'clickMenu',
       description:
-        "Triggered after user clicked sider's item, it would return path of clicked item.",
+        "Event name is `clickMenu`. Triggered after user clicked sider's item, it would return path of clicked item.",
     },
     // header action
     onLogOut: {
       action: 'logOut',
-      description: 'Emit function for logout',
+      description: 'Event name is `logOut`. Emit function for logout',
     },
     content: {
       type: 'component',

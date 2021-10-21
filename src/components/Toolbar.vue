@@ -21,7 +21,11 @@
     </div>
     <div class="xy-toolbar__right">
       <Space size="large">
-        <ExportExcelButton :exportExcelOption="exportExcelOption" @clickExport="clickExport" />
+        <ExportExcelButton
+          :exportExcelOption="exportExcelOption"
+          @clickExport="clickExport"
+          :isLoading="isExportLoading"
+        />
         <XYPagination
           :total="tablePageSetting.total"
           :defaultCurrent="tablePageSettingDefaultCurrent"
@@ -55,34 +59,39 @@ export default defineComponent({
   ],
   props: {
     customizeDisplayCheckboxOption: {
-      require: true,
+      required: true,
       type: Array,
     },
     customizeDisplayDefaultSelected: {
       type: Array,
     },
     filterOption: {
-      require: true,
+      required: true,
       type: Object,
     },
     filterDefaultValue: {
       type: Array,
     },
     actionOption: {
-      require: true,
+      required: true,
       type: Array,
     },
     exportExcelOption: {
-      require: true,
+      required: true,
       type: Array,
     },
     isTableCheckbox: {
       type: Boolean,
       default: false,
-      require: true,
+      required: true,
+    },
+    isExportLoading: {
+      type: Boolean,
+      default: false,
     },
     tablePageSetting: {
       type: Object,
+      required: true,
     },
     tablePageSettingDefaultCurrent: {
       type: Number,

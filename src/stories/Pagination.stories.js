@@ -19,12 +19,12 @@ export default {
     onChangePage: {
       action: 'changePage',
       description:
-        'A callback function, executed when the pages changed, and it takes the resulting page number and pageSize as its arguments',
+        'Event name is `changePage`.A callback function, executed when the pages changed, and it takes the resulting page number and pageSize as its arguments',
     },
     onShowSizeChange: {
       action: 'showSizeChange',
       description:
-        'A callback function, executed when the quantity of displayed data per page is changed, and it takes the resulting page number and pageSize as its arguments',
+        'Event name is `showSizeChange`. A callback function, executed when the quantity of displayed data per page is changed, and it takes the resulting page number and pageSize as its arguments',
     },
   },
 };
