@@ -16,3 +16,4 @@ main.map.js
 .eslintrc.js
 tsconfig.json
 vite.config.ts
+README.md

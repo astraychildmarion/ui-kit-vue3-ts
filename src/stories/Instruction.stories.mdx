@@ -1,0 +1,18 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Doc/Add new component" />
+
+# How to add new component to xy-cloud-kit 2.0 ? 🙋
+---
+
+You need 3 stuff:
+* `.vue` component file, usually it is under `src/components` repository.
+* `.stories.js` storybook's stories file to render storybook.
+* `index.ts` , which under `src/components` repository.
+
+###  Step 1: Create stories file and .vue file.
+Import .vue file into stories file, edit `title: 'UI-KIT/a new name'` in stories file, then you would see new stories show up in siderbar.
+### Step 2: Development components
+Now you can develop components in storybook.
+### Step 3: Update index.ts
+`index.ts` is a catalog for components. Vite build would take index.ts as an entry and build components under catalog.
