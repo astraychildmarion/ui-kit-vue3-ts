@@ -2,12 +2,15 @@
   <Dropdown :trigger="['click']" class="xy-export-excel__wrapper">
     <template #overlay>
       <Menu @click="click">
-        <template v-for="item in dropdownData" :key="item.value">
+        <template v-for="item in exportExcelOption" :key="item.value">
           <MenuItem>{{ item.title }}</MenuItem>
         </template>
       </Menu>
     </template>
     <Button :loading="loading">
+      <template #icon>
+        <ExportOutlined />
+      </template>
       <span class="xy-export-excel--media-query">Export excel</span>
     </Button>
   </Dropdown>
@@ -15,6 +18,7 @@
 <script lang="ts">
 import { PropType } from 'vue';
 import { Dropdown, Button, Menu } from 'ant-design-vue';
+import { ExportOutlined } from '@ant-design/icons-vue';
 
 interface DropdownData {
   title: string;
@@ -27,14 +31,14 @@ interface MenuClickType {
 }
 export default {
   name: 'ExportExcelButton',
-  components: { Dropdown, Button, Menu, MenuItem: Menu.Item },
+  components: { Dropdown, Button, Menu, MenuItem: Menu.Item, ExportOutlined },
   emits: ['clickExport'],
   props: {
     loading: {
       default: false,
       type: Boolean,
     },
-    dropdownData: {
+    exportExcelOption: {
       type: Array as PropType<DropdownData[]>,
       default() {
         return [

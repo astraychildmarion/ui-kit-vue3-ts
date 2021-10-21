@@ -100,7 +100,7 @@ export default defineComponent({
     visible: {
       type: Boolean,
     },
-    ItemOption: {
+    itemOption: {
       type: Array as PropType<ItemOptType[]>,
       default() {
         return [];
@@ -113,11 +113,12 @@ export default defineComponent({
       },
     },
   },
-  setup(props: any) {
+  emits: ['clickCustomizeConfirm'],
+  setup(props: any, { emit }) {
     console.log('props=>', props);
     const propsvisible = ref(props.visible);
     const propsdefaultSelected = ref(props.defaultSelected);
-    const propsItemOption = ref<SelectTypes['options']>(props.ItemOption);
+    const propsItemOption = ref<SelectTypes['options']>(props.itemOption);
 
     const keyboard = ref<boolean>(false);
     const closable = ref<boolean>(false);
@@ -129,6 +130,7 @@ export default defineComponent({
     const dragging = ref(false);
     const enabled = ref(true);
     const emptyvalue = ref(null);
+
     function CheckSelectedItem(): void {
       console.log('Hi!', selectedItem.value.length);
       if (selectedItem.value.length > 1) {
@@ -146,6 +148,9 @@ export default defineComponent({
       propsvisible.value = false;
     };
     const clickConfirm = () => {
+      // TODO emit right value
+      console.log('selectedItem.value', selectedItem.value);
+      emit('clickCustomizeConfirm', selectedItem.value);
       propsvisible.value = false;
     };
 

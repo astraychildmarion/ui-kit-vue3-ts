@@ -1,8 +1,8 @@
-import XYAlertMsg from '../components/XYAlertMsg.vue';
+import AlertMsg from '../components/AlertMsg.vue';
 
 export default {
-  title: 'UI-KIT/XYAlertMsg',
-  component: XYAlertMsg,
+  title: 'UI-KIT/AlertMsg',
+  component: AlertMsg,
   argTypes: {
     alertType: {
       options: ['success', 'error'],
@@ -13,7 +13,7 @@ export default {
 
 const Template = (args) => ({
   // Components used in your story `template` are defined in the `components` object
-  components: { XYAlertMsg },
+  components: { AlertMsg },
   // The story's `args` need to be mapped into the template through the `setup()` method
   setup() {
     return { args };
@@ -21,7 +21,7 @@ const Template = (args) => ({
   // And then the `args` are bound to your component with `v-bind="args"`
   template: `
     <div style="padding: 1rem">
-      <XYAlertMsg v-bind="args" />
+      <AlertMsg v-bind="args" />
     </div>
     `,
 });
