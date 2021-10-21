@@ -1,15 +1,15 @@
-import XYCustomizeDisplay from '../components/XYCustomizeDisplay.vue';
+import CustomizeDisplay from '../components/CustomizeDisplay.vue';
 
 export default {
-  title: 'UI-KIT/XYCustomizeDisplay',
-  component: XYCustomizeDisplay,
+  title: 'UI-KIT/CustomizeDisplay',
+  component: CustomizeDisplay,
   argTypes: {
-    clickCustomizeConfirm: {
+    onClickCustomizeConfirm: {
       action: 'clickCustomizeConfirm',
       description:
         'A custom event triggered after click confirm. Pass selected checkboxes as argument. Please remember to close the modal by yourself.',
     },
-    ItemOption: {
+    itemOption: {
       description:
         'data to render Select Item. It is an Array includes objects. Each object has label and value 2 attributes.',
     },
@@ -22,7 +22,7 @@ export default {
 
 const Template = (args) => ({
   // Components used in your story `template` are defined in the `components` object
-  components: { XYCustomizeDisplay },
+  components: { CustomizeDisplay },
   // The story's `args` need to be mapped into the template through the `setup()` method
   setup() {
     return { args };
@@ -30,14 +30,14 @@ const Template = (args) => ({
   // And then the `args` are bound to your component with `v-bind="args"`
   template: `
     <div style="padding: 1rem">
-      <XYCustomizeDisplay v-bind="args" />
+      <CustomizeDisplay v-bind="args" />
     </div>
     `,
 });
 export const Default = Template.bind({});
 Default.args = {
   visible: false,
-  ItemOption: [
+  itemOption: [
     {
       label: 'BU',
       value: 'bu',

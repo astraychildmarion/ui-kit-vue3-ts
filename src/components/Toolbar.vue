@@ -2,7 +2,11 @@
   <div class="xy-toolbar__wrapper">
     <div class="xy-toolbar__left">
       <Space>
-        <ActionButton />
+        <CustomizeDisplay
+          :itemOption="customizeDisplayCheckboxOption"
+          :defaultSelected="customizeDisplayDefaultSelected"
+          @clickCustomizeConfirm="clickCustomizeConfirm"
+        />
         <Filter
           :filterOption="filterOption"
           :filterDefaultValue="filterDefaultValue"
@@ -36,19 +40,27 @@ import Filter from './Filter.vue';
 import ActionButton from './ActionButton.vue';
 import ExportExcelButton from './ExportExcelButton.vue';
 import XYPagination from './Pagination.vue';
+import CustomizeDisplay from './CustomizeDisplay.vue';
 
 export default defineComponent({
   name: 'Toolbar',
-  components: { Filter, ActionButton, ExportExcelButton, XYPagination, Space },
-  emits: ['clickExport', 'filterChange', 'changePage', 'showSizeChange', 'clickAction'],
+  components: { Filter, ActionButton, ExportExcelButton, XYPagination, CustomizeDisplay, Space },
+  emits: [
+    'clickExport',
+    'filterChange',
+    'changePage',
+    'showSizeChange',
+    'clickAction',
+    'clickCustomizeConfirm',
+  ],
   props: {
-    // customizeDisplayCheckboxOption: {
-    //  require: true,
-    //   type: Array,
-    // },
-    // customizeDisplayDefaultSelected: {
-    //   type: Array,
-    // },
+    customizeDisplayCheckboxOption: {
+      require: true,
+      type: Array,
+    },
+    customizeDisplayDefaultSelected: {
+      type: Array,
+    },
     filterOption: {
       require: true,
       type: Object,
@@ -97,12 +109,17 @@ export default defineComponent({
       console.log('click action', data);
       emit('clickAction', data);
     }
+    function clickCustomizeConfirm(data: object[]) {
+      console.log('click action', data);
+      emit('clickCustomizeConfirm', data);
+    }
     return {
       changePage,
       showSizeChange,
       clickExport,
       filterChange,
       clickAction,
+      clickCustomizeConfirm,
     };
   },
 });
@@ -112,10 +129,6 @@ export default defineComponent({
   &__wrapper {
     display: flex;
     justify-content: space-between;
-  }
-  &__left {
-  }
-  &__right {
   }
 }
 </style>

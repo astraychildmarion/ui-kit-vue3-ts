@@ -110,7 +110,7 @@
 import { defineComponent, ref, watchEffect } from 'vue';
 import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons-vue';
 import { Layout } from 'ant-design-vue';
-import XYHeader from './XYHeader.vue';
+import XYHeader from './Header.vue';
 import XYSider from './Sider.vue';
 import XYAppListDrawer from './ApplistDrawer.vue';
 

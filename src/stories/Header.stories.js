@@ -1,5 +1,5 @@
 import { TeamOutlined, SmileOutlined } from '@ant-design/icons-vue';
-import MyHeader from '../components/layout/XYHeader.vue';
+import MyHeader from '../components/layout/Header.vue';
 
 export default {
   title: 'UI-KIT/Layout/Header',

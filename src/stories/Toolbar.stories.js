@@ -1,5 +1,5 @@
 import Toolbar from '../components/Toolbar.vue';
-// import * as customizeDisplay from './XYCustomizeDisplay.stories';
+import * as customizeDisplay from './CustomizeDisplay.stories';
 import * as filter from './Filter.stories';
 import * as actionButton from './ActionButton.stories';
 import * as tablePager from './Pagination.stories';
@@ -62,6 +62,11 @@ export default {
       description:
         'A callback function, executed when the quantity of displayed data per page is changed, and it takes the resulting page number and pageSize as its arguments',
     },
+    onClickCustomizeConfirm: {
+      action: 'clickCustomizeConfirm',
+      description:
+        'A callback function, executed when clicked confirm. Throw back an array of selected item.',
+    },
   },
 };
 
@@ -78,8 +83,8 @@ const Template = (args) => ({
 
 export const Default = Template.bind({});
 Default.args = {
-  // customizeDisplayCheckboxOption: [...customizeDisplay.Default.args.checkboxOption],
-  // customizeDisplayDefaultSelected: [...customizeDisplay.Default.args.defaultSelected],
+  customizeDisplayCheckboxOption: customizeDisplay.Default.args.itemOption,
+  customizeDisplayDefaultSelected: customizeDisplay.Default.args.defaultSelected,
   filterOption: [...filter.Default.args.filterOption],
   filterDefaultValue: filter.Default.args.filterDefaultValue,
   actionOption: actionButton.Default.args.actionOption,

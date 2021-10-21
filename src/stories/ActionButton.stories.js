@@ -36,10 +36,10 @@ const Template = (args) => ({
 export const Default = Template.bind({});
 Default.args = {
   actionOption: [
-    { title: '3d', disabled: false },
-    { title: '5d', disabled: false },
-    { title: '7d', disabled: false },
-    { title: '14d', disabled: false },
+    { title: 'Resize', disabled: false },
+    { title: 'Create from', disabled: false },
+    { title: 'Rollback', disabled: false },
+    { title: 'Decom', disabled: false },
   ],
   isTableCheckbox: true,
 };
