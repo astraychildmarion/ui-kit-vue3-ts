@@ -6,7 +6,7 @@ export default {
   argTypes: {
     onClickRefresh: {
       action: 'clickRefresh',
-      description: 'Event name is "clickRefresh".',
+      description: 'Event name is `clickRefresh`. No parameter emitted.',
     },
   },
 };

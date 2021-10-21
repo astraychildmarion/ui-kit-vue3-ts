@@ -6,7 +6,11 @@ export default {
   argTypes: {
     onClickExport: {
       action: 'clickExport',
-      description: 'Event name is "clickExport". Throw back click menu\'s value.',
+      description: "Event name is `clickExport`. Throw back click menu's value.",
+    },
+    isLoading: {
+      type: 'Boolean',
+      description: 'Set the loading status of button. Default is false.',
     },
   },
 };

@@ -155,10 +155,12 @@ export default defineComponent({
     },
     siderData: {
       type: Array,
+      required: true,
     },
     // app list drawer
     appListDrawerData: {
       type: Array,
+      required: true,
     },
     selectAppListDrawerKey: {
       type: Array,
@@ -170,10 +172,12 @@ export default defineComponent({
     logoUrl: {
       type: String,
       default: '',
+      required: true,
     },
     logoLink: {
       type: String,
       default: '',
+      required: true,
     },
     manageMenu: {
       type: Array,

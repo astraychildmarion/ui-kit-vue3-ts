@@ -30,13 +30,13 @@ export default {
       description:
         'User information, including user name and avatar. Avatar is ant design avatar, please prepare content you want to show.',
     },
-    clickLogOut: {
+    onLogOut: {
       action: 'logOut',
-      description: 'Emit function for logout',
+      description: 'Event name is `logOut`. Emit function for logout',
     },
     onClickTopLeftCorner: {
       action: 'clickTopLeftCorner',
-      description: 'To control app list drawer.',
+      description: 'Event name is `clickTopLeftCorner`. To control app list drawer.',
     },
   },
 };

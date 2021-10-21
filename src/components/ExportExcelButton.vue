@@ -39,6 +39,7 @@ export default {
       type: Boolean,
     },
     exportExcelOption: {
+      required: true,
       type: Array as PropType<DropdownData[]>,
       default() {
         return [

@@ -102,6 +102,7 @@ export default defineComponent({
     },
     itemOption: {
       type: Array as PropType<ItemOptType[]>,
+      required: true,
       default() {
         return [];
       },

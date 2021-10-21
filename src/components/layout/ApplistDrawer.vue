@@ -76,9 +76,11 @@ export default defineComponent({
     appListDrawerShow: {
       type: Boolean,
       default: false,
+      require: true,
     },
     appListDrawerData: {
       type: Array,
+      require: true,
     },
     selectAppListDrawerKey: {
       type: Array,
@@ -88,12 +90,8 @@ export default defineComponent({
       default: 'default',
     },
   },
-  data() {
-    return {
-      uiKit: packageJson,
-    };
-  },
   setup(props) {
+    const uiKit = packageJson;
     const isDrawerShow = ref(props.appListDrawerShow);
     // get applist item
     const firstData = ref(props.appListDrawerData[0]);
@@ -119,6 +117,7 @@ export default defineComponent({
       isDrawerShow,
       closeDrawer,
       selectedKeysInnerData,
+      uiKit,
     };
   },
 });

@@ -19,12 +19,13 @@ export default {
     },
     onClickDayButton: {
       action: 'clickDayButton',
-      description: "A customize event triggered when click. Return target's value.",
+      description:
+        "Event name is `clickDayButton`. A customize event triggered when click. Return target's value.",
     },
     onChangeDefaultValue: {
       action: 'changeDefaultValue',
       description:
-        'Emit an event when default value changes. Return the date range info same to "clickDayButton".',
+        'Event name is `changeDefaultValue`. Emit an event when default value changes. Return the date range info same as "clickDayButton".',
     },
   },
 };

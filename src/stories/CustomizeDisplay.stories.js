@@ -7,7 +7,7 @@ export default {
     onClickCustomizeConfirm: {
       action: 'clickCustomizeConfirm',
       description:
-        'A custom event triggered after click confirm. Pass selected checkboxes as argument. Please remember to close the modal by yourself.',
+        'Event name is `clickCustomizeConfirm`. A custom event triggered after click confirm. Pass selected checkboxes as argument. Please remember to close the modal by yourself.',
     },
     itemOption: {
       description:
