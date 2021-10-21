@@ -34,7 +34,6 @@ export default defineComponent({
   setup(props: any) {
     console.log('props=>', props);
     const propsisShow = ref(props.isShow);
-    // const propsAlertMsg = ref(props.alertMsg);
     const propsAlertType = ref(props.alertType);
 
     const countDown = () => {
@@ -52,7 +51,6 @@ export default defineComponent({
 
     const showCustomizeDisplay = () => {
       propsisShow.value = true;
-      // alertTtl.value = 3;
       if (propsisShow.value && propsAlertType.value === 'success') {
         countDown();
       }

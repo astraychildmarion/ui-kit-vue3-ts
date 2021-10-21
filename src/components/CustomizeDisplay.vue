@@ -132,7 +132,6 @@ export default defineComponent({
     const emptyvalue = ref(null);
 
     function CheckSelectedItem(): void {
-      console.log('Hi!', selectedItem.value.length);
       if (selectedItem.value.length > 1) {
         selectedCountWrong.value = false;
         headerText.value = '';
