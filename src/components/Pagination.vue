@@ -7,23 +7,23 @@
       :pageSizeOptions="['30', '50', '100']"
       :total="total"
       :showTotal="
-        (total:number, range:string[]) => {
+        (total: number, range: string[]) => {
           return pageInfo(total, range);
         }
       "
       @change="onChangePage"
       @showSizeChange="OnShowSizeChange"
     >
-      <template #buildOptionText="props"> {{ props.value }} / Page </template>
+      <template #buildOptionText="props">{{ props.value }} / Page</template>
     </Pagination>
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, ref, watchEffect } from "vue";
-import { Pagination } from "ant-design-vue";
+import { defineComponent, ref, watchEffect } from 'vue';
+import { Pagination } from 'ant-design-vue';
 
 export default defineComponent({
-  name: "XYPagination",
+  name: 'XYPagination',
   components: { Pagination },
   props: {
     total: {
@@ -40,18 +40,17 @@ export default defineComponent({
     },
   },
   setup(props, { emit }) {
-    let page = ref<number>(1);
-    let pageSize = ref<number>(30);
+    const page = ref<number>(1);
+    const pageSize = ref<number>(30);
     const defaultCurrent = ref(props.defaultCurrent);
     const defaultPageSize = ref(props.defaultPageSize);
     const total = ref(props.total);
 
-    const pageInfo = (total: number, range: string[]) => {
-      return `${range[0].toLocaleString()}-${range[1].toLocaleString()} of ${total.toLocaleString()}`;
-    };
-    const onChangePage = (pagenum: number, pageSize: number) => {
+    const pageInfo = (totalPage: number, range: string[]) =>
+      `${range[0].toLocaleString()}-${range[1].toLocaleString()} of ${totalPage.toLocaleString()}`;
+    const onChangePage = (pagenum: number, pagesize: number) => {
       page.value = pagenum;
-      emit("changePage", { pagenum, pageSize });
+      emit('changePage', { pagenum, pagesize });
     };
     const OnShowSizeChange = (current: number, size: number) => {
       const exceedTotalAmount = page.value * pageSize.value > total.value;
@@ -59,7 +58,7 @@ export default defineComponent({
         page.value = 1;
       }
       pageSize.value = size;
-      emit("showSizeChange", size, exceedTotalAmount);
+      emit('showSizeChange', size, exceedTotalAmount);
     };
     watchEffect((): void => {
       pageSize.value = defaultPageSize.value;
@@ -98,18 +97,10 @@ export default defineComponent({
     justify-content: center;
     align-content: center;
   }
-  :deep
-    .ant-pagination-next:not(.ant-pagination-disabled):focus
-    .ant-pagination-item-link,
-  :deep
-    .ant-pagination-prev:not(.ant-pagination-disabled):focus
-    .ant-pagination-item-link,
-  :deep
-    .ant-pagination-next:not(.ant-pagination-disabled):hover
-    .ant-pagination-item-link,
-  :deep
-    .ant-pagination-prev:not(.ant-pagination-disabled):hover
-    .ant-pagination-item-link,
+  :deep .ant-pagination-next:not(.ant-pagination-disabled):focus .ant-pagination-item-link,
+  :deep .ant-pagination-prev:not(.ant-pagination-disabled):focus .ant-pagination-item-link,
+  :deep .ant-pagination-next:not(.ant-pagination-disabled):hover .ant-pagination-item-link,
+  :deep .ant-pagination-prev:not(.ant-pagination-disabled):hover .ant-pagination-item-link,
   :deep .ant-select-selection:hover .ant-select-arrow,
   :deep .ant-select-selection:active .ant-select-arrow,
   :deep .ant-select-selection:focus .ant-select-arrow,

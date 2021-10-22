@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 16 16">
+    <path fill="#3C3C3C" d="M10.789 11.152h-1.24V8.314l-1.162 2.838h-.774L6.461 8.314v2.838h-1.25V5.106H6.39L7.99 9.142 9.63 5.106h1.161l-.001 6.046z"/>
+    <mask id="fryg5rxl9a" fill="#fff">
+        <rect width="14" height="14" x="1" y="1" rx="1"/>
+    </mask>
+    <rect width="14" height="14" x="1" y="1" stroke="#3C3C3C" stroke-miterlimit="3.864" stroke-width="2.6" mask="url(#fryg5rxl9a)" rx="1"/>
+</svg>

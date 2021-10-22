@@ -19,19 +19,20 @@ export default {
     },
     onClickDayButton: {
       action: 'clickDayButton',
-      description: "A customize event triggered when click. Return target's value.",
+      description:
+        "Event name is `clickDayButton`. A customize event triggered when click. Return target's value.",
     },
     onChangeDefaultValue: {
       action: 'changeDefaultValue',
       description:
-        'Emit an event when default value changes. Return the date range info same to "clickDayButton".',
+        'Event name is `changeDefaultValue`. Emit an event when default value changes. Return the date range info same as "clickDayButton".',
     },
   },
 };
 
 const Template = (args) => ({
   // Components used in your story `template` are defined in the `components` object
-  components: { Days, },
+  components: { Days },
   // The story's `args` need to be mapped into the template through the `setup()` method
   setup() {
     return { args };
@@ -52,4 +53,3 @@ Default.args = {
   defaultValue: '7',
   cleanDayValue: false,
 };
-
