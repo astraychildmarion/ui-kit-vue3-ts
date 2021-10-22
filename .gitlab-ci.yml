@@ -1,0 +1,30 @@
+stages:
+  - build
+  - deploy
+
+variables:
+  PROJ_NAME: xy-cloud-kit-2.0
+
+build_job:
+  stage: build
+  only:
+    - master
+  before_script:
+    - docker rm -f $PROJ_NAME || true
+  script:
+    - docker build -t="$PROJ_NAME" .
+  tags:
+    - 54deploy
+
+deploy_job:
+  stage: deploy
+  only:
+    - master
+  script:
+    - docker run -d --name=$PROJ_NAME -p 80:80 $PROJ_NAME
+  after_script:
+    - docker image prune || true
+  dependencies:
+    - build_job
+  tags:
+    - 54deploy
