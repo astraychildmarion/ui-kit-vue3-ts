@@ -24,6 +24,7 @@ import { PlusOutlined, MinusOutlined } from '@ant-design/icons-vue';
 
 export default defineComponent({
   name: 'NumberInput',
+  emits: ['clickChange'],
   components: { Button, Input, Space, PlusOutlined, MinusOutlined },
   props: {
     max: {
@@ -35,7 +36,7 @@ export default defineComponent({
       default: -Infinity,
     },
   },
-  setup(props: any) {
+  setup(props: any, { emit }) {
     const inputValue = ref<number>(1);
     const maxVal = ref<number>(props.max);
     const minVal = ref<number>(props.min);
@@ -54,18 +55,22 @@ export default defineComponent({
 
     const increasable = computed(() => inputValue.value < maxVal.value);
     const decreasable = computed(() => inputValue.value > minVal.value);
-
+    const emitEvent = () => {
+      emit('clickChange', Number(inputValue.value));
+    };
     /**
      * Decrease the value.
      */
     const decrease = () => {
       inputValue.value -= 1;
+      emitEvent();
     };
     /**
      * Increase the value.
      */
     const increase = () => {
       inputValue.value += 1;
+      emitEvent();
     };
     const change = () => {
       if (inputValue.value > maxVal.value) {
@@ -73,6 +78,7 @@ export default defineComponent({
       } else if (inputValue.value < minVal.value) {
         inputValue.value = minVal.value;
       }
+      emitEvent();
     };
     return {
       increase,
