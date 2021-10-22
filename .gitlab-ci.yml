@@ -21,7 +21,7 @@ deploy_job:
   only:
     - master
   script:
-    - docker run -d --name=$PROJ_NAME -p 80:80 $PROJ_NAME
+    - docker run -d --name=$PROJ_NAME -p 81:80 $PROJ_NAME
   after_script:
     - docker image prune || true
   dependencies:

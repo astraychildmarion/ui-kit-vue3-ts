@@ -1,5 +1,5 @@
 {
-  "name": "xy-cloud-kit-2",
+  "name": "@xycloud/xycloud-ui-kit-2",
   "version": "0.0.1",
   "main": "./dist/xy-cloud-kit-2.es.js",
   "module": "./dist/xy-cloud-kit-2.es.js",
