@@ -81,51 +81,51 @@ export default defineComponent({
   display: flex;
   flex-direction: row;
   color: $table-pagination-text-color;
-  :deep .ant-pagination-item,
-  :deep .ant-pagination-jump-next,
-  :deep .ant-pagination-jump-prev {
+  :deep(.ant-pagination-item),
+  :deep(.ant-pagination-jump-next),
+  :deep(.ant-pagination-jump-prev) {
     display: none;
   }
-  :deep .ant-pagination-next,
-  :deep .ant-pagination-prev {
+  :deep(.ant-pagination-next),
+  :deep(.ant-pagination-prev) {
     min-width: 24px;
     width: 24px;
     height: 24px;
   }
-  :deep .ant-pagination-item-link {
+  :deep(.ant-pagination-item-link) {
     display: grid;
     justify-content: center;
     align-content: center;
   }
-  :deep .ant-pagination-next:not(.ant-pagination-disabled):focus .ant-pagination-item-link,
-  :deep .ant-pagination-prev:not(.ant-pagination-disabled):focus .ant-pagination-item-link,
-  :deep .ant-pagination-next:not(.ant-pagination-disabled):hover .ant-pagination-item-link,
-  :deep .ant-pagination-prev:not(.ant-pagination-disabled):hover .ant-pagination-item-link,
-  :deep .ant-select-selection:hover .ant-select-arrow,
-  :deep .ant-select-selection:active .ant-select-arrow,
-  :deep .ant-select-selection:focus .ant-select-arrow,
-  :deep .ant-select-open .ant-select-selection .ant-select-arrow,
-  :deep .ant-select-focused .ant-select-selection .ant-select-arrow {
+  :deep(.ant-pagination-next:not(.ant-pagination-disabled):focus .ant-pagination-item-link),
+  :deep(.ant-pagination-prev:not(.ant-pagination-disabled):focus .ant-pagination-item-link),
+  :deep(.ant-pagination-next:not(.ant-pagination-disabled):hover .ant-pagination-item-link),
+  :deep(.ant-pagination-prev:not(.ant-pagination-disabled):hover .ant-pagination-item-link),
+  :deep(.ant-select-selection:hover .ant-select-arrow),
+  :deep(.ant-select-selection:active .ant-select-arrow),
+  :deep(.ant-select-selection:focus .ant-select-arrow),
+  :deep(.ant-select-open .ant-select-selection .ant-select-arrow),
+  :deep(.ant-select-focused .ant-select-selection .ant-select-arrow) {
     transition: color 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
   }
-  :deep .ant-select-selection-item {
+  :deep(.ant-select-selection-item) {
     line-height: 22px;
     height: 24px;
   }
-  :deep .ant-select-selector-selected-value,
-  :deep .ant-select-selector__rendered,
-  :deep .ant-select-selector {
+  :deep(.ant-select-selector-selected-value),
+  :deep(.ant-select-selector__rendered),
+  :deep(.ant-select-selector) {
     line-height: 22px;
     height: 24px;
   }
-  :deep .ant-pagination-options {
+  :deep(.ant-pagination-options) {
     margin-left: 4px;
   }
-  :deep .ant-pagination-prev {
+  :deep(.ant-pagination-prev) {
     margin-right: 4px;
     margin-left: 5px;
   }
-  :deep .ant-select-arrow {
+  :deep(.ant-select-arrow) {
     transform: translate(4px, 1.6px);
   }
   &__page-info {
