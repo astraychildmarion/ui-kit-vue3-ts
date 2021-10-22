@@ -1,14 +1,14 @@
 {
   "name": "xy-cloud-kit-2",
   "version": "0.0.1",
-  "main": "./dist/xy-cloud-kit-2.umd.js",
+  "main": "./dist/xy-cloud-kit-2.es.js",
   "module": "./dist/xy-cloud-kit-2.es.js",
   "exports": {
-    ".": {
-      "import": "./dist/xy-cloud-kit-2.es.js",
-      "require": "./dist/xy-cloud-kit-2.umd.js"
-    }
+    ".": "./dist/xy-cloud-kit-2.es.js",
+    "./css": "./dist/style.css"
   },
+  "private": false,
+  "author": "CWD team",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -20,7 +20,6 @@
     "deploy:package": "yarn build && npm publish",
     "deploy": "yarn lint && yarn deploy:package && yarn deploy:storybook",
     "build-storybook": "build-storybook",
-    "prepare": "husky install",
     "lint-staged": "lint-staged",
     "lint": "eslint src/** --ext .js",
     "lint:fix": "eslint --fix src/** --ext .js"
@@ -58,12 +57,14 @@
     "sass-loader": "^10.2.0",
     "storybook-builder-vite": "^0.1.0",
     "typescript": "^4.4.3",
-    "unplugin-vue-components": "^0.15.6",
     "vite": "^2.6.0",
     "vite-plugin-style-import": "^1.2.1",
     "vue-loader": "^16.8.1"
   },
   "lint-staged": {
     "*.{js,md,vue,json,ts,tsx,jsx}": "npm run lint"
+  },
+  "publishConfig": {
+    "registry": "http://172.17.9.54:8081/repository/npm-internal/"
   }
 }
