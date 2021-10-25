@@ -91,16 +91,14 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .action_tooltip {
-  :deep {
-    .ant-dropdown-menu-item,
-    .ant-dropdown-menu-submenu-title {
-      color: rgba(0, 0, 0, 0.25);
-      cursor: default;
-    }
-    .ant-dropdown-menu-item:hover,
-    .ant-dropdown-menu-submenu-title:hover {
-      background-color: none;
-    }
+  :deep(.ant-dropdown-menu-item),
+  :deep(.ant-dropdown-menu-submenu-title) {
+    color: rgba(0, 0, 0, 0.25);
+    cursor: default;
+  }
+  .ant-dropdown-menu-item:hover,
+  .ant-dropdown-menu-submenu-title:hover {
+    background-color: none;
   }
 }
 </style>

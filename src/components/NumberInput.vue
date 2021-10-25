@@ -87,8 +87,8 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-:deep .ant-input,
-.ant-input-affix-wrapper {
+:deep(.ant-input),
+:deep(.ant-input-affix-wrapper) {
   border: none;
   outline: none;
   box-shadow: none;

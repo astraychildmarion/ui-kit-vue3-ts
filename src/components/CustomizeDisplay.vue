@@ -265,22 +265,22 @@ export default defineComponent({
     }
   }
 }
-:deep .ant-checkbox-group {
+:deep(.ant-checkbox-group) {
   width: 100%;
-  &-item {
+  .ant-checkbox-group-item {
     width: 33.3%;
     margin-bottom: 16px;
     margin-right: 0;
     padding-right: 8px;
   }
 }
-:deep .ant-modal-body {
+:deep(.ant-modal-body) {
   min-height: 200px;
   max-height: 400px;
   overflow: hidden auto;
   padding: 27px 40px;
 }
-:deep .ant-btn {
+:deep(.ant-btn) {
   &:focus {
     color: $toolbar-text-color;
     border-color: #d9d9d9;
