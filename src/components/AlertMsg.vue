@@ -90,7 +90,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-::deep .ant-alert-message {
+:deep(.ant-alert-message) {
   font-size: 14px;
   line-height: 1.57;
   color: rgba(5, 19, 34, 0.65);
@@ -98,11 +98,11 @@ export default defineComponent({
   margin-right: 5px;
 }
 
-::deep .ant-alert-success .ant-alert-icon {
+:deep(.ant-alert-success .ant-alert-icon) {
   color: rgba(3, 184, 137, 0.25);
 }
 
-::deep .ant-alert-error .ant-alert-icon {
+:deep(.ant-alert-error .ant-alert-icon) {
   color: rgba(239, 71, 11, 0.25);
 }
 </style>
