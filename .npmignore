@@ -12,9 +12,14 @@ yarn.lock
 .editorconfig
 .env
 .gitlab-ci.yml
-.prettierrc
+.prettierrc.js
 .yarnrc
 .vscode/
 tsconfig.json
 Dockerfile
 README.md
+index.html
+vite.config.ts
+dist/**.svg
+dist/**.png
+dist/favicon.ico
