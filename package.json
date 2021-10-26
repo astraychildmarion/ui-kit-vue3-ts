@@ -6,11 +6,15 @@
   "exports": {
     ".": {
       "import": "./dist/xy-cloud-kit-2.es.js",
-      "require": "./dist/xy-cloud-kit-2.umd.js",
-      "/css": "./dist/style.css"
-    }
+      "require": "./dist/xy-cloud-kit-2.umd.js"
+    },
+    "./css": "./dist/style.css"
   },
-  "file": ["dist"],
+  "files": [
+    "dist/style.css",
+    "dist/xy-cloud-kit-2.es.js",
+    "dist/xy-cloud-kit-2.umd.js"
+  ],
   "unpkg": "./dist/xy-cloud-kit-2.umd.js",
   "jsdelivr": "./dist/xy-cloud-kit-2.umd.js",
   "private": false,
@@ -73,5 +77,6 @@
   },
   "publishConfig": {
     "registry": "http://172.17.9.54:8081/repository/npm-internal/"
-  }
+  },
+  "license": "MIT"
 }
