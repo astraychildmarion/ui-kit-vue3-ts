@@ -2,13 +2,14 @@ import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import styleImport from 'vite-plugin-style-import';
 
+
 const { resolve } = require('path');
 // https://vitejs.dev/config/
 export default defineConfig({
   build: {
     emptyOutDir: true,
     lib: {
-      entry: 'src/components/index.ts',
+      entry: resolve(__dirname, 'src/components/index.ts'),
       name: 'xy-cloud-kit-2',
       fileName: (format) => `xy-cloud-kit-2.${format}.js`,
     },
@@ -26,7 +27,6 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': resolve(__dirname, 'src'),
-      '/images': 'src/assets/images',
       vue: 'vue/dist/vue.esm-bundler.js', // 定义vue的别名，如果使用其他的插件，可能会用到别名
     },
   },

@@ -1,12 +1,18 @@
 {
   "name": "@xycloud/xycloud-ui-kit-2",
   "version": "0.0.1",
-  "main": "./dist/xy-cloud-kit-2.es.js",
+  "main": "./dist/xy-cloud-kit-2.umd.js",
   "module": "./dist/xy-cloud-kit-2.es.js",
   "exports": {
-    ".": "./dist/xy-cloud-kit-2.es.js",
-    "./css": "./dist/style.css"
+    ".": {
+      "import": "./dist/xy-cloud-kit-2.es.js",
+      "require": "./dist/xy-cloud-kit-2.umd.js",
+      "/css": "./dist/style.css"
+    }
   },
+  "file": ["dist"],
+  "unpkg": "./dist/xy-cloud-kit-2.umd.js",
+  "jsdelivr": "./dist/xy-cloud-kit-2.umd.js",
   "private": false,
   "author": "CWD team",
   "scripts": {
@@ -22,12 +28,13 @@
     "build-storybook": "build-storybook",
     "lint-staged": "lint-staged",
     "lint": "eslint src/** --ext .js",
-    "lint:fix": "eslint --fix src/** --ext .js"
+    "lint:fix": "eslint --fix src/** --ext .js",
+    "analyze": "vite build --config analyze.config.js"
   },
   "dependencies": {
     "@ant-design/icons-vue": "^6.0.1",
     "ant-design-vue": "^2.2.8",
-    "vue": "^3.2.16",
+    "vue": "3.2.16",
     "vue-tsc": "^0.3.0",
     "vuedraggable": "^4.1.0"
   },
