@@ -31,12 +31,10 @@
     "lint:fix": "eslint --fix src/** --ext .js",
     "analyze": "vite build --config analyze.config.js"
   },
-  "peerDependencies": {
-    "vue": "3.2.16"
-  },
   "dependencies": {
     "@ant-design/icons-vue": "^6.0.1",
     "ant-design-vue": "^2.2.8",
+    "vue": "3.2.16",
     "vue-tsc": "^0.3.0",
     "vuedraggable": "^4.1.0"
   },
