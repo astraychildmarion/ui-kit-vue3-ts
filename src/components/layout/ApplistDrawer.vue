@@ -53,9 +53,10 @@
   </Drawer>
 </template>
 <script lang="ts">
-import { defineComponent, ref, reactive, watchEffect } from 'vue';
+import { defineComponent, ref, reactive, watchEffect, PropType } from 'vue';
 import { Drawer, Menu } from 'ant-design-vue';
 import packageJson from '../../../package.json';
+import { SiderData } from '../interface';
 
 export default defineComponent({
   name: 'XYAppListDrawer',
@@ -69,21 +70,20 @@ export default defineComponent({
   props: {
     selectedKeys: {
       type: Array,
-      default() {
-        return ['1'];
-      },
+      default: () => ['1'],
     },
     appListDrawerShow: {
       type: Boolean,
       default: false,
-      require: true,
+      required: true,
     },
     appListDrawerData: {
-      type: Array,
-      require: true,
+      type: Array as PropType<SiderData[]>,
+      required: true,
     },
     selectAppListDrawerKey: {
       type: Array,
+      default: () => ['1'],
     },
     VER: {
       type: String,

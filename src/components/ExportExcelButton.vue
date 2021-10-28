@@ -16,46 +16,38 @@
   </Dropdown>
 </template>
 <script lang="ts">
-import { PropType } from 'vue';
+import { defineComponent, PropType } from 'vue';
 import { Dropdown, Button, Menu } from 'ant-design-vue';
 import { ExportOutlined } from '@ant-design/icons-vue';
+import { ExportExcelDropdownData, ExportExcelMenuType } from './interface';
 
-interface DropdownData {
-  title: string;
-  value: string;
-}
-interface MenuClickType {
-  item: object;
-  key: string;
-  keyPath: string;
-}
-export default {
+export default defineComponent({
   name: 'ExportExcelButton',
   components: { Dropdown, Button, Menu, MenuItem: Menu.Item, ExportOutlined },
   emits: ['clickExport'],
   props: {
     loading: {
       default: false,
-      type: Boolean,
+      type: Boolean as PropType<boolean>,
     },
     exportExcelOption: {
-      required: true,
-      type: Array as PropType<DropdownData[]>,
-      default() {
-        return [
-          { title: 'All Servers', value: '1' },
-          { title: 'Current Environment', value: '2' },
-          { title: 'Filtered Result', value: '3' },
-        ];
-      },
+      type: Array as PropType<ExportExcelDropdownData[]>,
+      default: () => [
+        { title: 'All Servers', value: '1' },
+        { title: 'Current Environment', value: '2' },
+        { title: 'Filtered Result', value: '3' },
+      ],
     },
   },
-  methods: {
-    click({ key }: MenuClickType) {
-      this.$emit('clickExport', key);
-    },
+  setup(props, { emit }) {
+    const click = ({ key }: ExportExcelMenuType) => {
+      emit('clickExport', key);
+    };
+    return {
+      click,
+    };
   },
-};
+});
 </script>
 <style lang="scss" scoped>
 .xy-export-excel--media-query {

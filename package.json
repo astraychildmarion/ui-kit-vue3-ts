@@ -6,18 +6,22 @@
   "exports": {
     ".": {
       "import": "./dist/xy-cloud-kit-2.es.js",
-      "require": "./dist/xy-cloud-kit-2.umd.js",
-      "/css": "./dist/style.css"
-    }
+      "require": "./dist/xy-cloud-kit-2.umd.js"
+    },
+    "./css": "./dist/style.css"
   },
-  "file": ["dist"],
+  "files": [
+    "dist/style.css",
+    "dist/xy-cloud-kit-2.es.js",
+    "dist/xy-cloud-kit-2.umd.js"
+  ],
   "unpkg": "./dist/xy-cloud-kit-2.umd.js",
   "jsdelivr": "./dist/xy-cloud-kit-2.umd.js",
   "private": false,
   "author": "CWD team",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "tsc --declaration --emitDeclarationOnly --skipLibCheck && vite build",
     "serve": "vite preview",
     "storybook": "start-storybook -p 6007 -s public",
     "storybook-build": "build-storybook -o ./storybookDist -s public",
@@ -27,21 +31,18 @@
     "deploy": "yarn lint && yarn deploy:package && yarn deploy:storybook",
     "build-storybook": "build-storybook",
     "lint-staged": "lint-staged",
-    "lint": "eslint src/** --ext .js",
-    "lint:fix": "eslint --fix src/** --ext .js",
-    "analyze": "vite build --config analyze.config.js"
-  },
-  "peerDependencies": {
-    "vue": "3.2.16"
+    "lint": "vue-tsc --noEmit --skipLibCheck && eslint src/** --ext .js",
+    "lint:fix": "eslint --fix src/** --ext .js"
   },
   "dependencies": {
     "@ant-design/icons-vue": "^6.0.1",
     "ant-design-vue": "^2.2.8",
-    "vue-tsc": "^0.3.0",
+    "vue": "3.2.16",
     "vuedraggable": "^4.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.15.5",
+    "@rollup/plugin-typescript": "^8.3.0",
     "@storybook/addon-actions": "6.4.0-beta.1",
     "@storybook/addon-essentials": "6.4.0-beta.1",
     "@storybook/addon-links": "6.4.0-beta.1",
@@ -68,12 +69,14 @@
     "typescript": "^4.4.3",
     "vite": "^2.6.0",
     "vite-plugin-style-import": "^1.2.1",
-    "vue-loader": "^16.8.1"
+    "vue-loader": "^16.8.1",
+    "vue-tsc": "^0.28.9"
   },
   "lint-staged": {
     "*.{js,md,vue,json,ts,tsx,jsx}": "npm run lint"
   },
   "publishConfig": {
     "registry": "http://172.17.9.54:8081/repository/npm-internal/"
-  }
+  },
+  "license": "MIT"
 }

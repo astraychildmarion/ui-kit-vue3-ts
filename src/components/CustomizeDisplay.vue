@@ -75,14 +75,10 @@
 import { defineComponent, PropType, ref, watch, computed } from 'vue';
 import { Button, Modal, Select } from 'ant-design-vue';
 import { EditOutlined, MenuOutlined, DeleteOutlined } from '@ant-design/icons-vue';
-import { SelectTypes } from 'ant-design-vue/es/select';
 
 import draggable from 'vuedraggable';
 
-interface ItemOptType {
-  label: string;
-  value: string;
-}
+import { CustomizeDisplayItemOptType } from './interface';
 
 export default defineComponent({
   name: 'XYCustomizeDisplay',
@@ -101,7 +97,7 @@ export default defineComponent({
       type: Boolean,
     },
     itemOption: {
-      type: Array as PropType<ItemOptType[]>,
+      type: Array as PropType<CustomizeDisplayItemOptType[]>,
       required: true,
       default() {
         return [];
@@ -119,18 +115,18 @@ export default defineComponent({
     console.log('props=>', props);
     const propsvisible = ref(props.visible);
     const propsdefaultSelected = ref(props.defaultSelected);
-    const propsItemOption = ref<SelectTypes['options']>(props.itemOption);
+    const propsItemOption = ref(props.itemOption);
 
     const keyboard = ref<boolean>(false);
     const closable = ref<boolean>(false);
     const maskClosable = ref<boolean>(false);
-    const selectedItem = ref<ItemOptType[]>([]);
+    const selectedItem = ref<CustomizeDisplayItemOptType[]>([]);
     const needColumnTextRight = ref<string>('Please select one column at least');
     const selectedCountWrong = ref<boolean>(false);
     const headerText = ref<string>('');
     const dragging = ref(false);
     const enabled = ref(true);
-    const emptyvalue = ref(null);
+    const emptyvalue = ref([]);
 
     function CheckSelectedItem(): void {
       if (selectedItem.value.length > 1) {
@@ -156,7 +152,7 @@ export default defineComponent({
 
     const clickResetDefault = () => {
       selectedItem.value = JSON.parse(JSON.stringify(propsdefaultSelected.value));
-      emptyvalue.value = null;
+      emptyvalue.value = [];
       CheckSelectedItem();
     };
     const removeAt = (idx: number) => {
@@ -168,15 +164,17 @@ export default defineComponent({
       selectedItem.value.splice(idx, 1);
     };
     const OnSelectChange = (value: any, option: any) => {
-      const objItem: ItemOptType = { label: option.title, value: option.value };
+      const objItem: CustomizeDisplayItemOptType = { label: option.title, value: option.value };
       console.log(objItem);
       selectedItem.value.push(objItem);
-      emptyvalue.value = null;
+      emptyvalue.value = [];
       CheckSelectedItem();
     };
 
     const filteredOptions = computed(() =>
-      propsItemOption.value.filter((o) => !selectedItem.value.includes(o)),
+      propsItemOption.value.filter(
+        (o: CustomizeDisplayItemOptType) => !selectedItem.value.includes(o),
+      ),
     );
     console.log('filteredOptions->', filteredOptions.value);
 

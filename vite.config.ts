@@ -1,7 +1,10 @@
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
+import path from 'path'
 import styleImport from 'vite-plugin-style-import';
+import typescript from '@rollup/plugin-typescript';
 
+const resolvePath = (str: string) => path.resolve(__dirname, str)
 
 const { resolve } = require('path');
 // https://vitejs.dev/config/
@@ -21,12 +24,15 @@ export default defineConfig({
         globals: {
           vue: 'Vue',
         },
+        sourcemap: true,
+        dir: resolvePath('../dist'),
       },
     },
   },
   resolve: {
     alias: {
-      '@': resolve(__dirname, 'src')
+      '@': resolve(__dirname, 'src'),
+      vue: 'vue/dist/vue.esm-bundler.js', // 定义vue的别名，如果使用其他的插件，可能会用到别名
     },
   },
   css: {
@@ -58,6 +64,14 @@ export default defineConfig({
           resolveStyle: (name) => `ant-design-vue/es/${name}/style/index`,
         },
       ],
+    }),
+    typescript({
+      target: 'esnext',
+      rootDir: resolvePath('../src'),
+      declaration: true,
+      declarationDir: resolvePath('../dist'),
+      exclude: resolvePath('../node_modules/**'),
+      allowSyntheticDefaultImports: true,
     }),
   ],
 });

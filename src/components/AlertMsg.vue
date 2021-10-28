@@ -11,7 +11,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watch } from 'vue';
+import { defineComponent, ref, watch, PropType } from 'vue';
 import { Alert } from 'ant-design-vue';
 
 export default defineComponent({
@@ -25,7 +25,7 @@ export default defineComponent({
       default: false,
     },
     alertType: {
-      type: String,
+      type: String as PropType<'error' | 'success' | 'warning' | 'info'>,
     },
     alertMsg: {
       type: String,
