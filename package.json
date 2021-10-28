@@ -21,7 +21,7 @@
   "author": "CWD team",
   "scripts": {
     "dev": "vite",
-    "build": "tsc --declaration --emitDeclarationOnly --skipLibCheck && vite build",
+    "build": "vue-tsc --noEmit --skipLibCheck && vite build",
     "serve": "vite preview",
     "storybook": "start-storybook -p 6007 -s public",
     "storybook-build": "build-storybook -o ./storybookDist -s public",

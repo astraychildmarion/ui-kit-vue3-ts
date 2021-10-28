@@ -4,13 +4,12 @@ import path from 'path'
 import styleImport from 'vite-plugin-style-import';
 import typescript from '@rollup/plugin-typescript';
 
-const resolvePath = (str: string) => path.resolve(__dirname, str)
-
 const { resolve } = require('path');
 // https://vitejs.dev/config/
 export default defineConfig({
   build: {
     emptyOutDir: true,
+    sourcemap: true,
     lib: {
       entry: resolve(__dirname, 'src/components/index.ts'),
       name: 'xy-cloud-kit-2',
@@ -25,7 +24,7 @@ export default defineConfig({
           vue: 'Vue',
         },
         sourcemap: true,
-        dir: resolvePath('../dist'),
+        dir: ('dist'),
       },
     },
   },
@@ -67,10 +66,10 @@ export default defineConfig({
     }),
     typescript({
       target: 'esnext',
-      rootDir: resolvePath('../src'),
+      rootDir: 'src',
       declaration: true,
-      declarationDir: resolvePath('../dist'),
-      exclude: resolvePath('../node_modules/**'),
+      declarationDir: 'dist',
+      exclude: 'node_modules/**',
       allowSyntheticDefaultImports: true,
     }),
   ],
