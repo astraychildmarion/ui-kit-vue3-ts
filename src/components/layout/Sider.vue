@@ -230,9 +230,9 @@ export default defineComponent({
       }
     }
     &__second {
-      padding-bottom: 56px;
+      // padding-bottom: 56px;
       overflow: hidden overlay;
-      height: calc(100vh - 140px);
+      height: calc(100vh - 195px);
     }
   }
   .goTo--style {
