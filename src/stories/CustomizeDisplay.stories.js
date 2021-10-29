@@ -39,24 +39,41 @@ Default.args = {
   visible: false,
   itemOption: [
     {
+      label: 'ServiceLan IP',
+      value: 'service_lan_ip',
+    },
+    {
       label: 'BU',
       value: 'bu',
-    },
-    {
-      label: 'Zone',
-      value: 'zone',
-    },
-    {
-      label: 'Environment',
-      value: 'env',
     },
     {
       label: 'Hostname',
       value: 'host',
     },
     {
-      label: 'Type',
-      value: 'type',
+      label: 'CPU',
+      value: 'cpu',
+    },
+    {
+      label: 'RAM (GB)',
+      value: 'ram',
+    },
+
+    {
+      label: 'BU Application Name',
+      value: 'bu_application_name',
+    },
+    {
+      label: 'VM Status',
+      value: 'vm_status',
+    },
+    {
+      label: 'LTM Status',
+      value: 'ltm_status',
+    },
+    {
+      label: 'Disk (GB)',
+      value: 'disk',
     },
     {
       label: 'Disk Partition',
@@ -67,46 +84,66 @@ Default.args = {
       value: 'os',
     },
     {
-      label: 'Decom date',
-      value: 'decom_date',
+      label: 'Last Update',
+      value: 'last_update',
     },
     {
-      label: 'Disk Partition2',
-      value: 'disk_partition2',
-    },
-    {
-      label: 'OS2',
-      value: 'os2',
-    },
-    {
-      label: 'Decom date2',
-      value: 'decom_date2',
-    },
-  ],
-  defaultSelected: [
-    {
-      label: 'BU',
-      value: 'bu',
-    },
-    {
-      label: 'Hostname',
-      value: 'host',
+      label: 'Layer',
+      value: 'layer',
     },
     {
       label: 'Type',
       value: 'type',
     },
     {
-      label: 'Zone',
-      value: 'zone',
+      label: 'Shared with',
+      value: 'shared_with',
     },
     {
-      label: 'OS',
-      value: 'os',
+      label: 'Environment',
+      value: 'environment',
+    },
+  ],
+  defaultSelected: [
+    {
+      label: 'ServiceLan IP',
+      value: 'service_lan_ip',
+      fixed: true,
     },
     {
-      label: 'Decom date',
-      value: 'decom_date',
+      label: 'BU',
+      value: 'bu',
+      fixed: false,
+    },
+    {
+      label: 'Hostname',
+      value: 'host',
+      fixed: false,
+    },
+    {
+      label: 'CPU',
+      value: 'cpu',
+      fixed: false,
+    },
+    {
+      label: 'RAM (GB)',
+      value: 'ram',
+      fixed: false,
+    },
+    {
+      label: 'BU Application Name',
+      value: 'bu_application_name',
+      fixed: false,
+    },
+    {
+      label: 'VM Status',
+      value: 'vm_status',
+      fixed: false,
+    },
+    {
+      label: 'LTM Status',
+      value: 'ltm_status',
+      fixed: false,
     },
   ],
 };

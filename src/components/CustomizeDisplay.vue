@@ -19,12 +19,24 @@
         @start="dragging = true"
         @end="dragging = false"
         ghost-class="ghost"
+        handle=".handle"
+        :move="onMove"
       >
         <template #item="{ element, index }">
           <li className="list-group-item">
-            <MenuOutlined class="handle" />
-            {{ element.label }}
-            <DeleteOutlined @click="removeAt(index)" />
+            <Row type="flex">
+              <Col>
+                <Space>
+                  <PushpinOutlined v-if="element.fixed" style="cursor: no-drop" />
+                  <MenuOutlined class="handle" v-else />
+                  {{ element.label }} /
+                  {{ index }}
+                </Space>
+              </Col>
+              <Col :flex="2" style="text-align: right">
+                <DeleteOutlined @click="removeAt(index)" v-if="!element.fixed" />
+              </Col>
+            </Row>
           </li>
         </template>
       </draggable>
@@ -73,15 +85,15 @@
 
 <script lang="ts">
 import { defineComponent, PropType, ref, watch, computed } from 'vue';
-import { Button, Modal, Select } from 'ant-design-vue';
-import { EditOutlined, MenuOutlined, DeleteOutlined } from '@ant-design/icons-vue';
-import { SelectTypes } from 'ant-design-vue/es/select';
+import { Button, Modal, Select, Space, Row, Col } from 'ant-design-vue';
+import { EditOutlined, MenuOutlined, DeleteOutlined, PushpinOutlined } from '@ant-design/icons-vue';
 
 import draggable from 'vuedraggable';
 
 interface ItemOptType {
   label: string;
   value: string;
+  fixed: boolean;
 }
 
 export default defineComponent({
@@ -90,10 +102,14 @@ export default defineComponent({
     Button,
     Modal,
     Select,
+    Space,
+    Row,
+    Col,
     SelectOption: Select.Option,
     EditOutlined,
     MenuOutlined,
     DeleteOutlined,
+    PushpinOutlined,
     draggable,
   },
   props: {
@@ -119,8 +135,7 @@ export default defineComponent({
     console.log('props=>', props);
     const propsvisible = ref(props.visible);
     const propsdefaultSelected = ref(props.defaultSelected);
-    const propsItemOption = ref<SelectTypes['options']>(props.itemOption);
-
+    const propsItemOption = ref(props.itemOption);
     const keyboard = ref<boolean>(false);
     const closable = ref<boolean>(false);
     const maskClosable = ref<boolean>(false);
@@ -153,6 +168,11 @@ export default defineComponent({
       emit('clickCustomizeConfirm', selectedItem.value);
       propsvisible.value = false;
     };
+    const onMove = ({ relatedContext, draggedContext }) => {
+      const relatedElement = relatedContext.element;
+      const draggedElement = draggedContext.element;
+      return (!relatedElement || !relatedElement.fixed) && !draggedElement.fixed;
+    };
 
     const clickResetDefault = () => {
       selectedItem.value = JSON.parse(JSON.stringify(propsdefaultSelected.value));
@@ -168,29 +188,21 @@ export default defineComponent({
       selectedItem.value.splice(idx, 1);
     };
     const OnSelectChange = (value: any, option: any) => {
-      const objItem: ItemOptType = { label: option.title, value: option.value };
+      const objItem: ItemOptType = { label: option.title, value: option.value, fixed: false };
       console.log(objItem);
       selectedItem.value.push(objItem);
       emptyvalue.value = null;
       CheckSelectedItem();
     };
 
-    const filteredOptions = computed(() =>
-      propsItemOption.value.filter((o) => !selectedItem.value.includes(o)),
-    );
-    console.log('filteredOptions->', filteredOptions.value);
-
     watch(
       () => propsvisible.value,
       (NewVal) => {
         console.log('watch visible=>', NewVal);
         console.log('propsvisible=>', propsvisible.value);
-
-        // if (propsvisible.value && selectedItem.value.length !== '') {
-        //     selectedItem.value = lastSelected.value;
-        // }
-        // headerText.value = normalText.value;
-        selectedCountWrong.value = false;
+        if (NewVal) {
+          selectedCountWrong.value = false;
+        }
       },
       { deep: true },
     );
@@ -198,9 +210,7 @@ export default defineComponent({
     watch(
       () => propsdefaultSelected.value,
       (NewVal) => {
-        console.log('watch defaultSelected=>', NewVal);
         selectedItem.value = JSON.parse(JSON.stringify(NewVal));
-        console.log('watch selectedItem=>', selectedItem.value);
       },
       { immediate: true },
     );
@@ -212,10 +222,10 @@ export default defineComponent({
       removeAt,
       clickResetDefault,
       OnSelectChange,
+      onMove,
       propsvisible,
       propsdefaultSelected,
       propsItemOption,
-      filteredOptions,
       keyboard,
       closable,
       maskClosable,
@@ -241,7 +251,13 @@ export default defineComponent({
   vertical-align: super;
 }
 .list-group-item {
-  padding: 0.75rem 1.25rem;
+  padding: 0.25rem 1.25rem;
+}
+.handle {
+  float: left;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  cursor: move;
 }
 .xy-customize-display {
   &--media-query {
