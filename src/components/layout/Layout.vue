@@ -85,11 +85,12 @@
               <slot :name="`sider_` + item.icon" />
             </template>
           </XYSider>
-          <div class="ant-layout-sider-trigger" :style="collapseStyle">
-            <MenuUnfoldOutlined
-              v-if="isSiderCollapse"
-              @click="() => (isSiderCollapse = !isSiderCollapse)"
-            />
+          <div
+            class="ant-layout-sider-trigger"
+            :style="collapseStyle"
+            @click="() => (isSiderCollapse = !isSiderCollapse)"
+          >
+            <MenuUnfoldOutlined v-if="isSiderCollapse" />
             <MenuFoldOutlined v-else @click="() => (isSiderCollapse = !isSiderCollapse)" />
             <span v-show="!isSiderCollapse" :style="{ paddingLeft: '10px' }">Close</span>
           </div>
