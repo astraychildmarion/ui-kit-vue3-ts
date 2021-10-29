@@ -2312,6 +2312,16 @@
     vue-loader "^16.0.0"
     webpack "4"
 
+"@ts-morph/common@~0.10.1":
+  version "0.10.1"
+  resolved "http://172.17.9.54:8081/repository/npm-all/@ts-morph/common/-/common-0.10.1.tgz#be15b9ab13a32bbc1f6a6bd7dc056b2247b272eb"
+  integrity sha512-rKN/VtZUUlW4M+6vjLFSaFc1Z9sK+1hh0832ucPtPkXqOw/mSWE80Lau4z2zTPNTqtxAjfZbvKpQcEwJy0KIEg==
+  dependencies:
+    fast-glob "^3.2.5"
+    minimatch "^3.0.4"
+    mkdirp "^1.0.4"
+    path-browserify "^1.0.1"
+
 "@types/braces@*":
   version "3.0.1"
   resolved "http://172.17.9.54:8081/repository/npm-all/@types/braces/-/braces-3.0.1.tgz#5a284d193cfc61abb2e5a50d36ebbc50d942a32b"
@@ -4144,6 +4154,11 @@ clsx@^1.1.1:
   resolved "http://172.17.9.54:8081/repository/npm-all/clsx/-/clsx-1.1.1.tgz#98b3134f9abbdf23b2663491ace13c5c03a73188"
   integrity sha512-6/bPho624p3S2pMyvP5kKBPXnI3ufHLObBFCfgx+LkeR5lg2XYy2hqZqUf45ypD8COn2bhgGJSUE+l5dhNBieA==
 
+code-block-writer@^10.1.1:
+  version "10.1.1"
+  resolved "http://172.17.9.54:8081/repository/npm-all/code-block-writer/-/code-block-writer-10.1.1.tgz#ad5684ed4bfb2b0783c8b131281ae84ee640a42f"
+  integrity sha512-67ueh2IRGst/51p0n6FvPrnRjAGHY5F8xdjkgrYE7DDzpJe6qA07RYQ9VcoUeo5ATOjSOiWpSL3SWBRRbempMw==
+
 code-point-at@^1.0.0:
   version "1.1.0"
   resolved "http://172.17.9.54:8081/repository/npm-all/code-point-at/-/code-point-at-1.1.0.tgz#0d070b4d043a5bea33a2f1a40e2edb3d9a4ccf77"
@@ -5539,7 +5554,7 @@ fast-glob@^2.2.6:
     merge2 "^1.2.3"
     micromatch "^3.1.10"
 
-fast-glob@^3.1.1:
+fast-glob@^3.1.1, fast-glob@^3.2.5, fast-glob@^3.2.7:
   version "3.2.7"
   resolved "http://172.17.9.54:8081/repository/npm-all/fast-glob/-/fast-glob-3.2.7.tgz#fd6cb7a2d7e9aa7a7846111e85a196d6b2f766a1"
   integrity sha512-rYGMRwip6lUMvYD3BTScMwT1HtAs2d71SMv66Vrxs0IekGZEjhM0pcMfjQPnknBt2zeCwQMEupiN02ZP4DiT1Q==
@@ -5815,6 +5830,15 @@ fs-extra@^0.30.0:
     klaw "^1.0.0"
     path-is-absolute "^1.0.0"
     rimraf "^2.2.8"
+
+fs-extra@^10.0.0:
+  version "10.0.0"
+  resolved "http://172.17.9.54:8081/repository/npm-all/fs-extra/-/fs-extra-10.0.0.tgz#9ff61b655dde53fb34a82df84bb214ce802e17c1"
+  integrity sha512-C5owb14u9eJwizKGdchcDUQeFtlSHHthBk8pbX9Vc1PFZrLombudjDnNns88aYslCyF6IY5SUw3Roz6xShcEIQ==
+  dependencies:
+    graceful-fs "^4.2.0"
+    jsonfile "^6.0.1"
+    universalify "^2.0.0"
 
 fs-extra@^9.0.0, fs-extra@^9.0.1:
   version "9.1.0"
@@ -8429,6 +8453,11 @@ path-browserify@0.0.1:
   resolved "http://172.17.9.54:8081/repository/npm-all/path-browserify/-/path-browserify-0.0.1.tgz#e6c4ddd7ed3aa27c68a20cc4e50e1a4ee83bbc4a"
   integrity sha512-BapA40NHICOS+USX9SN4tyhq+A2RrN/Ws5F0Z5aMHDp98Fl86lX8Oti8B7uN93L4Ifv4fHOEA+pQw87gmMO/lQ==
 
+path-browserify@^1.0.1:
+  version "1.0.1"
+  resolved "http://172.17.9.54:8081/repository/npm-all/path-browserify/-/path-browserify-1.0.1.tgz#d98454a9c3753d5790860f16f68867b9e46be1fd"
+  integrity sha512-b7uo2UCUOYZcnF/3ID0lulOJi/bafxa1xPe7ZPsammBSpjSWQkjNxlt635YGS2MiR9GjvuXCtz2emr3jbsz98g==
+
 path-case@^3.0.4:
   version "3.0.4"
   resolved "http://172.17.9.54:8081/repository/npm-all/path-case/-/path-case-3.0.4.tgz#9168645334eb942658375c56f80b4c0cb5f82c6f"
@@ -10589,6 +10618,14 @@ ts-map@^1.0.3:
   resolved "http://172.17.9.54:8081/repository/npm-all/ts-map/-/ts-map-1.0.3.tgz#1c4d218dec813d2103b7e04e4bcf348e1471c1ff"
   integrity sha512-vDWbsl26LIcPGmDpoVzjEP6+hvHZkBkLW7JpvwbCv/5IYPJlsbzCVXY3wsCeAxAUeTclNOUZxnLdGh3VBD/J6w==
 
+ts-morph@^11.0.3:
+  version "11.0.3"
+  resolved "http://172.17.9.54:8081/repository/npm-all/ts-morph/-/ts-morph-11.0.3.tgz#01a92b3c2b5a48ccdf318ec90864229b8061d056"
+  integrity sha512-ymuPkndv9rzqTLiHWMkVrFXWcN4nBiBGhRP/kTC9F5amAAl7BNLfyrsTzMD1o9A0zishKoF1KQT/0yyFhJnPgA==
+  dependencies:
+    "@ts-morph/common" "~0.10.1"
+    code-block-writer "^10.1.1"
+
 ts-pnp@^1.1.6:
   version "1.2.0"
   resolved "http://172.17.9.54:8081/repository/npm-all/ts-pnp/-/ts-pnp-1.2.0.tgz#a500ad084b0798f1c3071af391e65912c86bca92"
@@ -11024,6 +11061,15 @@ vfile@^4.0.0:
     is-buffer "^2.0.0"
     unist-util-stringify-position "^2.0.0"
     vfile-message "^2.0.0"
+
+vite-plugin-dts@^0.9.2:
+  version "0.9.2"
+  resolved "http://172.17.9.54:8081/repository/npm-all/vite-plugin-dts/-/vite-plugin-dts-0.9.2.tgz#e9bd6316d53253cfa4d9f2c65c9257ebedf29abb"
+  integrity sha512-aZmE603f6M0hA1f9sFIuTLDpqH2I1dB77Q/ac5x1Zi+TRj20fk7R/Glw8kOxu1IbjpjXWTBTYh50nw2uuqwLPQ==
+  dependencies:
+    fast-glob "^3.2.7"
+    fs-extra "^10.0.0"
+    ts-morph "^11.0.3"
 
 vite-plugin-mdx@^3.5.6:
   version "3.5.9"

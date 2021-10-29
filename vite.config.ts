@@ -1,17 +1,17 @@
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
-import path from 'path'
 import styleImport from 'vite-plugin-style-import';
-import typescript from '@rollup/plugin-typescript';
+import dts from 'vite-plugin-dts'
 
-const { resolve } = require('path');
+const path = require('path');
 // https://vitejs.dev/config/
 export default defineConfig({
   build: {
     emptyOutDir: true,
     sourcemap: true,
     lib: {
-      entry: resolve(__dirname, 'src/components/index.ts'),
+      entry: path.resolve(__dirname, 'src/components/index.ts'),
+      formats: ['es'],
       name: 'xy-cloud-kit-2',
       fileName: (format) => `xy-cloud-kit-2.${format}.js`,
     },
@@ -24,15 +24,17 @@ export default defineConfig({
           vue: 'Vue',
         },
         sourcemap: true,
-        dir: ('dist'),
+        dir: 'dist',
       },
     },
   },
   resolve: {
-    alias: {
-      '@': resolve(__dirname, 'src'),
-      vue: 'vue/dist/vue.esm-bundler.js', // 定义vue的别名，如果使用其他的插件，可能会用到别名
-    },
+    alias: [
+      {
+        find: '@',
+        replacement: path.resolve(__dirname, 'src'),
+      },
+    ],
   },
   css: {
     preprocessorOptions: {
@@ -55,6 +57,7 @@ export default defineConfig({
   },
   plugins: [
     vue(),
+    dts(),
     styleImport({
       libs: [
         {
@@ -63,14 +66,6 @@ export default defineConfig({
           resolveStyle: (name) => `ant-design-vue/es/${name}/style/index`,
         },
       ],
-    }),
-    typescript({
-      target: 'esnext',
-      rootDir: 'src',
-      declaration: true,
-      declarationDir: 'dist',
-      exclude: 'node_modules/**',
-      allowSyntheticDefaultImports: true,
     }),
   ],
 });
