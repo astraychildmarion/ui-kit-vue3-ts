@@ -112,7 +112,6 @@ export default defineComponent({
 <style lang="scss" scoped>
 .fix-icon-position {
   :deep(.anticon) {
-    vertical-align: text-top;
     padding-right: 16px;
   }
 }
@@ -165,7 +164,7 @@ export default defineComponent({
             background-color: $sider-item-active-dark;
           }
           .anticon {
-            margin: 0 16px 0 6px;
+            margin: 2px 16px 0px 6px;
             color: $sider-item-icon-dark;
           }
         }
