@@ -185,13 +185,7 @@ const Template = (args) => ({
   `,
 });
 
-export const Light = Template.bind({});
-Light.args = {
-  theme: 'light',
+export const Default = Template.bind({});
+Default.args = {
   selectedKeys: ['3'],
-};
-export const Dark = Template.bind({});
-Dark.args = {
-  theme: 'dark',
-  selectedKeys: ['2'],
 };

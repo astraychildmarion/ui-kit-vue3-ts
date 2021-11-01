@@ -3,6 +3,12 @@ import NumberInput from '../components/NumberInput.vue';
 export default {
   title: 'UI-KIT/NumberInput',
   component: NumberInput,
+  argTypes: {
+    onClickChange: {
+      action: 'clickChange',
+      description: 'Event name is `clickChange`. No parameter emitted.',
+    },
+  },
 };
 const Template = (args) => ({
   components: { NumberInput },

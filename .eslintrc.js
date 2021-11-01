@@ -7,6 +7,7 @@ module.exports = {
     'plugin:vue/vue3-essential',
     'plugin:prettier/recommended',
     'airbnb-base',
+    'plugin:import/typescript',
     'prettier'
   ],
   parserOptions: {
@@ -23,5 +24,6 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'vue/no-v-model-argument': 'off',
     'vue/no-multiple-template-root': 'off',
+    'import/extensions': 'off'
   },
 };

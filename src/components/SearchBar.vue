@@ -9,17 +9,14 @@
 import { defineComponent, ref } from 'vue';
 import { Input } from 'ant-design-vue';
 import { SearchOutlined } from '@ant-design/icons-vue';
-
-interface TargetType {
-  target: { value: string };
-}
+import { SearchBarTargetType } from './interface';
 
 export default defineComponent({
   components: { Input, SearchOutlined },
   emits: ['searchBarEnter'],
   setup(props, { emit }) {
     const searchContent = ref<string>('');
-    function searchBarEnter({ target }: TargetType) {
+    function searchBarEnter({ target }: SearchBarTargetType) {
       emit('searchBarEnter', target.value);
     }
     return {

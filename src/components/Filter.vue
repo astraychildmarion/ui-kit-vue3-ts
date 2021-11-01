@@ -116,7 +116,7 @@
   </Dropdown>
 </template>
 <script lang="ts">
-import { PropType, defineComponent, reactive, ref, watchEffect } from 'vue';
+import { PropType, defineComponent, reactive, ref, watchEffect, computed } from 'vue';
 import { Button, Dropdown, Select, Input, Form, DatePicker, Menu } from 'ant-design-vue';
 import {
   CheckCircleOutlined,
@@ -127,23 +127,8 @@ import {
 /* eslint-disable import/no-extraneous-dependencies */
 import moment from 'moment';
 import debounce from 'lodash/debounce';
+import { FilterDefaultValue, FilterOption, FilterTemplate } from './interface';
 
-interface FilterOption {
-  title: string;
-  dataIndex: string;
-  type?: string;
-  typeOption?: any[];
-}
-interface FilterDefaultValue {
-  dataIndex: string;
-  sort: string;
-  value: string;
-}
-interface FilterTemplate {
-  dataIndex: string;
-  value: string;
-  sort: string;
-}
 export default defineComponent({
   name: 'XYFilter',
   props: {
@@ -179,11 +164,63 @@ export default defineComponent({
       emit('filterChange', filterItems);
     };
 
+    const checkOptionType = (dataIndex: string) => {
+      const result = props.filterOption.find(
+        (item) => item.dataIndex === dataIndex && item?.type !== undefined,
+      );
+      return result?.type;
+    };
+
+    const checkSortDisable = (dataIndex: string) => {
+      const type = checkOptionType(dataIndex);
+      filterItems.forEach((item: FilterDefaultValue) => {
+        // eslint-disable-next-line no-param-reassign
+        if (item.dataIndex === dataIndex && type !== undefined) item.sort = 'is';
+      });
+      return type !== undefined;
+    };
+
+    const getSuboption = (dataIndex: string) => {
+      const result = props.filterOption.find(
+        (item) => item.dataIndex === dataIndex && item?.type !== undefined,
+      );
+      return result?.typeOption;
+    };
+    /* eslint-disable */
+    const debounceFilterEmit = debounce(function () {
+      onFilterChange();
+    }, 500)
+
+    const checkFormVaildation = (inputValue: object | InputEvent | string) => {
+      if (inputValue !== null) {
+        filterItems.forEach((item: FilterDefaultValue) => {
+          // eslint-disable-next-line no-param-reassign
+          if (item.dataIndex === inputValue) item.value = '';
+        });
+      }
+      debounceFilterEmit();
+    };
+    const onFilterChange = () => {
+      emit('filterChange', filterItems);
+    };
+
     // Can not select days after today
     const disabledDate = (current: any) => current > moment().endOf('day');
     watchEffect(() => {
-      if (props.filterDefaultValue?.length > 0) filterItems = reactive(props.filterDefaultValue);
+      if (props.filterDefaultValue && props.filterDefaultValue.length > 0) filterItems = reactive(props.filterDefaultValue);
     });
+
+    const addFilterBtnDisabled = computed(() => {
+      return filterItems.length >= props.filterOption.length;
+    })
+    const active = computed(() => {
+      return filterItems.length > 0;
+    })
+    const titleText = computed(() => {
+      const info = 'Introduction';
+      const filter = 'Filter Value';
+      return filterItems.length > 0 ? filter : info;
+    })
 
     return {
       visible,
@@ -193,6 +230,13 @@ export default defineComponent({
       deleteFilter,
       hideFilterPopup,
       disabledDate,
+      checkSortDisable,
+      checkOptionType,
+      getSuboption,
+      checkFormVaildation,
+      addFilterBtnDisabled,
+      active,
+      titleText
     };
   },
   components: {
@@ -224,63 +268,12 @@ export default defineComponent({
       ],
     };
   },
-  computed: {
-    addFilterBtnDisabled() {
-      return this.filterItems.length >= this.filterOption.length;
-    },
-    active() {
-      return this.filterItems.length > 0;
-    },
-    titleText() {
-      const info = 'Introduction';
-      const filter = 'Filter Value';
-      return this.filterItems.length > 0 ? filter : info;
-    },
-  },
   beforeMount() {
     window.addEventListener('resize', this.hideFilterPopup);
   },
   beforeUnmount() {
     window.removeEventListener('resize', this.hideFilterPopup);
-  },
-  methods: {
-    checkSortDisable(dataIndex: string) {
-      const type = this.checkOptionType(dataIndex);
-      this.filterItems.forEach((item: FilterDefaultValue) => {
-        // eslint-disable-next-line no-param-reassign
-        if (item.dataIndex === dataIndex && type !== undefined) item.sort = 'is';
-      });
-      return type !== undefined;
-    },
-    checkOptionType(dataIndex: string) {
-      const result = this.filterOption.find(
-        (item) => item.dataIndex === dataIndex && item?.type !== undefined,
-      );
-      return result?.type;
-    },
-    getSuboption(dataIndex: string) {
-      const result = this.filterOption.find(
-        (item) => item.dataIndex === dataIndex && item?.type !== undefined,
-      );
-      return result?.typeOption;
-    },
-    checkFormVaildation(dataIndex: null | string) {
-      if (dataIndex !== null) {
-        this.filterItems.forEach((item: FilterDefaultValue) => {
-          // eslint-disable-next-line no-param-reassign
-          if (item.dataIndex === dataIndex) item.value = '';
-        });
-      }
-      this.debounceFilterEmit();
-    },
-    onFilterChange() {
-      this.$emit('filterChange', this.filterItems);
-    },
-    /* eslint-disable */
-    debounceFilterEmit: debounce(function () {
-      this.onFilterChange();
-    }, 500)
-  },
+  }
 });
 </script>
 <style lang="scss" scoped>
