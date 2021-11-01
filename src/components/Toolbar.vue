@@ -21,7 +21,7 @@
     </div>
     <div class="xy-toolbar__right">
       <Space size="large">
-        <ExportExcelButton
+        <ExportButton
           :exportExcelOption="exportExcelOption"
           @clickExport="clickExport"
           :isLoading="isExportLoading"
@@ -42,7 +42,7 @@ import { defineComponent, PropType } from 'vue';
 import { Space } from 'ant-design-vue';
 import Filter from './Filter.vue';
 import ActionButton from './ActionButton.vue';
-import ExportExcelButton from './ExportExcelButton.vue';
+import ExportButton from './ExportButton.vue';
 import XYPagination from './Pagination.vue';
 import CustomizeDisplay from './CustomizeDisplay.vue';
 
@@ -56,7 +56,7 @@ import {
 
 export default defineComponent({
   name: 'Toolbar',
-  components: { Filter, ActionButton, ExportExcelButton, XYPagination, CustomizeDisplay, Space },
+  components: { Filter, ActionButton, ExportButton, XYPagination, CustomizeDisplay, Space },
   emits: [
     'clickExport',
     'filterChange',

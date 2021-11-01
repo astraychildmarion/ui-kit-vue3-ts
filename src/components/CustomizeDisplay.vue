@@ -13,7 +13,7 @@
       wrapClassName="xy-customize-display"
       :width="640"
     >
-      <draggable
+      <!-- <draggable
         :list="selectedItem"
         item-key="label"
         @start="dragging = true"
@@ -27,7 +27,7 @@
             <DeleteOutlined @click="removeAt(index)" />
           </li>
         </template>
-      </draggable>
+      </draggable> -->
 
       <Select
         show-search
@@ -74,9 +74,10 @@
 <script lang="ts">
 import { defineComponent, PropType, ref, watch, computed } from 'vue';
 import { Button, Modal, Select } from 'ant-design-vue';
-import { EditOutlined, MenuOutlined, DeleteOutlined } from '@ant-design/icons-vue';
+import { EditOutlined } from '@ant-design/icons-vue';
+// import { EditOutlined, MenuOutlined, DeleteOutlined } from '@ant-design/icons-vue';
 
-import draggable from 'vuedraggable';
+// import draggable from 'vuedraggable';
 
 import { CustomizeDisplayItemOptType } from './interface';
 
@@ -88,9 +89,9 @@ export default defineComponent({
     Select,
     SelectOption: Select.Option,
     EditOutlined,
-    MenuOutlined,
-    DeleteOutlined,
-    draggable,
+    // MenuOutlined,
+    // DeleteOutlined,
+    // draggable,
   },
   props: {
     visible: {

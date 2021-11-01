@@ -5,6 +5,7 @@ public/
 .eslintignore
 .gitignore
 package-lock.json
+node_modules
 vite.config.js
 yarn.lock
 .husky/

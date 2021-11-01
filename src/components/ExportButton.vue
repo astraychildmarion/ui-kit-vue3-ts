@@ -22,7 +22,7 @@ import { ExportOutlined } from '@ant-design/icons-vue';
 import { ExportExcelDropdownData, ExportExcelMenuType } from './interface';
 
 export default defineComponent({
-  name: 'ExportExcelButton',
+  name: 'ExportButton',
   components: { Dropdown, Button, Menu, MenuItem: Menu.Item, ExportOutlined },
   emits: ['clickExport'],
   props: {
