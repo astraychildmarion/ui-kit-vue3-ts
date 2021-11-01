@@ -13,7 +13,7 @@
       wrapClassName="xy-customize-display"
       :width="640"
     >
-      <draggable
+      <!-- <draggable
         :list="selectedItem"
         item-key="label"
         @start="dragging = true"
@@ -39,7 +39,7 @@
             </Row>
           </li>
         </template>
-      </draggable>
+      </draggable> -->
 
       <Select
         show-search
@@ -85,16 +85,13 @@
 
 <script lang="ts">
 import { defineComponent, PropType, ref, watch, computed } from 'vue';
-import { Button, Modal, Select, Space, Row, Col } from 'ant-design-vue';
-import { EditOutlined, MenuOutlined, DeleteOutlined, PushpinOutlined } from '@ant-design/icons-vue';
+import { Button, Modal, Select } from 'ant-design-vue';
+import { EditOutlined } from '@ant-design/icons-vue';
+// import { EditOutlined, MenuOutlined, DeleteOutlined } from '@ant-design/icons-vue';
 
-import draggable from 'vuedraggable';
+// import draggable from 'vuedraggable';
 
-interface ItemOptType {
-  label: string;
-  value: string;
-  fixed: boolean;
-}
+import { CustomizeDisplayItemOptType } from './interface';
 
 export default defineComponent({
   name: 'XYCustomizeDisplay',
@@ -102,22 +99,18 @@ export default defineComponent({
     Button,
     Modal,
     Select,
-    Space,
-    Row,
-    Col,
     SelectOption: Select.Option,
     EditOutlined,
-    MenuOutlined,
-    DeleteOutlined,
-    PushpinOutlined,
-    draggable,
+    // MenuOutlined,
+    // DeleteOutlined,
+    // draggable,
   },
   props: {
     visible: {
       type: Boolean,
     },
     itemOption: {
-      type: Array as PropType<ItemOptType[]>,
+      type: Array as PropType<CustomizeDisplayItemOptType[]>,
       required: true,
       default() {
         return [];
@@ -139,13 +132,13 @@ export default defineComponent({
     const keyboard = ref<boolean>(false);
     const closable = ref<boolean>(false);
     const maskClosable = ref<boolean>(false);
-    const selectedItem = ref<ItemOptType[]>([]);
+    const selectedItem = ref<CustomizeDisplayItemOptType[]>([]);
     const needColumnTextRight = ref<string>('Please select one column at least');
     const selectedCountWrong = ref<boolean>(false);
     const headerText = ref<string>('');
     const dragging = ref(false);
     const enabled = ref(true);
-    const emptyvalue = ref(null);
+    const emptyvalue = ref([]);
 
     function CheckSelectedItem(): void {
       if (selectedItem.value.length > 1) {
@@ -168,15 +161,15 @@ export default defineComponent({
       emit('clickCustomizeConfirm', selectedItem.value);
       propsvisible.value = false;
     };
-    const onMove = ({ relatedContext, draggedContext }) => {
-      const relatedElement = relatedContext.element;
-      const draggedElement = draggedContext.element;
-      return (!relatedElement || !relatedElement.fixed) && !draggedElement.fixed;
-    };
+    // const onMove = ({ relatedContext, draggedContext }) => {
+    //   const relatedElement = relatedContext.element;
+    //   const draggedElement = draggedContext.element;
+    //   return (!relatedElement || !relatedElement.fixed) && !draggedElement.fixed;
+    // };
 
     const clickResetDefault = () => {
       selectedItem.value = JSON.parse(JSON.stringify(propsdefaultSelected.value));
-      emptyvalue.value = null;
+      emptyvalue.value = [];
       CheckSelectedItem();
     };
     const removeAt = (idx: number) => {
@@ -188,12 +181,19 @@ export default defineComponent({
       selectedItem.value.splice(idx, 1);
     };
     const OnSelectChange = (value: any, option: any) => {
-      const objItem: ItemOptType = { label: option.title, value: option.value, fixed: false };
+      const objItem: CustomizeDisplayItemOptType = { label: option.title, value: option.value };
       console.log(objItem);
       selectedItem.value.push(objItem);
-      emptyvalue.value = null;
+      emptyvalue.value = [];
       CheckSelectedItem();
     };
+
+    const filteredOptions = computed(() =>
+      propsItemOption.value.filter(
+        (o: CustomizeDisplayItemOptType) => !selectedItem.value.includes(o),
+      ),
+    );
+    console.log('filteredOptions->', filteredOptions.value);
 
     watch(
       () => propsvisible.value,
@@ -222,7 +222,7 @@ export default defineComponent({
       removeAt,
       clickResetDefault,
       OnSelectChange,
-      onMove,
+      // onMove,
       propsvisible,
       propsdefaultSelected,
       propsItemOption,

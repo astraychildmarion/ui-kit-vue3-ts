@@ -1,6 +1,8 @@
 <template>
-  <h1>hello world</h1>
+  <h1>Hello world</h1>
 </template>
+
+<script setup lang="ts"></script>
 <script lang="ts">
 export default {
   data() {

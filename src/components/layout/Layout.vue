@@ -104,12 +104,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed, watchEffect } from 'vue';
+import { defineComponent, ref, computed, watchEffect, PropType } from 'vue';
 import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons-vue';
 import { Layout } from 'ant-design-vue';
 import XYHeader from './Header.vue';
 import XYSider from './Sider.vue';
 import XYAppListDrawer from './ApplistDrawer.vue';
+import { SiderData, HeaderUserMenu } from '../interface';
 
 export default defineComponent({
   name: 'XYAppLayout',
@@ -146,21 +147,20 @@ export default defineComponent({
     // sider
     selectedKeys: {
       type: Array,
-      default() {
-        return ['1'];
-      },
+      default: () => ['1'],
     },
     siderData: {
-      type: Array,
+      type: Array as PropType<SiderData[]>,
       required: true,
     },
     // app list drawer
     appListDrawerData: {
-      type: Array,
+      type: Array as PropType<SiderData[]>,
       required: true,
     },
     selectAppListDrawerKey: {
       type: Array,
+      default: () => [],
     },
     VER: {
       type: String,
@@ -177,22 +177,16 @@ export default defineComponent({
       required: true,
     },
     manageMenu: {
-      type: Array,
-      default() {
-        return [];
-      },
+      type: Array as PropType<HeaderUserMenu[]>,
+      default: () => [],
     },
     userMenu: {
-      type: Array,
-      default() {
-        return [];
-      },
+      type: Array as PropType<HeaderUserMenu[]>,
+      default: () => [],
     },
     userInfo: {
       type: Object,
-      default() {
-        return {};
-      },
+      default: () => ({}),
     },
     manageAuth: {
       type: Boolean,
@@ -212,13 +206,13 @@ export default defineComponent({
       appListDrawerShow.value = !boo;
       console.log('appListDrawerShow.value', appListDrawerShow.value);
     }
-    function clickMenu({ key }) {
+    function clickMenu({ key }: { key: string }) {
       emit('clickMenu', key);
     }
     function siderCollapse(boo: boolean) {
       isSiderCollapse.value = !boo;
     }
-    function onBreakpoint(broken) {
+    function onBreakpoint(broken: boolean) {
       emit('onBreakpoint', broken);
     }
 

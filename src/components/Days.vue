@@ -17,14 +17,8 @@
 <script lang="ts">
 import { defineComponent, ref, watchEffect, PropType } from 'vue';
 import { Radio, Space } from 'ant-design-vue';
+import { DayOption, DayClickRadioButtonEvent } from './interface';
 
-interface DayOption {
-  title: string;
-  value: string;
-}
-interface clickRadioButtonEvent {
-  target: { value: string; tagName: string };
-}
 export default defineComponent({
   name: 'XYDayButton',
   components: { RadioButton: Radio.Button, RadioGroup: Radio.Group, Space },
@@ -32,13 +26,11 @@ export default defineComponent({
   props: {
     dayOption: {
       type: Array as PropType<DayOption[]>,
-      default() {
-        return [
-          { title: '3d', value: '3' },
-          { title: '5d', value: '5' },
-          { title: '7d', value: '7' },
-        ];
-      },
+      default: () => [
+        { title: '3d', value: '3' },
+        { title: '5d', value: '5' },
+        { title: '7d', value: '7' },
+      ],
     },
     defaultValue: {
       type: String as PropType<string>,
@@ -93,7 +85,7 @@ export default defineComponent({
       emit('clickDayButton', payload);
     };
 
-    const clickRadioButton = ({ target }: clickRadioButtonEvent) => {
+    const clickRadioButton = ({ target }: DayClickRadioButtonEvent) => {
       if (target.tagName === 'INPUT') {
         if (target.value === currentValue.value) {
           value.value = null;

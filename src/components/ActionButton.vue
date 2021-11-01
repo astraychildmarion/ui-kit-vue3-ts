@@ -33,16 +33,7 @@
 import { PropType, defineComponent, reactive, ref, watchEffect } from 'vue';
 import { Button, Dropdown, Menu, Tooltip } from 'ant-design-vue';
 import { DownOutlined } from '@ant-design/icons-vue';
-
-interface ActionOptionType {
-  title: string;
-  disabled: boolean;
-}
-interface MenuClickType {
-  item: object;
-  key: string;
-  keyPath: string;
-}
+import { ActionOptionType, ActionMenuClickType } from './interface';
 
 export default defineComponent({
   props: {
@@ -60,7 +51,7 @@ export default defineComponent({
   setup(props, { emit }) {
     let actionInnerOption = reactive(props.actionOption);
     const isTableInnerChecked = ref(props.isTableCheckbox);
-    function handleMenuClick({ key }: MenuClickType) {
+    function handleMenuClick({ key }: ActionMenuClickType) {
       if (isTableInnerChecked.value) emit('clickAction', key);
     }
     watchEffect(() => {
