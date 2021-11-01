@@ -21,6 +21,3 @@ Dockerfile
 README.md
 index.html
 vite.config.ts
-dist/**.svg
-dist/**.png
-dist/favicon.ico
