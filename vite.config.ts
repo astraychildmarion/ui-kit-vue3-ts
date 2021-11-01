@@ -8,7 +8,6 @@ const path = require('path');
 export default defineConfig({
   build: {
     emptyOutDir: true,
-    sourcemap: true,
     lib: {
       entry: path.resolve(__dirname, 'src/components/index.ts'),
       formats: ['es'],
@@ -23,7 +22,6 @@ export default defineConfig({
         globals: {
           vue: 'Vue',
         },
-        sourcemap: true,
         dir: 'dist',
       },
     },
