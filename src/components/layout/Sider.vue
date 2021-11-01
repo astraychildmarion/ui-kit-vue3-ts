@@ -79,7 +79,6 @@ export default defineComponent({
 <style lang="scss" scoped>
 .fix-icon-position {
   :deep(.anticon) {
-    vertical-align: text-top;
     padding-right: 16px;
   }
 }
@@ -132,7 +131,7 @@ export default defineComponent({
             background-color: $sider-item-active-dark;
           }
           .anticon {
-            margin: 0 16px 0 6px;
+            margin: 2px 16px 0px 6px;
             color: $sider-item-icon-dark;
           }
         }
@@ -197,9 +196,9 @@ export default defineComponent({
       }
     }
     &__second {
-      padding-bottom: 56px;
+      // padding-bottom: 56px;
       overflow: hidden overlay;
-      height: calc(100vh - 140px);
+      height: calc(100vh - 195px);
     }
   }
   .goTo--style {

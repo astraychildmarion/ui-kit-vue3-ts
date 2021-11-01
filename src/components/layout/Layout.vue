@@ -63,6 +63,7 @@
           v-model:collapsed="isSiderCollapse"
           breakpoint="xxl"
           collapsible
+          :trigger="null"
           collapsedWidth="72"
           width="256"
           :style="{
@@ -84,19 +85,15 @@
               <slot :name="`sider_` + item.icon" />
             </template>
           </XYSider>
-          <template #trigger>
-            <div
-              :style="{
-                paddingLeft: '31px',
-                textAlign: 'left',
-                backgroundColor: '#051322',
-              }"
-            >
-              <MenuUnfoldOutlined v-if="isSiderCollapse" />
-              <MenuFoldOutlined v-else />
-              <span v-show="!isSiderCollapse" :style="{ paddingLeft: '10px' }">Close</span>
-            </div>
-          </template>
+          <div
+            class="ant-layout-sider-trigger"
+            :style="collapseStyle"
+            @click="() => (isSiderCollapse = !isSiderCollapse)"
+          >
+            <MenuUnfoldOutlined v-if="isSiderCollapse" />
+            <MenuFoldOutlined v-else @click="() => (isSiderCollapse = !isSiderCollapse)" />
+            <span v-show="!isSiderCollapse" :style="{ paddingLeft: '10px' }">Close</span>
+          </div>
         </LayoutSider>
         <LayoutContent>
           <slot name="content" />
@@ -107,7 +104,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watchEffect, PropType } from 'vue';
+import { defineComponent, ref, computed, watchEffect, PropType } from 'vue';
 import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons-vue';
 import { Layout } from 'ant-design-vue';
 import XYHeader from './Header.vue';
@@ -219,6 +216,10 @@ export default defineComponent({
       emit('onBreakpoint', broken);
     }
 
+    const collapseStyle = computed(() => ({
+      width: isSiderCollapse.value ? '72px' : '256px',
+    }));
+
     watchEffect(() => {
       selectedInnerKeys.value = props.selectedKeys;
     });
@@ -227,6 +228,7 @@ export default defineComponent({
       isSiderCollapse,
       appListDrawerShow,
       selectedInnerKeys,
+      collapseStyle,
       clickAppListDrawerMenu,
       clickTopLeftCorner,
       clickMenu,
@@ -243,5 +245,13 @@ export default defineComponent({
   :deep(.ant-layout-header) {
     padding: 0;
   }
+}
+.ant-layout-sider-trigger {
+  background: #051322;
+  box-sizing: border-box;
+  display: inline-block;
+  text-align: center;
+  padding-left: 31px;
+  text-align: left;
 }
 </style>
