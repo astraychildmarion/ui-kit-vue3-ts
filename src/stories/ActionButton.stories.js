@@ -10,7 +10,12 @@ export default {
     },
     isTableCheckbox: {
       description:
-        "A boolean to con trol the tooltip. True means table's checkboxes had been checked and user can choose actions.",
+        "A boolean to control the tooltip. True means table's checkboxes had been checked and user can choose actions.",
+      type: 'boolean',
+    },
+    isSameOS: {
+      description:
+        'A boolean to control the tooltip. True means user choose multiple VM with same OS, so it is ok to resize.',
       type: 'boolean',
     },
     onClickAction: {
@@ -36,10 +41,12 @@ const Template = (args) => ({
 export const Default = Template.bind({});
 Default.args = {
   actionOption: [
-    { title: 'Resize', disabled: false },
+    { title: 'Resize', disabled: true },
     { title: 'Create from', disabled: false },
     { title: 'Rollback', disabled: false },
     { title: 'Decom', disabled: false },
   ],
   isTableCheckbox: true,
+  isSameOS: true,
+  actionType: 'serverlist',
 };

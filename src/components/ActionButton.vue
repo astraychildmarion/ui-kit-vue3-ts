@@ -12,15 +12,19 @@
             <div class="action_tooltip">
               <Tooltip placement="left">
                 <template #title>
-                  <span>{{ tooltipText }}</span>
+                  <span>{{ isCheckboxSelectedText }}</span>
                 </template>
-                <MenuItem :title="option.title">
+                <MenuItem :title="option.title" disabled>
                   {{ option.title }}
                 </MenuItem>
               </Tooltip>
             </div>
           </template>
         </template>
+        <!-- TODO in Resize: same os or different os -->
+        <!-- <MenuItem title="Decom">
+          Decom
+        </MenuItem> -->
       </Menu>
     </template>
     <Button>
@@ -37,36 +41,47 @@ import { ActionOptionType, ActionMenuClickType } from './interface';
 
 export default defineComponent({
   props: {
+    actionType: {
+      required: true,
+      default: 'serverlist',
+      type: String as PropType<'resize' | 'severlist'>,
+    },
     actionOption: {
       required: true,
       type: Array as PropType<ActionOptionType[]>,
     },
     isTableCheckbox: {
-      required: true,
       default: false,
+      type: Boolean as PropType<boolean>,
+    },
+    isSameOS: {
+      default: true,
       type: Boolean as PropType<boolean>,
     },
   },
   emits: ['clickAction'],
   setup(props, { emit }) {
+    const isCheckboxSelectedText = 'You need to select an item or more on the list.';
+    const isSameOSText = 'Batch resize only support the same OS.';
     let actionInnerOption = reactive(props.actionOption);
     const isTableInnerChecked = ref(props.isTableCheckbox);
+    const isSameOSInner = ref(props.isSameOS);
+
     function handleMenuClick({ key }: ActionMenuClickType) {
       if (isTableInnerChecked.value) emit('clickAction', key);
     }
     watchEffect(() => {
       actionInnerOption = reactive(props.actionOption);
       isTableInnerChecked.value = props.isTableCheckbox;
+      isSameOSInner.value = props.isSameOS;
     });
     return {
       handleMenuClick,
       actionInnerOption,
       isTableInnerChecked,
-    };
-  },
-  data() {
-    return {
-      tooltipText: 'You need to select an item or more on the list.',
+      isSameOSInner,
+      isCheckboxSelectedText,
+      isSameOSText,
     };
   },
   components: {
@@ -90,6 +105,16 @@ export default defineComponent({
   .ant-dropdown-menu-item:hover,
   .ant-dropdown-menu-submenu-title:hover {
     background-color: none;
+  }
+}
+:deep(.ant-dropdown-menu-item) {
+  &:hover {
+    background-color: $action-item-hover-bg;
+  }
+}
+:deep(.ant-dropdown-menu-item-disabled) {
+  &:hover {
+    background-color: transparent;
   }
 }
 </style>

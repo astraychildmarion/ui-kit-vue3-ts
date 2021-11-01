@@ -26,4 +26,8 @@ Please go to [Storybook-2.0](http://172.17.9.54:82/?path=/story/doc-readme--page
 [Vue 3](https://v3.vuejs.org/guide/introduction.html)   
 [Ant design 2.x Vue](https://2x.antdv.com/components/overview/)   
 
+<<<<<<< HEAD
 2021/11/1 1.0.0
+=======
+2021/11/01 1.0.0
+>>>>>>> 30e8081 (filter clean all funciton)
