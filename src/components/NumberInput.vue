@@ -1,31 +1,29 @@
 <template>
-  <div class="vue-number-input">
+  <Space :size="40">
+    <Button :disabled="!decreasable" @click="decrease" class="iconbtn">
+      <template #icon>
+        <MinusSquareOutlined />
+      </template>
+    </Button>
     <Space :size="40">
-      <Button :disabled="!decreasable" @click="decrease">
+      <Input suffix="VM" style="width: 5rem" v-model:value="inputValue" @change="change" />
+      <Button :disabled="!increasable" @click="increase" class="iconbtn">
         <template #icon>
-          <MinusOutlined />
+          <PlusSquareOutlined />
         </template>
       </Button>
-      <Space :size="40">
-        <Input suffix="VM" style="width: 5rem" v-model:value="inputValue" @change="change" />
-        <Button :disabled="!increasable" @click="increase">
-          <template #icon>
-            <PlusOutlined />
-          </template>
-        </Button>
-      </Space>
     </Space>
-  </div>
+  </Space>
 </template>
 <script lang="ts">
 import { defineComponent, ref, watch, computed } from 'vue';
 import { Button, Input, Space } from 'ant-design-vue';
-import { PlusOutlined, MinusOutlined } from '@ant-design/icons-vue';
+import { PlusSquareOutlined, MinusSquareOutlined } from '@ant-design/icons-vue';
 
 export default defineComponent({
   name: 'NumberInput',
   emits: ['clickChange'],
-  components: { Button, Input, Space, PlusOutlined, MinusOutlined },
+  components: { Button, Input, Space, PlusSquareOutlined, MinusSquareOutlined },
   props: {
     max: {
       type: Number,
@@ -100,12 +98,23 @@ export default defineComponent({
   box-shadow: none;
   text-align: center;
 }
+:deep(.ant-btn) {
+  &:focus {
+    color: $toolbar-text-color;
+    border-color: #d9d9d9;
+  }
+}
 
-.vue-number-input {
-  display: block;
-  font-size: 0;
-  max-width: 100%;
-  overflow: hidden;
-  position: relative;
+.iconbtn {
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  min-width: 16px;
+  width: 16px;
+  height: 16px;
+  background: none;
 }
 </style>
