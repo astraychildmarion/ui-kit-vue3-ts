@@ -23,7 +23,12 @@
     <template #overlay>
       <Menu @click="handleMenuClick">
         <div className="xy-filter__wrapper">
-          <div className="xy-filter__title">{{ titleText }}</div>
+          <div className="xy-filter__title">
+            {{ titleText }}
+            <Button @click="handlerClean" type="link" class="xy-filter__title__button"
+              >Clean all</Button
+            >
+          </div>
           <div className="xy-filter__body">
             <p v-show="filterItems.length < 1">
               Please click "Add a filter" to start, user may use multiple filters to get specific
@@ -63,6 +68,7 @@
                 <template v-if="checkOptionType(filterItem.dataIndex) === 'dropdown'">
                   <Select
                     v-model:value="filterItem.value"
+                    mode="multiple"
                     @change="checkFormVaildation"
                     class="xy-filter__body-item-select-sub"
                   >
@@ -127,7 +133,12 @@ import {
 /* eslint-disable import/no-extraneous-dependencies */
 import moment from 'moment';
 import debounce from 'lodash/debounce';
-import { FilterDefaultValue, FilterOption, FilterTemplate } from './interface';
+import {
+  FilterDefaultValue,
+  FilterOption,
+  FilterTemplate,
+  FilterDefaultMultiValue,
+} from './interface';
 
 export default defineComponent({
   name: 'XYFilter',
@@ -144,12 +155,6 @@ export default defineComponent({
   setup(props, { emit }) {
     const visible = ref(false);
     let filterItems = reactive([]) as Array<FilterDefaultValue>;
-    const handleMenuClick = () => {
-      visible.value = true;
-    };
-    const hideFilterPopup = () => {
-      visible.value = false;
-    };
     const addFilter = () => {
       // e.preventDefault();
       const filterTemplate: FilterTemplate = {
@@ -159,11 +164,6 @@ export default defineComponent({
       };
       filterItems.push({ ...filterTemplate });
     };
-    const deleteFilter = (index: number) => {
-      filterItems.splice(index, 1);
-      emit('filterChange', filterItems);
-    };
-
     const checkOptionType = (dataIndex: string) => {
       const result = props.filterOption.find(
         (item) => item.dataIndex === dataIndex && item?.type !== undefined,
@@ -173,11 +173,41 @@ export default defineComponent({
 
     const checkSortDisable = (dataIndex: string) => {
       const type = checkOptionType(dataIndex);
-      filterItems.forEach((item: FilterDefaultValue) => {
+      filterItems.forEach((item: FilterDefaultValue | FilterDefaultMultiValue) => {
         // eslint-disable-next-line no-param-reassign
         if (item.dataIndex === dataIndex && type !== undefined) item.sort = 'is';
       });
       return type !== undefined;
+    };
+    /* eslint-disable */
+    const debounceFilterEmit = debounce(function () {
+      onFilterChange();
+    }, 500);
+
+    const checkFormVaildation = (inputValue: object | InputEvent | string) => {
+      const checkType = (dataIndex : typeof inputValue) => {
+          const result = props.filterOption.find(
+          (item) => item.dataIndex === dataIndex && item?.type !== undefined,
+        );
+        return result?.type
+      }
+      if (inputValue !== null) {
+        filterItems.forEach((item: FilterDefaultValue | FilterDefaultMultiValue) => {
+          // eslint-disable-next-line no-param-reassign
+          if (item.dataIndex === inputValue) {
+            if (checkType(inputValue) === 'dropdown') {
+              item.value = [];
+            } else {
+              item.value = '';
+            }
+          }
+        });
+      }
+      debounceFilterEmit();
+    };
+    const deleteFilter = (index: number) => {
+      filterItems.splice(index, 1);
+      emit('filterChange', filterItems);
     };
 
     const getSuboption = (dataIndex: string) => {
@@ -186,19 +216,15 @@ export default defineComponent({
       );
       return result?.typeOption;
     };
-    /* eslint-disable */
-    const debounceFilterEmit = debounce(function () {
-      onFilterChange();
-    }, 500)
-
-    const checkFormVaildation = (inputValue: object | InputEvent | string) => {
-      if (inputValue !== null) {
-        filterItems.forEach((item: FilterDefaultValue) => {
-          // eslint-disable-next-line no-param-reassign
-          if (item.dataIndex === inputValue) item.value = '';
-        });
-      }
-      debounceFilterEmit();
+    const handleMenuClick = () => {
+      visible.value = true;
+    };
+    const handlerClean = () => {
+      filterItems.splice(0, filterItems.length);
+      emit('filterChange', filterItems);
+    };
+    const hideFilterPopup = () => {
+      visible.value = false;
     };
     const onFilterChange = () => {
       emit('filterChange', filterItems);
@@ -207,25 +233,28 @@ export default defineComponent({
     // Can not select days after today
     const disabledDate = (current: any) => current > moment().endOf('day');
     watchEffect(() => {
-      if (props.filterDefaultValue && props.filterDefaultValue.length > 0) filterItems = reactive(props.filterDefaultValue);
+      if (props.filterDefaultValue && props.filterDefaultValue.length > 0)
+        filterItems = reactive(props.filterDefaultValue);
+      console.log('watch', filterItems);
     });
 
     const addFilterBtnDisabled = computed(() => {
       return filterItems.length >= props.filterOption.length;
-    })
+    });
     const active = computed(() => {
       return filterItems.length > 0;
-    })
+    });
     const titleText = computed(() => {
       const info = 'Introduction';
       const filter = 'Filter Value';
       return filterItems.length > 0 ? filter : info;
-    })
+    });
 
     return {
       visible,
       filterItems,
       handleMenuClick,
+      handlerClean,
       addFilter,
       deleteFilter,
       hideFilterPopup,
@@ -236,7 +265,7 @@ export default defineComponent({
       checkFormVaildation,
       addFilterBtnDisabled,
       active,
-      titleText
+      titleText,
     };
   },
   components: {
@@ -273,7 +302,7 @@ export default defineComponent({
   },
   beforeUnmount() {
     window.removeEventListener('resize', this.hideFilterPopup);
-  }
+  },
 });
 </script>
 <style lang="scss" scoped>
@@ -309,6 +338,10 @@ menu.ant-dropdown-content {
     font-weight: bold;
     text-align: left;
     color: $filter-title-color;
+    &__button {
+      float: right;
+      color: $filter-title-btn-color;
+    }
   }
   &__body {
     padding: 24px;

@@ -1,24 +1,52 @@
 <template>
-  <Dropdown>
+  <Dropdown overlayClassName="xy-action-button">
     <template #overlay>
       <Menu @click="handleMenuClick">
         <template v-for="option in actionInnerOption" :key="option.title">
-          <template v-if="isTableInnerChecked">
-            <MenuItem :title="option.title" :disabled="option.disabled" :key="option.title">
+          <!-- saparate toolbar and single display -->
+          <template v-if="!isToolbar">
+            <MenuItem
+              :title="option.title"
+              :class="{ itemDisable: option.disabled }"
+              :key="option.title"
+            >
               {{ option.title }}
             </MenuItem>
           </template>
           <template v-else>
-            <div class="action_tooltip">
-              <Tooltip placement="left">
-                <template #title>
-                  <span>{{ tooltipText }}</span>
-                </template>
-                <MenuItem :title="option.title">
-                  {{ option.title }}
-                </MenuItem>
-              </Tooltip>
-            </div>
+            <!-- saparate is checkbox cheked -->
+            <template v-if="isTableInnerChecked">
+              <div class="action_tooltip">
+                <Tooltip
+                  placement="left"
+                  overlayClassName="tooltipCard"
+                  :overlayStyle="handlerOverlayStyle(option.tooltipShow)"
+                >
+                  <template #title>
+                    <span>{{ option.tooltipText }}</span>
+                  </template>
+                  <MenuItem
+                    :title="option.title"
+                    :class="{ itemDisable: option.disabled }"
+                    :key="option.title"
+                  >
+                    {{ option.title }}
+                  </MenuItem>
+                </Tooltip>
+              </div>
+            </template>
+            <template v-else>
+              <div class="action_tooltip">
+                <Tooltip placement="left">
+                  <template #title>
+                    <span>{{ isCheckboxSelectedText }}</span>
+                  </template>
+                  <MenuItem :title="option.title" class="itemDisable">
+                    {{ option.title }}
+                  </MenuItem>
+                </Tooltip>
+              </div>
+            </template>
           </template>
         </template>
       </Menu>
@@ -37,22 +65,32 @@ import { ActionOptionType, ActionMenuClickType } from './interface';
 
 export default defineComponent({
   props: {
+    isToolbar: {
+      default: false,
+      type: Boolean as PropType<boolean>,
+    },
     actionOption: {
       required: true,
       type: Array as PropType<ActionOptionType[]>,
     },
     isTableCheckbox: {
-      required: true,
-      default: false,
+      default: true,
       type: Boolean as PropType<boolean>,
     },
   },
   emits: ['clickAction'],
   setup(props, { emit }) {
+    const isCheckboxSelectedText = 'You need to select an item or more on the list.';
     let actionInnerOption = reactive(props.actionOption);
     const isTableInnerChecked = ref(props.isTableCheckbox);
-    function handleMenuClick({ key }: ActionMenuClickType) {
-      if (isTableInnerChecked.value) emit('clickAction', key);
+
+    function handleMenuClick({ key, item }: ActionMenuClickType) {
+      const isDisabled = item.class === 'itemDisable';
+      if (isTableInnerChecked.value && !isDisabled) emit('clickAction', key);
+    }
+    function handlerOverlayStyle(tooltipShow: boolean) {
+      const noshow = { visibility: 'hidden' };
+      return tooltipShow ? undefined : noshow;
     }
     watchEffect(() => {
       actionInnerOption = reactive(props.actionOption);
@@ -60,13 +98,10 @@ export default defineComponent({
     });
     return {
       handleMenuClick,
+      handlerOverlayStyle,
       actionInnerOption,
       isTableInnerChecked,
-    };
-  },
-  data() {
-    return {
-      tooltipText: 'You need to select an item or more on the list.',
+      isCheckboxSelectedText,
     };
   },
   components: {
@@ -81,15 +116,21 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.action_tooltip {
-  :deep(.ant-dropdown-menu-item),
-  :deep(.ant-dropdown-menu-submenu-title) {
-    color: rgba(0, 0, 0, 0.25);
-    cursor: default;
-  }
-  .ant-dropdown-menu-item:hover,
-  .ant-dropdown-menu-submenu-title:hover {
-    background-color: none;
+.ant-dropdown-menu {
+  :deep(.ant-dropdown-menu-item) {
+    &.itemDisable {
+      color: $action-item-disabled-text;
+      background-color: transparent;
+      cursor: default;
+    }
+    &:hover {
+      background-color: $action-item-hover-bg;
+      &.itemDisable {
+        color: $action-item-disabled-text;
+        background-color: transparent;
+        cursor: default;
+      }
+    }
   }
 }
 </style>

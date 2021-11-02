@@ -1,9 +1,11 @@
 export interface ActionOptionType {
   title: string;
   disabled: boolean;
+  tooltipText: string;
+  tooltipShow: boolean;
 }
 export interface ActionMenuClickType {
-  item: object;
+  item: { class: string };
   key: string;
   keyPath: string;
 }
@@ -37,6 +39,11 @@ export interface FilterDefaultValue {
   dataIndex: string;
   sort: string;
   value: string;
+}
+export interface FilterDefaultMultiValue {
+  dataIndex: string;
+  sort: string;
+  value: 'string' | [];
 }
 export interface FilterTemplate {
   dataIndex: string;
