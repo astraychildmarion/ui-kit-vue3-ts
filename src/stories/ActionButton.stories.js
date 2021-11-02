@@ -35,7 +35,7 @@ const Template = (args) => ({
   },
   // And then the `args` are bound to your component with `v-bind="args"`
   template: `
-  <ActionButton v-bind="args" ></ActionButton>
+  <div style="margin: 20px 0 0 300px"><ActionButton v-bind="args" ></ActionButton></div>
   `,
 });
 

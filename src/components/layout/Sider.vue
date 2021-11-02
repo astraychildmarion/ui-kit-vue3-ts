@@ -137,34 +137,34 @@ export default defineComponent({
         }
       }
       // light theme
-      &.ant-menu-light {
-        background: $sider-bg-light;
-        color: $sider-item-text-light;
+      // &.ant-menu-light {
+      //   background: $sider-bg-light;
+      //   color: $sider-item-text-light;
 
-        .ant-menu-item {
-          a {
-            color: $sider-item-text-light;
-          }
-          &-selected {
-            background: $sider-item-selected-light;
-            color: $sider-item-text-light;
-            &::after {
-              border-right: 3px solid $sider-item-selected-border-light;
-              transform: scaleY(1);
-              opacity: 1;
-            }
-          }
-          &-active {
-            background: $sider-item-active-light;
-            color: $sider-item-text-light;
-          }
-        }
-        .ant-menu-submenu {
-          > .ant-menu {
-            background-color: $sider-bg-light;
-          }
-        }
-      }
+      //   .ant-menu-item {
+      //     a {
+      //       color: $sider-item-text-light;
+      //     }
+      //     &-selected {
+      //       background: $sider-item-selected-light;
+      //       color: $sider-item-text-light;
+      //       &::after {
+      //         border-right: 3px solid $sider-item-selected-border-light;
+      //         transform: scaleY(1);
+      //         opacity: 1;
+      //       }
+      //     }
+      //     &-active {
+      //       background: $sider-item-active-light;
+      //       color: $sider-item-text-light;
+      //     }
+      //   }
+      //   .ant-menu-submenu {
+      //     > .ant-menu {
+      //       background-color: $sider-bg-light;
+      //     }
+      //   }
+      // }
     }
     ::-webkit-scrollbar {
       width: 5px;
@@ -186,7 +186,7 @@ export default defineComponent({
   &__menu-wrapper {
     &__first {
       padding-top: 16px;
-      .ant-menu.ant-menu-dark .ant-menu-item-selected {
+      :deep(.ant-menu.ant-menu-dark) .ant-menu-item-selected {
         background-color: $sider-bg-dark;
         &::after {
           border-right: 0px solid $sider-item-selected-border-dark;

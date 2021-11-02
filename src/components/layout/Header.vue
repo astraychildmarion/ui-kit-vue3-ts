@@ -10,11 +10,6 @@
         </a>
       </div>
       <div class="xy-header__user">
-        <div class="xy-header__user-notification">
-          <Badge dot>
-            <BellOutlined :style="bellStyle" />
-          </Badge>
-        </div>
         <Dropdown @visibleChange="(visible) => (manageMenuVisible = visible)" v-if="manageAuth">
           <a class="xy-header__user-manage ant-dropdown-link" href="#">
             Manage
@@ -37,6 +32,11 @@
             </div>
           </template>
         </Dropdown>
+        <div class="xy-header__user-notification">
+          <Badge dot>
+            <BellOutlined :style="bellStyle" />
+          </Badge>
+        </div>
         <Dropdown>
           <a class="xy-header__user-info ant-dropdown-link" href="#">
             <div class="xy-header__user-info__avatar">
