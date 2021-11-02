@@ -75,13 +75,13 @@ export default defineComponent({
       handleClose,
       propsisShow,
       successStyle: {
-        backgroundColor: '#b4f2e1',
-        borderColor: 'rgba(74, 235, 192, 0.2)',
+        backgroundColor: '#c9fff1',
+        borderColor: '#37c5a0',
         borderRadius: '4px',
       },
       errorStyle: {
         backgroundColor: '#fac7d3',
-        borderColor: 'rgba(255, 240, 242, 0.2)',
+        borderColor: '#ef476f',
         borderRadius: '4px',
       },
     };
@@ -99,10 +99,10 @@ export default defineComponent({
 }
 
 :deep(.ant-alert-success .ant-alert-icon) {
-  color: rgba(3, 184, 137, 0.25);
+  color: #37c5a0;
 }
 
 :deep(.ant-alert-error .ant-alert-icon) {
-  color: rgba(239, 71, 11, 0.25);
+  color: #fac7d3;
 }
 </style>
