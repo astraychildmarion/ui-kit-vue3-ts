@@ -68,6 +68,7 @@
                 <template v-if="checkOptionType(filterItem.dataIndex) === 'dropdown'">
                   <Select
                     v-model:value="filterItem.value"
+                    mode="multiple"
                     @change="checkFormVaildation"
                     class="xy-filter__body-item-select-sub"
                   >
@@ -132,7 +133,12 @@ import {
 /* eslint-disable import/no-extraneous-dependencies */
 import moment from 'moment';
 import debounce from 'lodash/debounce';
-import { FilterDefaultValue, FilterOption, FilterTemplate } from './interface';
+import {
+  FilterDefaultValue,
+  FilterOption,
+  FilterTemplate,
+  FilterDefaultMultiValue,
+} from './interface';
 
 export default defineComponent({
   name: 'XYFilter',
@@ -167,7 +173,7 @@ export default defineComponent({
 
     const checkSortDisable = (dataIndex: string) => {
       const type = checkOptionType(dataIndex);
-      filterItems.forEach((item: FilterDefaultValue) => {
+      filterItems.forEach((item: FilterDefaultValue | FilterDefaultMultiValue) => {
         // eslint-disable-next-line no-param-reassign
         if (item.dataIndex === dataIndex && type !== undefined) item.sort = 'is';
       });
@@ -179,10 +185,22 @@ export default defineComponent({
     }, 500);
 
     const checkFormVaildation = (inputValue: object | InputEvent | string) => {
+      const checkType = (dataIndex : typeof inputValue) => {
+          const result = props.filterOption.find(
+          (item) => item.dataIndex === dataIndex && item?.type !== undefined,
+        );
+        return result?.type
+      }
       if (inputValue !== null) {
-        filterItems.forEach((item: FilterDefaultValue) => {
+        filterItems.forEach((item: FilterDefaultValue | FilterDefaultMultiValue) => {
           // eslint-disable-next-line no-param-reassign
-          if (item.dataIndex === inputValue) item.value = '';
+          if (item.dataIndex === inputValue) {
+            if (checkType(inputValue) === 'dropdown') {
+              item.value = [];
+            } else {
+              item.value = '';
+            }
+          }
         });
       }
       debounceFilterEmit();
