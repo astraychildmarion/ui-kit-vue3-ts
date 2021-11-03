@@ -166,7 +166,18 @@ export default defineComponent({
       &.ant-menu-light {
         background: $sider-bg-light;
         color: $sider-item-text-light;
-
+        &.xy-applist-drawer__first-item {
+          padding-top: 16px;
+          .ant-menu-item-selected {
+            background: transparent;
+            color: $sider-item-text-light;
+            &::after {
+              border-right: none;
+              transform: scaleY(0);
+              opacity: 0;
+            }
+          }
+        }
         .ant-menu-item {
           a {
             color: $sider-item-text-light;
@@ -196,9 +207,6 @@ export default defineComponent({
         }
       }
     }
-  }
-  &__first-item {
-    padding-top: 16px;
   }
 }
 

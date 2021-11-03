@@ -1,9 +1,16 @@
 <template>
-  <Input v-model:value="searchContent" id="xy-search-bar" @pressEnter="searchBarEnter">
-    <template #prefix>
-      <SearchOutlined />
-    </template>
-  </Input>
+  <div class="xy-search-bar__wrapper">
+    <Input
+      v-model:value="searchContent"
+      id="xy-search-bar"
+      @pressEnter="searchBarEnter"
+      :placeholder="placeholder"
+    >
+      <template #suffix>
+        <SearchOutlined />
+      </template>
+    </Input>
+  </div>
 </template>
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
@@ -14,6 +21,12 @@ import { SearchBarTargetType } from './interface';
 export default defineComponent({
   components: { Input, SearchOutlined },
   emits: ['searchBarEnter'],
+  props: {
+    placeholder: {
+      default: 'Search on server list',
+      type: String,
+    },
+  },
   setup(props, { emit }) {
     const searchContent = ref<string>('');
     function searchBarEnter({ target }: SearchBarTargetType) {
@@ -26,3 +39,10 @@ export default defineComponent({
   },
 });
 </script>
+<style lang="scss" scoped>
+.xy-search-bar {
+  &__wrapper {
+    width: 224px;
+  }
+}
+</style>

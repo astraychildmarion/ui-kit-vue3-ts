@@ -9,6 +9,9 @@ export default {
       description:
         "Event name is `searchBarEnter`. This event would be triggered when press Enter. Throw back input's value.",
     },
+    placeholder: {
+      description: 'Placeholder default is `Search on server list`.',
+    },
   },
 };
 

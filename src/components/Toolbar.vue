@@ -13,6 +13,7 @@
           @filterChange="filterChange"
         />
         <ActionButton
+          :isToolbar="true"
           :actionOption="actionOption"
           :isTableCheckbox="isTableCheckbox"
           @clickAction="clickAction"
