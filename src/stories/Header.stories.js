@@ -67,10 +67,10 @@ Default.args = {
   manageAuth: true,
   logoUrl: '/logo.svg',
   manageMenu: [
-    { name: 'Role Manage (IAM)', url: '#', iconPath: './Icon_interface_IAM_outline.svg' },
-    { name: 'XY IAM', url: '#', icon: 'smile' },
+    { name: 'XY IAM', url: '#' },
+    { name: 'WooshPush', url: '#' },
   ],
-  userMenu: [{ name: 'Member', url: '#', icon: 'team' }],
+  userMenu: [{ name: 'Member', url: '#' }],
   userInfo: {
     name: 'Amberiel Cheng',
     avatar: 'AC',

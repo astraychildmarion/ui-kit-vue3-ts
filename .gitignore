@@ -5,3 +5,4 @@ dist-ssr
 .vscode
 *.local
 storybookDist
+yarn-error.log

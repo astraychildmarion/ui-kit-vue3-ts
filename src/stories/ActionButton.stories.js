@@ -5,12 +5,18 @@ export default {
   component: ActionButton,
   argTypes: {
     actionOption: {
-      description: "Data to render Action's items.",
+      description:
+        "Data to render Action's items. `disabled` decide it is clickable, `tooltipShow` decide whether to show tooltip, `tooltipText` is the tooltip text.",
       type: 'array',
+    },
+    isToolbar: {
+      description:
+        "An inner setting to saparate toolbar complex component and simple display. Basically you don't need to handle this.",
+      type: 'boolean',
     },
     isTableCheckbox: {
       description:
-        "A boolean to con trol the tooltip. True means table's checkboxes had been checked and user can choose actions.",
+        "A boolean to control the tooltip. `True` means table's checkboxes had been checked and user can choose actions.",
       type: 'boolean',
     },
     onClickAction: {
@@ -29,17 +35,28 @@ const Template = (args) => ({
   },
   // And then the `args` are bound to your component with `v-bind="args"`
   template: `
-  <ActionButton v-bind="args" ></ActionButton>
+  <div style="margin: 20px 0 0 300px"><ActionButton v-bind="args" ></ActionButton></div>
   `,
 });
 
 export const Default = Template.bind({});
 Default.args = {
   actionOption: [
-    { title: 'Resize', disabled: false },
-    { title: 'Create from', disabled: false },
-    { title: 'Rollback', disabled: false },
-    { title: 'Decom', disabled: false },
+    {
+      title: 'Resize',
+      disabled: true,
+      tooltipShow: true,
+      tooltipText: 'Batch resize only support the same OS. ',
+    },
+    {
+      title: 'Create from',
+      disabled: true,
+      tooltipShow: true,
+      tooltipText: 'Only support single source VM selection ',
+    },
+    { title: 'Rollback', disabled: false, tooltipShow: false, tooltipText: '' },
+    { title: 'Decom', disabled: false, tooltipShow: false, tooltipText: '' },
   ],
   isTableCheckbox: true,
+  isToolbar: false,
 };

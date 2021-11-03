@@ -15,4 +15,7 @@ Import .vue file into stories file, edit `title: 'UI-KIT/a new name'` in stories
 ### Step 2: Development components
 Now you can develop components in storybook.
 ### Step 3: Update index.ts
-`index.ts` is a catalog for components. Vite build would take index.ts as an entry and build components under catalog.
+`index.ts` is a catalog for components. Vite build would take index.ts as an entry and build components under catalog.   
+```
+export { default as XYxxxx } from './**/xxxx.vue';
+```

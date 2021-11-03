@@ -10,11 +10,6 @@
         </a>
       </div>
       <div class="xy-header__user">
-        <div class="xy-header__user-notification">
-          <Badge dot>
-            <BellOutlined :style="bellStyle" />
-          </Badge>
-        </div>
         <Dropdown @visibleChange="(visible) => (manageMenuVisible = visible)" v-if="manageAuth">
           <a class="xy-header__user-manage ant-dropdown-link" href="#">
             Manage
@@ -37,6 +32,11 @@
             </div>
           </template>
         </Dropdown>
+        <div class="xy-header__user-notification">
+          <Badge dot>
+            <BellOutlined :style="bellStyle" />
+          </Badge>
+        </div>
         <Dropdown>
           <a class="xy-header__user-info ant-dropdown-link" href="#">
             <div class="xy-header__user-info__avatar">
@@ -72,7 +72,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { defineComponent, ref, PropType } from 'vue';
 import {
   LogoutOutlined,
   AppstoreOutlined,
@@ -81,6 +81,7 @@ import {
   BellOutlined,
 } from '@ant-design/icons-vue';
 import { Dropdown, Avatar, Badge } from 'ant-design-vue';
+import { HeaderUserMenu } from '../interface';
 
 export default defineComponent({
   name: 'XYHeader',
@@ -104,22 +105,16 @@ export default defineComponent({
       default: '',
     },
     manageMenu: {
-      type: Array,
-      default() {
-        return [];
-      },
+      type: Array as PropType<HeaderUserMenu[]>,
+      default: () => [],
     },
     userMenu: {
-      type: Array,
-      default() {
-        return [];
-      },
+      type: Array as PropType<HeaderUserMenu[]>,
+      default: () => [],
     },
     userInfo: {
       type: Object,
-      default() {
-        return {};
-      },
+      default: () => ({}),
     },
     manageAuth: {
       type: Boolean,

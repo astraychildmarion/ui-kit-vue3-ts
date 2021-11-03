@@ -13,6 +13,7 @@
           @filterChange="filterChange"
         />
         <ActionButton
+          :isToolbar="true"
           :actionOption="actionOption"
           :isTableCheckbox="isTableCheckbox"
           @clickAction="clickAction"
@@ -21,7 +22,7 @@
     </div>
     <div class="xy-toolbar__right">
       <Space size="large">
-        <ExportExcelButton
+        <ExportButton
           :exportExcelOption="exportExcelOption"
           @clickExport="clickExport"
           :isLoading="isExportLoading"
@@ -38,17 +39,25 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, PropType } from 'vue';
 import { Space } from 'ant-design-vue';
 import Filter from './Filter.vue';
 import ActionButton from './ActionButton.vue';
-import ExportExcelButton from './ExportExcelButton.vue';
+import ExportButton from './ExportButton.vue';
 import XYPagination from './Pagination.vue';
 import CustomizeDisplay from './CustomizeDisplay.vue';
 
+import {
+  ActionOptionType,
+  CustomizeDisplayItemOptType,
+  ExportExcelDropdownData,
+  FilterOption,
+  FilterDefaultValue,
+} from './interface';
+
 export default defineComponent({
   name: 'Toolbar',
-  components: { Filter, ActionButton, ExportExcelButton, XYPagination, CustomizeDisplay, Space },
+  components: { Filter, ActionButton, ExportButton, XYPagination, CustomizeDisplay, Space },
   emits: [
     'clickExport',
     'filterChange',
@@ -60,25 +69,25 @@ export default defineComponent({
   props: {
     customizeDisplayCheckboxOption: {
       required: true,
-      type: Array,
+      type: Array as PropType<CustomizeDisplayItemOptType[]>,
     },
     customizeDisplayDefaultSelected: {
       type: Array,
     },
     filterOption: {
       required: true,
-      type: Object,
+      type: Array as PropType<FilterOption[]>,
     },
     filterDefaultValue: {
-      type: Array,
+      type: Array as PropType<FilterDefaultValue[]>,
     },
     actionOption: {
       required: true,
-      type: Array,
+      type: Array as PropType<ActionOptionType[]>,
     },
     exportExcelOption: {
       required: true,
-      type: Array,
+      type: Array as PropType<ExportExcelDropdownData[]>,
     },
     isTableCheckbox: {
       type: Boolean,

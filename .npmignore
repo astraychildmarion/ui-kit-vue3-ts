@@ -5,6 +5,7 @@ public/
 .eslintignore
 .gitignore
 package-lock.json
+node_modules
 vite.config.js
 yarn.lock
 .husky/
@@ -20,6 +21,3 @@ Dockerfile
 README.md
 index.html
 vite.config.ts
-dist/**.svg
-dist/**.png
-dist/favicon.ico

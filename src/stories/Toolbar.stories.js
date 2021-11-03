@@ -62,7 +62,7 @@ export default {
     onClickExport: {
       action: 'clickExport',
       description:
-        "Event name is `clickExport`. Callback when click. Refering to ExportExcelButton's event.",
+        "Event name is `clickExport`. Callback when click. Refering to ExportButton's event.",
     },
     onChangePage: {
       action: 'changePage',
