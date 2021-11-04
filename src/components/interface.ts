@@ -31,19 +31,14 @@ export interface ExportExcelMenuType {
 }
 export interface FilterOption {
   title: string;
-  dataIndex: string;
-  type?: string;
-  typeOption?: any[];
+  field: string;
+  format?: string;
+  formatOption?: any[];
 }
 export interface FilterDefaultValue {
-  dataIndex: string;
-  sort?: string;
+  field: string;
+  mode: string;
   value: any;
-}
-export interface FilterTemplate {
-  dataIndex: string;
-  value: string | [];
-  sort: string;
 }
 export interface HeaderUserMenu {
   name: string;

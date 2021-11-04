@@ -41,32 +41,30 @@
                 class="xy-filter__body-item"
               >
                 <Select
-                  v-model:value="filterItem.dataIndex"
+                  v-model:value="filterItem.field"
                   class="xy-filter__body-item-select"
-                  @change="changeFilterSelector(filterItem.dataIndex)"
+                  @change="changeFilterSelector(filterItem.field)"
                 >
                   <Option
                     v-for="(option, optionIndex) in filterOption"
                     :key="optionIndex"
-                    :value="option.dataIndex"
-                    :disabled="
-                      filterItems.some((filterItem) => filterItem.dataIndex === option.dataIndex)
-                    "
+                    :value="option.field"
+                    :disabled="filterItems.some((filterItem) => filterItem.field === option.field)"
                     >{{ option.title }}</Option
                   >
                 </Select>
                 <Select
-                  v-if="checkOptionType(filterItem.dataIndex) !== 'date'"
-                  v-model:value="filterItem.sort"
+                  v-if="checkDataFormat(filterItem.field) !== 'calendar'"
+                  v-model:value="filterItem.mode"
                   class="xy-filter__body-item-select filter__sort"
                   @change="debounceFilterEmit"
-                  :disabled="checkSortDisable(filterItem.dataIndex)"
+                  :disabled="checkSortDisable(filterItem.field)"
                 >
                   <Option v-for="sort in filterSort" :key="sort.value" :value="sort.value">{{
                     sort.title
                   }}</Option>
                 </Select>
-                <template v-if="checkOptionType(filterItem.dataIndex) === 'dropdown'">
+                <template v-if="checkDataFormat(filterItem.field) === 'dropdown'">
                   <Select
                     v-model:value="filterItem.value"
                     mode="multiple"
@@ -74,14 +72,14 @@
                     class="xy-filter__body-item-select-sub"
                   >
                     <Option
-                      v-for="subOption in getSuboption(filterItem.dataIndex)"
-                      :key="subOption.dataIndex"
-                      :value="subOption.dataIndex"
+                      v-for="subOption in getSuboption(filterItem.field)"
+                      :key="subOption.field"
+                      :value="subOption.field"
                       >{{ subOption.title }}</Option
                     >
                   </Select>
                 </template>
-                <template v-if="checkOptionType(filterItem.dataIndex) === 'date'">
+                <template v-if="checkDataFormat(filterItem.field) === 'calendar'">
                   <RangePicker
                     :disabled-date="disabledDate"
                     v-model:value="rangeValue"
@@ -89,7 +87,7 @@
                     @change="handlerGetRange"
                   />
                 </template>
-                <template v-if="checkOptionType(filterItem.dataIndex) === undefined">
+                <template v-if="checkDataFormat(filterItem.field) === undefined">
                   <Tooltip placement="top" :overlayStyle="handlerOverlayStyle(filterItem.value)">
                     <template #title>
                       <span>{{ filterItem.value }}</span>
@@ -99,7 +97,7 @@
                       placeholder="Value"
                       v-model:value="filterItem.value"
                       @change="debounceFilterEmit"
-                      :key="filterItem.dataIndex"
+                      :key="filterItem.field"
                     />
                   </Tooltip>
                 </template>
@@ -140,7 +138,7 @@ import {
 /* eslint-disable import/no-extraneous-dependencies */
 import moment, { Moment } from 'moment';
 import debounce from 'lodash/debounce';
-import { FilterDefaultValue, FilterOption, FilterTemplate } from './interface';
+import { FilterDefaultValue, FilterOption } from './interface';
 
 export default defineComponent({
   name: 'XYFilter',
@@ -160,24 +158,25 @@ export default defineComponent({
     let filterItems = reactive([]) as Array<FilterDefaultValue>;
     const addFilter = () => {
       // e.preventDefault();
-      const filterTemplate: FilterTemplate = {
-        dataIndex: '',
+      const filterTemplate: FilterDefaultValue = {
+        field: '',
         value: '',
-        sort: 'contains',
+        mode: 'contain',
       };
       filterItems.push({ ...filterTemplate });
     };
-    const checkOptionType = (dataIndex: string) => {
+    const checkDataFormat = (field: string) => {
       const result = props.filterOption.find(
-        (item) => item.dataIndex === dataIndex && item?.type !== undefined,
+        (item) => item.field === field && item?.format !== undefined,
       );
-      return result?.type;
+      console.log(field, result?.format);
+      return result?.format;
     };
-    const checkSortDisable = (dataIndex: string) => {
-      const type = checkOptionType(dataIndex);
+    const checkSortDisable = (field: string) => {
+      const type = checkDataFormat(field);
       filterItems.forEach((item: FilterDefaultValue) => {
         // eslint-disable-next-line no-param-reassign
-        if (item.dataIndex === dataIndex && type !== undefined) item.sort = 'in';
+        if (item.field === field && type !== undefined) item.mode = 'in';
       });
       return type !== undefined;
     };
@@ -185,16 +184,16 @@ export default defineComponent({
     const debounceFilterEmit = debounce(function () {
       // check data sort
       // sort is IN coerece to array
-      // sort is Contains coerece to string
+      // sort is contain coerece to string
       const editFilterItems = filterItems.map(item => {
-        if (item.sort === 'contains' && typeof item.value === 'string') {
+        if (item.mode === 'contain' && typeof item.value === 'string') {
           return item
-        } else if (item.sort === 'contains' && typeof item.value !== 'string') {
+        } else if (item.mode === 'contain' && typeof item.value !== 'string') {
           item.value = String(item.value)
           return item
-        } else if (item.sort === 'in' && Array.isArray(item.value)) {
+        } else if (item.mode === 'in' && Array.isArray(item.value)) {
           return item
-        } else if (item.sort === 'in' && !Array.isArray(item.value)) {
+        } else if (item.mode === 'in' && !Array.isArray(item.value)) {
           item.value = item.value.split(',')
           return item
         } else {
@@ -203,18 +202,13 @@ export default defineComponent({
       })
       emit('filterChange', editFilterItems);
     }, 500);
-    const checkDataType = (dataIndex: string) => {
-      const result = props.filterOption.find(
-        (item) => item.dataIndex === dataIndex && item?.type !== undefined,
-      );
-      return result?.type;
-    };
+
     // clean value input when selector changed
-    const changeFilterSelector = (dataIndex: string): void => {
+    const changeFilterSelector = (field: string): void => {
       filterItems.forEach((item: FilterDefaultValue) => {
         // eslint-disable-next-line no-param-reassign
-        if (item.dataIndex === dataIndex) {
-          if (checkDataType(dataIndex) === 'dropdown' || checkDataType(dataIndex) === 'date') {
+        if (item.field === field) {
+          if (checkDataFormat(field) === 'dropdown' || checkDataFormat(field) === 'calendar') {
             item.value = [];
           } else {
             item.value = '';
@@ -224,18 +218,18 @@ export default defineComponent({
       debounceFilterEmit();
     };
     const deleteFilter = (index: number): void => {
-      const name = filterItems[index]['dataIndex'];
-      const type = checkDataType(name);
-      if (type === 'date') rangeValue.value = [];
+      const name = filterItems[index]['field'];
+      const type = checkDataFormat(name);
+      if (type === 'calendar') rangeValue.value = [];
       filterItems.splice(index, 1);
       // emit('filterChange', filterItems);
       debounceFilterEmit();
     };
-    const getSuboption = (dataIndex: string) => {
+    const getSuboption = (field: string) => {
       const result = props.filterOption.find(
-        (item) => item.dataIndex === dataIndex && item?.type !== undefined,
+        (item) => item.field === field && item?.format !== undefined,
       );
-      return result?.typeOption;
+      return result?.formatOption;
     };
     const handleMenuClick = () => {
       visible.value = true;
@@ -246,7 +240,7 @@ export default defineComponent({
       // emit('filterChange', filterItems);
       debounceFilterEmit();
     };
-    const  handlerOverlayStyle = (text: string) => {
+    const handlerOverlayStyle = (text: string) => {
       const noshow = { visibility: 'hidden' };
       // 19 digits and the input can not show the whole phase
       return text.length > 18 ? undefined : noshow;
@@ -256,10 +250,8 @@ export default defineComponent({
     };
     const handlerGetRange = () => {
       filterItems.forEach((item) => {
-        if (item.dataIndex === 'last_update') {
-          item.value = rangeValue.value;
-          item.sort = 'in';
-        }
+        item.value = rangeValue.value;
+        item.mode = 'in';
       });
       // emit('filterChange', filterItems);
       debounceFilterEmit();
@@ -273,11 +265,11 @@ export default defineComponent({
         filterItems = reactive(props.filterDefaultValue);
         // specially update range
         filterItems.forEach((item) => {
-          if (item.dataIndex === 'last_update' || item.dataIndex === 'date') {
+          if (checkDataFormat(item.field) === 'calendar') {
             rangeValue.value = item.value;
-            item.sort = 'in';
+            item.mode = 'in';
           }
-          if (item.sort === 'in' && checkOptionType(item.dataIndex) === undefined) {
+          if (item.mode === 'in' && checkDataFormat(item.field) === undefined) {
             item.value = item.value.toString()
           }
         });
@@ -314,7 +306,7 @@ export default defineComponent({
       disabledDate,
       changeFilterSelector,
       checkSortDisable,
-      checkOptionType,
+      checkDataFormat,
       getSuboption,
     };
   },
@@ -339,7 +331,7 @@ export default defineComponent({
       filterSort: [
         {
           title: 'Contains',
-          value: 'contains',
+          value: 'contain',
         },
         {
           title: 'IN',

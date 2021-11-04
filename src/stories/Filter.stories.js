@@ -38,101 +38,101 @@ Default.args = {
   filterOption: [
     {
       title: 'BU',
-      dataIndex: 'business_unit',
-      type: 'dropdown',
-      typeOption: [
-        { title: 'YT-CWD', dataIndex: 'YT-CWD' },
-        { title: 'XJ', dataIndex: 'XJ' },
-        { title: 'SBK', dataIndex: 'SBK' },
+      field: 'business_unit',
+      format: 'dropdown',
+      formatOption: [
+        { title: 'YT-CWD', field: 'YT-CWD' },
+        { title: 'XJ', field: 'XJ' },
+        { title: 'SBK', field: 'SBK' },
       ],
     },
     {
       title: 'Shared with',
-      dataIndex: 'shared_with',
-      type: 'dropdown',
-      typeOption: [
-        { title: '188Asia', dataIndex: '188Asia' },
-        { title: 'BI', dataIndex: 'BI' },
-        { title: 'Innovation Lab', dataIndex: 'Innovation Lab' },
-        { title: 'INFRA-APP', dataIndex: 'INFRA-APP' },
-        { title: 'INFRA-CEM', dataIndex: 'INFRA-CEM' },
-        { title: 'INFRA-STORM', dataIndex: 'INFRA-STORM' },
+      field: 'shared_with',
+      format: 'dropdown',
+      formatOption: [
+        { title: '188Asia', field: '188Asia' },
+        { title: 'BI', field: 'BI' },
+        { title: 'Innovation Lab', field: 'Innovation Lab' },
+        { title: 'INFRA-APP', field: 'INFRA-APP' },
+        { title: 'INFRA-CEM', field: 'INFRA-CEM' },
+        { title: 'INFRA-STORM', field: 'INFRA-STORM' },
       ],
     },
     {
       title: 'ServiceLAN IP',
-      dataIndex: 'service_lan_ip',
+      field: 'service_lan_ip',
     },
     {
       title: 'Hostname',
-      dataIndex: 'hostname',
+      field: 'hostname',
     },
     {
       title: 'BU Application Name',
-      dataIndex: 'bu_application',
+      field: 'bu_application',
     },
     {
       title: 'Type',
-      dataIndex: 'server_type',
-      type: 'dropdown',
-      typeOption: [
+      field: 'server_type',
+      format: 'dropdown',
+      formatOption: [
         {
           title: 'VM',
-          dataIndex: 'vm',
+          field: 'vm',
         },
         {
           title: 'PHY',
-          dataIndex: 'phy',
+          field: 'phy',
         },
       ],
     },
     {
       title: 'CPU (GB)',
-      dataIndex: 'cpu',
+      field: 'cpu',
     },
     {
       title: 'RAM (GB)',
-      dataIndex: 'ram',
+      field: 'ram',
     },
     {
       title: 'Disk (GB)',
-      dataIndex: 'disk',
+      field: 'disk',
     },
     {
       title: 'OS',
-      dataIndex: 'os',
-      type: 'dropdown',
-      typeOption: [
+      field: 'os',
+      format: 'dropdown',
+      formatOption: [
         {
           title: 'Windows',
-          dataIndex: 'windows',
+          field: 'windows',
         },
         {
           title: 'Linux',
-          dataIndex: 'linux',
+          field: 'linux',
         },
       ],
     },
     {
       title: 'Last Update',
-      dataIndex: 'last_update',
-      type: 'date',
+      field: 'last_update',
+      format: 'calendar',
     },
   ],
   filterDefaultValue: [
     {
-      dataIndex: 'hostname',
-      sort: 'in',
+      field: 'hostname',
+      mode: 'in',
       value: ['host', '1234', 'abc'],
     },
     {
-      dataIndex: 'server_type',
-      sort: 'in',
+      field: 'server_type',
+      mode: 'in',
       value: ['phy'],
     },
     {
-      dataIndex: 'last_update',
-      sort: 'in',
+      field: 'last_update',
+      mode: 'in',
       value: [moment('2021-08-01 18:01:44'), moment('2021-08-01 18:01:44')],
     },
   ],
