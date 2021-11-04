@@ -41,60 +41,65 @@
                 class="xy-filter__body-item"
               >
                 <Select
-                  v-model:value="filterItem.dataIndex"
+                  v-model:value="filterItem.field"
                   class="xy-filter__body-item-select"
-                  @change="checkFormVaildation(filterItem.dataIndex)"
+                  @change="changeFilterSelector(filterItem.field)"
                 >
                   <Option
                     v-for="(option, optionIndex) in filterOption"
                     :key="optionIndex"
-                    :value="option.dataIndex"
-                    :disabled="
-                      filterItems.some((filterItem) => filterItem.dataIndex === option.dataIndex)
-                    "
+                    :value="option.field"
+                    :disabled="filterItems.some((filterItem) => filterItem.field === option.field)"
                     >{{ option.title }}</Option
                   >
                 </Select>
                 <Select
-                  v-model:value="filterItem.sort"
+                  v-if="checkDataFormat(filterItem.field) !== 'calendar'"
+                  v-model:value="filterItem.mode"
                   class="xy-filter__body-item-select filter__sort"
-                  @change="checkFormVaildation"
-                  :disabled="checkSortDisable(filterItem.dataIndex)"
+                  @change="debounceFilterEmit"
+                  :disabled="checkSortDisable(filterItem.field)"
                 >
                   <Option v-for="sort in filterSort" :key="sort.value" :value="sort.value">{{
                     sort.title
                   }}</Option>
                 </Select>
-                <template v-if="checkOptionType(filterItem.dataIndex) === 'dropdown'">
+                <template v-if="checkDataFormat(filterItem.field) === 'dropdown'">
                   <Select
                     v-model:value="filterItem.value"
                     mode="multiple"
-                    @change="checkFormVaildation"
+                    @change="debounceFilterEmit"
                     class="xy-filter__body-item-select-sub"
                   >
                     <Option
-                      v-for="subOption in getSuboption(filterItem.dataIndex)"
-                      :key="subOption.dataIndex"
-                      :value="subOption.dataIndex"
+                      v-for="subOption in getSuboption(filterItem.field)"
+                      :key="subOption.field"
+                      :value="subOption.field"
                       >{{ subOption.title }}</Option
                     >
                   </Select>
                 </template>
-                <template v-if="checkOptionType(filterItem.dataIndex) === 'date'">
-                  <DatePicker
-                    @change="checkFormVaildation"
+                <template v-if="checkDataFormat(filterItem.field) === 'calendar'">
+                  <RangePicker
                     :disabled-date="disabledDate"
-                    v-model:value="filterItem.value"
+                    v-model:value="rangeValue"
+                    format="MM-DD-YYYY"
+                    @change="handlerGetRange"
                   />
                 </template>
-                <template v-if="checkOptionType(filterItem.dataIndex) === undefined">
-                  <Input
-                    class="xy-filter__body-item-input"
-                    placeholder="Value"
-                    v-model:value="filterItem.value"
-                    @change="checkFormVaildation"
-                    :key="filterItem.dataIndex"
-                  />
+                <template v-if="checkDataFormat(filterItem.field) === undefined">
+                  <Tooltip placement="top" :overlayStyle="handlerOverlayStyle(filterItem.value)">
+                    <template #title>
+                      <span>{{ filterItem.value }}</span>
+                    </template>
+                    <Input
+                      class="xy-filter__body-item-input"
+                      placeholder="Value"
+                      v-model:value="filterItem.value"
+                      @change="debounceFilterEmit"
+                      :key="filterItem.field"
+                    />
+                  </Tooltip>
                 </template>
                 <Button class="xy-filter__body-item-button" @click="deleteFilter(index)">
                   <template #icon>
@@ -123,7 +128,7 @@
 </template>
 <script lang="ts">
 import { PropType, defineComponent, reactive, ref, watchEffect, computed } from 'vue';
-import { Button, Dropdown, Select, Input, Form, DatePicker, Menu } from 'ant-design-vue';
+import { Button, Dropdown, Select, Input, Form, DatePicker, Menu, Tooltip } from 'ant-design-vue';
 import {
   CheckCircleOutlined,
   FilterOutlined,
@@ -131,14 +136,9 @@ import {
   DeleteOutlined,
 } from '@ant-design/icons-vue';
 /* eslint-disable import/no-extraneous-dependencies */
-import moment from 'moment';
+import moment, { Moment } from 'moment';
 import debounce from 'lodash/debounce';
-import {
-  FilterDefaultValue,
-  FilterOption,
-  FilterTemplate,
-  FilterDefaultMultiValue,
-} from './interface';
+import { FilterDefaultValue, FilterOption } from './interface';
 
 export default defineComponent({
   name: 'XYFilter',
@@ -154,88 +154,126 @@ export default defineComponent({
   emits: ['filterChange'],
   setup(props, { emit }) {
     const visible = ref(false);
+    const rangeValue = ref<[]>([]);
     let filterItems = reactive([]) as Array<FilterDefaultValue>;
     const addFilter = () => {
       // e.preventDefault();
-      const filterTemplate: FilterTemplate = {
-        dataIndex: '',
+      const filterTemplate: FilterDefaultValue = {
+        field: '',
         value: '',
-        sort: 'contain',
+        mode: 'contain',
       };
       filterItems.push({ ...filterTemplate });
     };
-    const checkOptionType = (dataIndex: string) => {
+    const checkDataFormat = (field: string) => {
       const result = props.filterOption.find(
-        (item) => item.dataIndex === dataIndex && item?.type !== undefined,
+        (item) => item.field === field && item?.format !== undefined,
       );
-      return result?.type;
+      console.log(field, result?.format);
+      return result?.format;
     };
-
-    const checkSortDisable = (dataIndex: string) => {
-      const type = checkOptionType(dataIndex);
-      filterItems.forEach((item: FilterDefaultValue | FilterDefaultMultiValue) => {
+    const checkSortDisable = (field: string) => {
+      const type = checkDataFormat(field);
+      filterItems.forEach((item: FilterDefaultValue) => {
         // eslint-disable-next-line no-param-reassign
-        if (item.dataIndex === dataIndex && type !== undefined) item.sort = 'is';
+        if (item.field === field && type !== undefined) item.mode = 'in';
       });
       return type !== undefined;
     };
     /* eslint-disable */
     const debounceFilterEmit = debounce(function () {
-      onFilterChange();
+      // check data sort
+      // sort is IN coerece to array
+      // sort is contain coerece to string
+      const editFilterItems = filterItems.map(item => {
+        if (item.mode === 'contain' && typeof item.value === 'string') {
+          return item
+        } else if (item.mode === 'contain' && typeof item.value !== 'string') {
+          item.value = String(item.value)
+          return item
+        } else if (item.mode === 'in' && Array.isArray(item.value)) {
+          return item
+        } else if (item.mode === 'in' && !Array.isArray(item.value)) {
+          item.value = item.value.split(',')
+          return item
+        } else {
+          console.log('WEIRED!', item);
+        }
+      })
+      emit('filterChange', editFilterItems);
     }, 500);
 
-    const checkFormVaildation = (inputValue: object | InputEvent | string) => {
-      const checkType = (dataIndex : typeof inputValue) => {
-          const result = props.filterOption.find(
-          (item) => item.dataIndex === dataIndex && item?.type !== undefined,
-        );
-        return result?.type
-      }
-      if (inputValue !== null) {
-        filterItems.forEach((item: FilterDefaultValue | FilterDefaultMultiValue) => {
-          // eslint-disable-next-line no-param-reassign
-          if (item.dataIndex === inputValue) {
-            if (checkType(inputValue) === 'dropdown') {
-              item.value = [];
-            } else {
-              item.value = '';
-            }
+    // clean value input when selector changed
+    const changeFilterSelector = (field: string): void => {
+      filterItems.forEach((item: FilterDefaultValue) => {
+        // eslint-disable-next-line no-param-reassign
+        if (item.field === field) {
+          if (checkDataFormat(field) === 'dropdown' || checkDataFormat(field) === 'calendar') {
+            item.value = [];
+          } else {
+            item.value = '';
           }
-        });
-      }
+        }
+      });
       debounceFilterEmit();
     };
-    const deleteFilter = (index: number) => {
+    const deleteFilter = (index: number): void => {
+      const name = filterItems[index]['field'];
+      const type = checkDataFormat(name);
+      if (type === 'calendar') rangeValue.value = [];
       filterItems.splice(index, 1);
-      emit('filterChange', filterItems);
+      // emit('filterChange', filterItems);
+      debounceFilterEmit();
     };
-
-    const getSuboption = (dataIndex: string) => {
+    const getSuboption = (field: string) => {
       const result = props.filterOption.find(
-        (item) => item.dataIndex === dataIndex && item?.type !== undefined,
+        (item) => item.field === field && item?.format !== undefined,
       );
-      return result?.typeOption;
+      return result?.formatOption;
     };
     const handleMenuClick = () => {
       visible.value = true;
     };
     const handlerClean = () => {
+      rangeValue.value = [];
       filterItems.splice(0, filterItems.length);
-      emit('filterChange', filterItems);
+      // emit('filterChange', filterItems);
+      debounceFilterEmit();
     };
+    const handlerOverlayStyle = (text: string) => {
+      const noshow = { visibility: 'hidden' };
+      // 19 digits and the input can not show the whole phase
+      return text.length > 18 ? undefined : noshow;
+    }
     const hideFilterPopup = () => {
       visible.value = false;
     };
-    const onFilterChange = () => {
-      emit('filterChange', filterItems);
+    const handlerGetRange = () => {
+      filterItems.forEach((item) => {
+        item.value = rangeValue.value;
+        item.mode = 'in';
+      });
+      // emit('filterChange', filterItems);
+      debounceFilterEmit();
     };
-
     // Can not select days after today
-    const disabledDate = (current: any) => current > moment().endOf('day');
+    const disabledDate = (current: Moment) => {
+      return current && current > moment().endOf('day');
+    };
     watchEffect(() => {
-      if (props.filterDefaultValue && props.filterDefaultValue.length > 0)
+      if (props.filterDefaultValue && props.filterDefaultValue.length > 0) {
         filterItems = reactive(props.filterDefaultValue);
-      console.log('watch', filterItems);
+        // specially update range
+        filterItems.forEach((item) => {
+          if (checkDataFormat(item.field) === 'calendar') {
+            rangeValue.value = item.value;
+            item.mode = 'in';
+          }
+          if (item.mode === 'in' && checkDataFormat(item.field) === undefined) {
+            item.value = item.value.toString()
+          }
+        });
+      }
     });
 
     const addFilterBtnDisabled = computed(() => {
@@ -253,19 +291,23 @@ export default defineComponent({
     return {
       visible,
       filterItems,
-      handleMenuClick,
-      handlerClean,
-      addFilter,
-      deleteFilter,
-      hideFilterPopup,
-      disabledDate,
-      checkSortDisable,
-      checkOptionType,
-      getSuboption,
-      checkFormVaildation,
+      debounceFilterEmit,
+      rangeValue,
       addFilterBtnDisabled,
       active,
       titleText,
+      handleMenuClick,
+      handlerClean,
+      handlerGetRange,
+      hideFilterPopup,
+      handlerOverlayStyle,
+      addFilter,
+      deleteFilter,
+      disabledDate,
+      changeFilterSelector,
+      checkSortDisable,
+      checkDataFormat,
+      getSuboption,
     };
   },
   components: {
@@ -276,8 +318,9 @@ export default defineComponent({
     Dropdown,
     Form,
     FormItem: Form.Item,
-    DatePicker,
+    RangePicker: DatePicker.RangePicker,
     Menu,
+    Tooltip,
     CheckCircleOutlined,
     FilterOutlined,
     PlusOutlined,
@@ -287,12 +330,12 @@ export default defineComponent({
     return {
       filterSort: [
         {
-          title: 'Contain',
+          title: 'Contains',
           value: 'contain',
         },
         {
-          title: 'Is',
-          value: 'is',
+          title: 'IN',
+          value: 'in',
         },
       ],
     };
@@ -348,9 +391,9 @@ menu.ant-dropdown-content {
     &-item {
       &-button {
         display: inline-block;
-        :deep(&.ant-btn) {
-          border: none;
-          box-shadow: none;
+        &.ant-btn {
+          border-color: transparent;
+          box-shadow: unset;
           color: $filter-text-color;
         }
       }
@@ -370,7 +413,7 @@ menu.ant-dropdown-content {
         margin-right: 8px;
       }
       .ant-calendar-picker {
-        width: 150px;
+        width: 258px !important;
         margin-right: 8px;
       }
     }
@@ -379,7 +422,7 @@ menu.ant-dropdown-content {
         position: relative;
         right: -350px;
       }
-      :deep(.ant-btn) {
+      .ant-btn {
         color: $filter-text-color;
         .anticon {
           font-size: initial;

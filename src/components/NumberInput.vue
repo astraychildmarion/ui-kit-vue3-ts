@@ -6,7 +6,8 @@
       </template>
     </Button>
     <Space :size="40">
-      <Input suffix="VM" style="width: 5rem" v-model:value="inputValue" @change="change" />
+      <!-- <Input suffix="VM" style="width: 5rem" v-model:value="inputValue" @change="change" /> -->
+      <span class="vmqty" @change="change">{{ inputValue }} VM</span>
       <Button :disabled="!increasable" @click="increase" class="iconbtn">
         <template #icon>
           <PlusSquareOutlined />
@@ -17,13 +18,13 @@
 </template>
 <script lang="ts">
 import { defineComponent, ref, watch, computed } from 'vue';
-import { Button, Input, Space } from 'ant-design-vue';
+import { Button, Space } from 'ant-design-vue';
 import { PlusSquareOutlined, MinusSquareOutlined } from '@ant-design/icons-vue';
 
 export default defineComponent({
   name: 'NumberInput',
   emits: ['clickChange'],
-  components: { Button, Input, Space, PlusSquareOutlined, MinusSquareOutlined },
+  components: { Button, Space, PlusSquareOutlined, MinusSquareOutlined },
   props: {
     max: {
       type: Number,
@@ -104,7 +105,19 @@ export default defineComponent({
     border-color: #d9d9d9;
   }
 }
-
+.vmqty {
+  width: 5rem;
+  height: 22px;
+  flex-grow: 0;
+  margin: 0 9px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.57;
+  letter-spacing: normal;
+  text-align: left;
+  color: #5c666f;
+}
 .iconbtn {
   display: grid;
   justify-content: center;
