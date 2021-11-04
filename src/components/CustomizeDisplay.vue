@@ -19,8 +19,7 @@
         <div
           v-for="(element, index) in selectedItem"
           :key="element.label"
-          class="xy-customize-display__list-group-item"
-          :class="{ 'not-draggable': element.fixed }"
+          :class="[{ 'not-draggable': element.fixed }, 'xy-customize-display__list-group-item']"
         >
           <li>
             <Row type="flex">
@@ -180,14 +179,6 @@ export default defineComponent({
       CheckSelectedItem();
     };
 
-    // const filteredOptions = computed(() =>
-    //   propsItemOption.value.filter(
-    //     (o: CustomizeDisplayItemOptType) => !selectedItem.value.includes(o),
-    //   ),
-    // );
-
-    // console.log('filteredOptions->', filteredOptions.value);
-
     watch(
       () => propsvisible.value,
       (NewVal) => {
@@ -234,10 +225,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.not-draggable {
-  cursor: no-drop;
-  background-color: #f5f5f5;
-}
 .ghost {
   opacity: 0.5;
   background: #dadcde;
@@ -256,7 +243,17 @@ export default defineComponent({
     padding: 6px 14px 6px 14px;
     border-radius: 4px;
     border: solid 1px #dadcde;
-    cursor: move;
+    &.not-draggable {
+      cursor: no-drop;
+      background-color: #f5f5f5;
+    }
+    &:hover {
+      cursor: move;
+      &.not-draggable {
+        cursor: no-drop;
+        background-color: #f5f5f5;
+      }
+    }
   }
   &__reset-to-default {
     font-size: 14px;
@@ -283,12 +280,6 @@ export default defineComponent({
     }
   }
 }
-// :deep(.ant-modal-body) {
-//   min-height: 200px;
-//   max-height: 400px;
-//   overflow: hidden auto;
-//   padding: 27px 40px;
-// }
 
 :deep(.ant-modal-footer) {
   border-top: none;
