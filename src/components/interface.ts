@@ -37,17 +37,12 @@ export interface FilterOption {
 }
 export interface FilterDefaultValue {
   dataIndex: string;
-  sort: string;
-  value: string;
-}
-export interface FilterDefaultMultiValue {
-  dataIndex: string;
-  sort: string;
-  value: 'string' | [];
+  sort?: string;
+  value: any;
 }
 export interface FilterTemplate {
   dataIndex: string;
-  value: string;
+  value: string | [];
   sort: string;
 }
 export interface HeaderUserMenu {

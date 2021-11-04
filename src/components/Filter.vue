@@ -43,7 +43,7 @@
                 <Select
                   v-model:value="filterItem.dataIndex"
                   class="xy-filter__body-item-select"
-                  @change="checkFormVaildation(filterItem.dataIndex)"
+                  @change="changeFilterSelector(filterItem.dataIndex)"
                 >
                   <Option
                     v-for="(option, optionIndex) in filterOption"
@@ -56,9 +56,10 @@
                   >
                 </Select>
                 <Select
+                  v-if="checkOptionType(filterItem.dataIndex) !== 'date'"
                   v-model:value="filterItem.sort"
                   class="xy-filter__body-item-select filter__sort"
-                  @change="checkFormVaildation"
+                  @change="debounceFilterEmit"
                   :disabled="checkSortDisable(filterItem.dataIndex)"
                 >
                   <Option v-for="sort in filterSort" :key="sort.value" :value="sort.value">{{
@@ -69,7 +70,7 @@
                   <Select
                     v-model:value="filterItem.value"
                     mode="multiple"
-                    @change="checkFormVaildation"
+                    @change="debounceFilterEmit"
                     class="xy-filter__body-item-select-sub"
                   >
                     <Option
@@ -81,10 +82,11 @@
                   </Select>
                 </template>
                 <template v-if="checkOptionType(filterItem.dataIndex) === 'date'">
-                  <DatePicker
-                    @change="checkFormVaildation"
+                  <RangePicker
                     :disabled-date="disabledDate"
-                    v-model:value="filterItem.value"
+                    v-model:value="rangeValue"
+                    format="MM-DD-YYYY"
+                    @change="handlerGetRange"
                   />
                 </template>
                 <template v-if="checkOptionType(filterItem.dataIndex) === undefined">
@@ -92,7 +94,7 @@
                     class="xy-filter__body-item-input"
                     placeholder="Value"
                     v-model:value="filterItem.value"
-                    @change="checkFormVaildation"
+                    @change="debounceFilterEmit"
                     :key="filterItem.dataIndex"
                   />
                 </template>
@@ -131,14 +133,9 @@ import {
   DeleteOutlined,
 } from '@ant-design/icons-vue';
 /* eslint-disable import/no-extraneous-dependencies */
-import moment from 'moment';
+import moment, { Moment } from 'moment';
 import debounce from 'lodash/debounce';
-import {
-  FilterDefaultValue,
-  FilterOption,
-  FilterTemplate,
-  FilterDefaultMultiValue,
-} from './interface';
+import { FilterDefaultValue, FilterOption, FilterTemplate } from './interface';
 
 export default defineComponent({
   name: 'XYFilter',
@@ -154,13 +151,14 @@ export default defineComponent({
   emits: ['filterChange'],
   setup(props, { emit }) {
     const visible = ref(false);
+    const rangeValue = ref<[]>([]);
     let filterItems = reactive([]) as Array<FilterDefaultValue>;
     const addFilter = () => {
       // e.preventDefault();
       const filterTemplate: FilterTemplate = {
         dataIndex: '',
         value: '',
-        sort: 'contain',
+        sort: 'contains',
       };
       filterItems.push({ ...filterTemplate });
     };
@@ -170,46 +168,64 @@ export default defineComponent({
       );
       return result?.type;
     };
-
     const checkSortDisable = (dataIndex: string) => {
       const type = checkOptionType(dataIndex);
-      filterItems.forEach((item: FilterDefaultValue | FilterDefaultMultiValue) => {
+      filterItems.forEach((item: FilterDefaultValue) => {
         // eslint-disable-next-line no-param-reassign
-        if (item.dataIndex === dataIndex && type !== undefined) item.sort = 'is';
+        if (item.dataIndex === dataIndex && type !== undefined) item.sort = 'in';
       });
       return type !== undefined;
     };
     /* eslint-disable */
     const debounceFilterEmit = debounce(function () {
-      onFilterChange();
+      // check data sort
+      // sort is IN coerece to array
+      // sort is Contains coerece to string
+      const editFilterItems = filterItems.map(item => {
+        if (item.sort === 'contains' && typeof item.value === 'string') {
+          return item
+        } else if (item.sort === 'contains' && typeof item.value !== 'string') {
+          item.value = String(item.value)
+          return item
+        } else if (item.sort === 'in' && Array.isArray(item.value)) {
+          return item
+        } else if (item.sort === 'in' && !Array.isArray(item.value)) {
+          item.value = item.value.split(',')
+          return item
+        } else {
+          console.log('WEIRED!', item);
+        }
+      })
+      emit('filterChange', editFilterItems);
     }, 500);
-
-    const checkFormVaildation = (inputValue: object | InputEvent | string) => {
-      const checkType = (dataIndex : typeof inputValue) => {
-          const result = props.filterOption.find(
-          (item) => item.dataIndex === dataIndex && item?.type !== undefined,
-        );
-        return result?.type
-      }
-      if (inputValue !== null) {
-        filterItems.forEach((item: FilterDefaultValue | FilterDefaultMultiValue) => {
-          // eslint-disable-next-line no-param-reassign
-          if (item.dataIndex === inputValue) {
-            if (checkType(inputValue) === 'dropdown') {
-              item.value = [];
-            } else {
-              item.value = '';
-            }
+    const checkDataType = (dataIndex: string) => {
+      const result = props.filterOption.find(
+        (item) => item.dataIndex === dataIndex && item?.type !== undefined,
+      );
+      return result?.type;
+    };
+    // clean value input when selector changed
+    const changeFilterSelector = (dataIndex: string): void => {
+      filterItems.forEach((item: FilterDefaultValue) => {
+        // eslint-disable-next-line no-param-reassign
+        if (item.dataIndex === dataIndex) {
+          if (checkDataType(dataIndex) === 'dropdown' || checkDataType(dataIndex) === 'date') {
+            item.value = [];
+          } else {
+            item.value = '';
           }
-        });
-      }
+        }
+      });
       debounceFilterEmit();
     };
-    const deleteFilter = (index: number) => {
+    const deleteFilter = (index: number): void => {
+      const name = filterItems[index]['dataIndex'];
+      const type = checkDataType(name);
+      if (type === 'date') rangeValue.value = [];
       filterItems.splice(index, 1);
-      emit('filterChange', filterItems);
+      // emit('filterChange', filterItems);
+      debounceFilterEmit();
     };
-
     const getSuboption = (dataIndex: string) => {
       const result = props.filterOption.find(
         (item) => item.dataIndex === dataIndex && item?.type !== undefined,
@@ -220,22 +236,42 @@ export default defineComponent({
       visible.value = true;
     };
     const handlerClean = () => {
+      rangeValue.value = [];
       filterItems.splice(0, filterItems.length);
-      emit('filterChange', filterItems);
+      // emit('filterChange', filterItems);
+      debounceFilterEmit();
     };
     const hideFilterPopup = () => {
       visible.value = false;
     };
-    const onFilterChange = () => {
-      emit('filterChange', filterItems);
+    const handlerGetRange = () => {
+      filterItems.forEach((item) => {
+        if (item.dataIndex === 'last_update') {
+          item.value = rangeValue.value;
+          item.sort = 'in';
+        }
+      });
+      // emit('filterChange', filterItems);
+      debounceFilterEmit();
     };
-
     // Can not select days after today
-    const disabledDate = (current: any) => current > moment().endOf('day');
+    const disabledDate = (current: Moment) => {
+      return current && current > moment().endOf('day');
+    };
     watchEffect(() => {
-      if (props.filterDefaultValue && props.filterDefaultValue.length > 0)
+      if (props.filterDefaultValue && props.filterDefaultValue.length > 0) {
         filterItems = reactive(props.filterDefaultValue);
-      console.log('watch', filterItems);
+        // specially update range
+        filterItems.forEach((item) => {
+          if (item.dataIndex === 'last_update' || item.dataIndex === 'date') {
+            rangeValue.value = item.value;
+            item.sort = 'in';
+          }
+          if (item.sort === 'in' && checkOptionType(item.dataIndex) === undefined) {
+            item.value = item.value.toString()
+          }
+        });
+      }
     });
 
     const addFilterBtnDisabled = computed(() => {
@@ -253,19 +289,22 @@ export default defineComponent({
     return {
       visible,
       filterItems,
-      handleMenuClick,
-      handlerClean,
-      addFilter,
-      deleteFilter,
-      hideFilterPopup,
-      disabledDate,
-      checkSortDisable,
-      checkOptionType,
-      getSuboption,
-      checkFormVaildation,
+      debounceFilterEmit,
+      rangeValue,
       addFilterBtnDisabled,
       active,
       titleText,
+      handleMenuClick,
+      handlerClean,
+      handlerGetRange,
+      hideFilterPopup,
+      addFilter,
+      deleteFilter,
+      disabledDate,
+      changeFilterSelector,
+      checkSortDisable,
+      checkOptionType,
+      getSuboption,
     };
   },
   components: {
@@ -276,7 +315,7 @@ export default defineComponent({
     Dropdown,
     Form,
     FormItem: Form.Item,
-    DatePicker,
+    RangePicker: DatePicker.RangePicker,
     Menu,
     CheckCircleOutlined,
     FilterOutlined,
@@ -287,12 +326,12 @@ export default defineComponent({
     return {
       filterSort: [
         {
-          title: 'Contain',
-          value: 'contain',
+          title: 'Contains',
+          value: 'contains',
         },
         {
-          title: 'Is',
-          value: 'is',
+          title: 'IN',
+          value: 'in',
         },
       ],
     };
@@ -348,9 +387,9 @@ menu.ant-dropdown-content {
     &-item {
       &-button {
         display: inline-block;
-        :deep(&.ant-btn) {
-          border: none;
-          box-shadow: none;
+        &.ant-btn {
+          border-color: transparent;
+          box-shadow: unset;
           color: $filter-text-color;
         }
       }
@@ -370,7 +409,7 @@ menu.ant-dropdown-content {
         margin-right: 8px;
       }
       .ant-calendar-picker {
-        width: 150px;
+        width: 258px !important;
         margin-right: 8px;
       }
     }
@@ -379,7 +418,7 @@ menu.ant-dropdown-content {
         position: relative;
         right: -350px;
       }
-      :deep(.ant-btn) {
+      .ant-btn {
         color: $filter-text-color;
         .anticon {
           font-size: initial;

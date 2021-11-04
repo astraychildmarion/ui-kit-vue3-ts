@@ -1,3 +1,5 @@
+/* eslint-disable import/no-extraneous-dependencies */
+import moment from 'moment';
 import XYFilter from '../components/Filter.vue';
 
 export default {
@@ -45,14 +47,16 @@ Default.args = {
       ],
     },
     {
-      title: 'Group Admin',
-      dataIndex: 'group_admin',
+      title: 'Shared with',
+      dataIndex: 'shared_with',
       type: 'dropdown',
       typeOption: [
-        { title: 'Derek Chong (SBK))', dataIndex: 'Derek Chong (SBK)' },
-        { title: 'Jin Chen (YT-CWD)', dataIndex: 'Jin Chen (YT-CWD)' },
-        { title: 'CK Chang (YT-CWD)', dataIndex: 'CK Chang (YT-CWD)' },
-        { title: 'Henry Chien (YT-CWD)', dataIndex: 'Henry Chien (YT-CWD)' },
+        { title: '188Asia', dataIndex: '188Asia' },
+        { title: 'BI', dataIndex: 'BI' },
+        { title: 'Innovation Lab', dataIndex: 'Innovation Lab' },
+        { title: 'INFRA-APP', dataIndex: 'INFRA-APP' },
+        { title: 'INFRA-CEM', dataIndex: 'INFRA-CEM' },
+        { title: 'INFRA-STORM', dataIndex: 'INFRA-STORM' },
       ],
     },
     {
@@ -77,8 +81,8 @@ Default.args = {
           dataIndex: 'vm',
         },
         {
-          title: 'VPY',
-          dataIndex: 'vpy',
+          title: 'PHY',
+          dataIndex: 'phy',
         },
       ],
     },
@@ -91,39 +95,45 @@ Default.args = {
       dataIndex: 'ram',
     },
     {
-      title: 'Disk',
+      title: 'Disk (GB)',
       dataIndex: 'disk',
     },
     {
       title: 'OS',
       dataIndex: 'os',
+      type: 'dropdown',
+      typeOption: [
+        {
+          title: 'Windows',
+          dataIndex: 'windows',
+        },
+        {
+          title: 'Linux',
+          dataIndex: 'linux',
+        },
+      ],
     },
     {
-      title: 'Provision date',
-      dataIndex: 'provison_date',
-      type: 'date',
-    },
-    {
-      title: 'Decom date',
-      dataIndex: 'decom_date',
+      title: 'Last Update',
+      dataIndex: 'last_update',
       type: 'date',
     },
   ],
   filterDefaultValue: [
     {
       dataIndex: 'hostname',
-      sort: 'is',
-      value: 'host',
+      sort: 'in',
+      value: ['host', '1234', 'abc'],
     },
     {
       dataIndex: 'server_type',
-      sort: 'is',
-      value: 'vpy',
+      sort: 'in',
+      value: ['phy'],
     },
     {
-      dataIndex: 'provison_date',
-      sort: 'is',
-      value: '2021-08-01 18:01:44',
+      dataIndex: 'last_update',
+      sort: 'in',
+      value: [moment('2021-08-01 18:01:44'), moment('2021-08-01 18:01:44')],
     },
   ],
 };
