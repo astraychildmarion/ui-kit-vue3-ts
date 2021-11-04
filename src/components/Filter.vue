@@ -90,13 +90,18 @@
                   />
                 </template>
                 <template v-if="checkOptionType(filterItem.dataIndex) === undefined">
-                  <Input
-                    class="xy-filter__body-item-input"
-                    placeholder="Value"
-                    v-model:value="filterItem.value"
-                    @change="debounceFilterEmit"
-                    :key="filterItem.dataIndex"
-                  />
+                  <Tooltip placement="top" :overlayStyle="handlerOverlayStyle(filterItem.value)">
+                    <template #title>
+                      <span>{{ filterItem.value }}</span>
+                    </template>
+                    <Input
+                      class="xy-filter__body-item-input"
+                      placeholder="Value"
+                      v-model:value="filterItem.value"
+                      @change="debounceFilterEmit"
+                      :key="filterItem.dataIndex"
+                    />
+                  </Tooltip>
                 </template>
                 <Button class="xy-filter__body-item-button" @click="deleteFilter(index)">
                   <template #icon>
@@ -125,7 +130,7 @@
 </template>
 <script lang="ts">
 import { PropType, defineComponent, reactive, ref, watchEffect, computed } from 'vue';
-import { Button, Dropdown, Select, Input, Form, DatePicker, Menu } from 'ant-design-vue';
+import { Button, Dropdown, Select, Input, Form, DatePicker, Menu, Tooltip } from 'ant-design-vue';
 import {
   CheckCircleOutlined,
   FilterOutlined,
@@ -241,6 +246,11 @@ export default defineComponent({
       // emit('filterChange', filterItems);
       debounceFilterEmit();
     };
+    const  handlerOverlayStyle = (text: string) => {
+      const noshow = { visibility: 'hidden' };
+      // 19 digits and the input can not show the whole phase
+      return text.length > 18 ? undefined : noshow;
+    }
     const hideFilterPopup = () => {
       visible.value = false;
     };
@@ -298,6 +308,7 @@ export default defineComponent({
       handlerClean,
       handlerGetRange,
       hideFilterPopup,
+      handlerOverlayStyle,
       addFilter,
       deleteFilter,
       disabledDate,
@@ -317,6 +328,7 @@ export default defineComponent({
     FormItem: Form.Item,
     RangePicker: DatePicker.RangePicker,
     Menu,
+    Tooltip,
     CheckCircleOutlined,
     FilterOutlined,
     PlusOutlined,
