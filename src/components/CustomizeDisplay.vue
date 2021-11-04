@@ -1,4 +1,5 @@
 <template>
+  <div class="modal_bottle" ref="divref"></div>
   <div class="xy-customize-display__wrapper">
     <Button @click="showCustomizeDisplay">
       Customize Display
@@ -12,6 +13,7 @@
       :maskClosable="maskClosable"
       wrapClassName="xy-customize-display"
       :width="580"
+      :getContainer="getContainer"
     >
       <draggable :list="selectedItem" ghost-class="ghost" :move="onMove">
         <div
@@ -112,7 +114,6 @@ export default defineComponent({
   },
   emits: ['clickCustomizeConfirm'],
   setup(props: any, { emit }) {
-    console.log('props=>', props);
     const propsvisible = ref(props.visible);
     const propsdefaultSelected = ref(props.defaultSelected);
     const propsItemOption = ref(props.itemOption);
@@ -124,12 +125,15 @@ export default defineComponent({
     const selectedCountWrong = ref<boolean>(false);
     const headerText = ref<string>('');
     const emptyvalue = ref([]);
-
+    const divref = ref(null);
     function CheckSelectedItem(): void {
       if (selectedItem.value.length > 1) {
         selectedCountWrong.value = false;
         headerText.value = '';
       }
+    }
+    function getContainer() {
+      return divref.value;
     }
 
     const currentNumber = computed(() => selectedItem.value.length);
@@ -141,8 +145,6 @@ export default defineComponent({
       propsvisible.value = false;
     };
     const clickConfirm = () => {
-      // TODO emit right value
-      console.log('selectedItem.value', selectedItem.value);
       emit('clickCustomizeConfirm', selectedItem.value);
       propsvisible.value = false;
     };
@@ -189,8 +191,6 @@ export default defineComponent({
     watch(
       () => propsvisible.value,
       (NewVal) => {
-        console.log('watch visible=>', NewVal);
-        console.log('propsvisible=>', propsvisible.value);
         if (NewVal) {
           selectedCountWrong.value = false;
         }
@@ -214,6 +214,8 @@ export default defineComponent({
       clickResetDefault,
       OnSelectChange,
       onMove,
+      getContainer,
+      divref,
       propsvisible,
       propsdefaultSelected,
       propsItemOption,
@@ -287,8 +289,9 @@ export default defineComponent({
 //   overflow: hidden auto;
 //   padding: 27px 40px;
 // }
+
 :deep(.ant-modal-footer) {
-  border: transparent;
+  border-top: none;
 }
 :deep(.ant-btn) {
   &:focus {
