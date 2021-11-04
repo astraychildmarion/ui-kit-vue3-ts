@@ -11,26 +11,21 @@
       :closable="closable"
       :maskClosable="maskClosable"
       wrapClassName="xy-customize-display"
-      :width="640"
+      :width="580"
     >
-      <!-- <draggable
-        :list="selectedItem"
-        item-key="label"
-        @start="dragging = true"
-        @end="dragging = false"
-        ghost-class="ghost"
-        handle=".handle"
-        :move="onMove"
-      >
-        <template #item="{ element, index }">
-          <li className="list-group-item">
+      <draggable :list="selectedItem" ghost-class="ghost" :move="onMove">
+        <div
+          v-for="(element, index) in selectedItem"
+          :key="element.label"
+          class="xy-customize-display__list-group-item"
+          :class="{ 'not-draggable': element.fixed }"
+        >
+          <li>
             <Row type="flex">
               <Col>
-                <Space>
-                  <PushpinOutlined v-if="element.fixed" style="cursor: no-drop" />
-                  <MenuOutlined class="handle" v-else />
-                  {{ element.label }} /
-                  {{ index }}
+                <Space size="small">
+                  <img src="@/assets/drag_outline.svg" className="anticon" />
+                  {{ element.label }}
                 </Space>
               </Col>
               <Col :flex="2" style="text-align: right">
@@ -38,14 +33,13 @@
               </Col>
             </Row>
           </li>
-        </template>
-      </draggable> -->
-
+        </div>
+      </draggable>
       <Select
         show-search
         :value="emptyvalue"
         style="width: 100%"
-        placeholder="Select an Item"
+        placeholder="Column"
         @change="OnSelectChange"
       >
         <SelectOption
@@ -60,24 +54,17 @@
       </Select>
       <template #title>
         <div class="xy-customize-display__section-wrapper">
-          <span :class="{ 'xy-customize-display__title--alert': selectedCountWrong }">
-            {{ currentNumber }}
-          </span>
-          <span :class="{ 'xy-customize-display__title--alert': selectedCountWrong }">
-            {{ headerText }}
+          Customize Display
+          <span @click="clickResetDefault" class="xy-customize-display__reset-to-default">
+            reset to default
           </span>
         </div>
       </template>
       <template #footer>
-        <div className="xy-customize-display__section-wrapper">
-          <div style="float: left">
-            <Button type="link" @click="clickResetDefault">reset to default</Button>
-          </div>
-          <div style="float: right">
-            <Button @click="clickCancel">Cancel</Button>
-            <Button type="primary" @click="clickConfirm">Confirm</Button>
-          </div>
-        </div>
+        <Space size="middle">
+          <Button @click="clickCancel">Cancel</Button>
+          <Button type="primary" @click="clickConfirm">Confirm</Button>
+        </Space>
       </template>
     </Modal>
   </div>
@@ -85,11 +72,9 @@
 
 <script lang="ts">
 import { defineComponent, PropType, ref, watch, computed } from 'vue';
-import { Button, Modal, Select } from 'ant-design-vue';
-import { EditOutlined } from '@ant-design/icons-vue';
-// import { EditOutlined, MenuOutlined, DeleteOutlined } from '@ant-design/icons-vue';
-
-// import draggable from 'vuedraggable';
+import { Button, Modal, Select, Row, Col, Space } from 'ant-design-vue';
+import { EditOutlined, DeleteOutlined } from '@ant-design/icons-vue';
+import { VueDraggableNext } from 'vue-draggable-next';
 
 import { CustomizeDisplayItemOptType } from './interface';
 
@@ -99,11 +84,13 @@ export default defineComponent({
     Button,
     Modal,
     Select,
+    Row,
+    Col,
+    Space,
     SelectOption: Select.Option,
     EditOutlined,
-    // MenuOutlined,
-    // DeleteOutlined,
-    // draggable,
+    DeleteOutlined,
+    draggable: VueDraggableNext,
   },
   props: {
     visible: {
@@ -136,8 +123,6 @@ export default defineComponent({
     const needColumnTextRight = ref<string>('Please select one column at least');
     const selectedCountWrong = ref<boolean>(false);
     const headerText = ref<string>('');
-    const dragging = ref(false);
-    const enabled = ref(true);
     const emptyvalue = ref([]);
 
     function CheckSelectedItem(): void {
@@ -161,17 +146,19 @@ export default defineComponent({
       emit('clickCustomizeConfirm', selectedItem.value);
       propsvisible.value = false;
     };
-    // const onMove = ({ relatedContext, draggedContext }) => {
-    //   const relatedElement = relatedContext.element;
-    //   const draggedElement = draggedContext.element;
-    //   return (!relatedElement || !relatedElement.fixed) && !draggedElement.fixed;
-    // };
+
+    const onMove = (evt: any) => {
+      const relatedElement = evt.relatedContext.element;
+      const draggedElement = evt.draggedContext.element;
+      return (!relatedElement || !relatedElement.fixed) && !draggedElement.fixed;
+    };
 
     const clickResetDefault = () => {
       selectedItem.value = JSON.parse(JSON.stringify(propsdefaultSelected.value));
       emptyvalue.value = [];
       CheckSelectedItem();
     };
+
     const removeAt = (idx: number) => {
       if (selectedItem.value.length <= 1) {
         selectedCountWrong.value = true;
@@ -181,19 +168,23 @@ export default defineComponent({
       selectedItem.value.splice(idx, 1);
     };
     const OnSelectChange = (value: any, option: any) => {
-      const objItem: CustomizeDisplayItemOptType = { label: option.title, value: option.value };
-      console.log(objItem);
+      const objItem: CustomizeDisplayItemOptType = {
+        label: option.title,
+        value: option.value,
+        fixed: false,
+      };
       selectedItem.value.push(objItem);
       emptyvalue.value = [];
       CheckSelectedItem();
     };
 
-    const filteredOptions = computed(() =>
-      propsItemOption.value.filter(
-        (o: CustomizeDisplayItemOptType) => !selectedItem.value.includes(o),
-      ),
-    );
-    console.log('filteredOptions->', filteredOptions.value);
+    // const filteredOptions = computed(() =>
+    //   propsItemOption.value.filter(
+    //     (o: CustomizeDisplayItemOptType) => !selectedItem.value.includes(o),
+    //   ),
+    // );
+
+    // console.log('filteredOptions->', filteredOptions.value);
 
     watch(
       () => propsvisible.value,
@@ -222,7 +213,7 @@ export default defineComponent({
       removeAt,
       clickResetDefault,
       OnSelectChange,
-      // onMove,
+      onMove,
       propsvisible,
       propsdefaultSelected,
       propsItemOption,
@@ -234,8 +225,6 @@ export default defineComponent({
       needColumnTextRight,
       selectedCountWrong,
       headerText,
-      dragging,
-      enabled,
       emptyvalue,
     };
   },
@@ -243,21 +232,13 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+.not-draggable {
+  cursor: no-drop;
+  background-color: #f5f5f5;
+}
 .ghost {
   opacity: 0.5;
-  background: #c8ebfb;
-}
-.icon-align {
-  vertical-align: super;
-}
-.list-group-item {
-  padding: 0.25rem 1.25rem;
-}
-.handle {
-  float: left;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  cursor: move;
+  background: #dadcde;
 }
 .xy-customize-display {
   &--media-query {
@@ -266,35 +247,48 @@ export default defineComponent({
       display: none;
     }
   }
+  &__list-group-item {
+    width: 530px;
+    height: 36px;
+    margin: 8px 0;
+    padding: 6px 14px 6px 14px;
+    border-radius: 4px;
+    border: solid 1px #dadcde;
+    cursor: move;
+  }
+  &__reset-to-default {
+    font-size: 14px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.57;
+    letter-spacing: normal;
+    text-align: right;
+    color: #969ca1;
+    cursor: pointer;
+    float: right;
+  }
   &__section {
     &-wrapper {
-      display: flex;
+      // display: flex;
       justify-content: space-between;
+      font-weight: bold;
+      color: #102e4d;
       span {
         font-weight: normal;
         font-size: 14px;
-        color: $customizeModal-title;
-        &.xy-customize-display__title--alert {
-          color: $error-color;
-        }
       }
     }
   }
 }
-:deep(.ant-checkbox-group) {
-  width: 100%;
-  .ant-checkbox-group-item {
-    width: 33.3%;
-    margin-bottom: 16px;
-    margin-right: 0;
-    padding-right: 8px;
-  }
-}
-:deep(.ant-modal-body) {
-  min-height: 200px;
-  max-height: 400px;
-  overflow: hidden auto;
-  padding: 27px 40px;
+// :deep(.ant-modal-body) {
+//   min-height: 200px;
+//   max-height: 400px;
+//   overflow: hidden auto;
+//   padding: 27px 40px;
+// }
+:deep(.ant-modal-footer) {
+  border: transparent;
 }
 :deep(.ant-btn) {
   &:focus {
