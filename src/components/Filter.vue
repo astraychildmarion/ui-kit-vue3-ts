@@ -250,8 +250,10 @@ export default defineComponent({
     };
     const handlerGetRange = () => {
       filterItems.forEach((item) => {
-        item.value = rangeValue.value;
-        item.mode = 'in';
+        if (checkDataFormat(item.field) === 'calendar') {
+          item.value = rangeValue.value;
+          item.mode = 'in';
+        }
       });
       // emit('filterChange', filterItems);
       debounceFilterEmit();
