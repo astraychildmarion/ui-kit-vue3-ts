@@ -34,8 +34,7 @@ export default defineComponent({
       type: Array as PropType<ExportExcelDropdownData[]>,
       default: () => [
         { title: 'All Servers', value: '1' },
-        { title: 'Current Environment', value: '2' },
-        { title: 'Filtered Result', value: '3' },
+        { title: 'Current Result', value: '2' },
       ],
     },
   },

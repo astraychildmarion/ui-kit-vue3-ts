@@ -1,3 +1,5 @@
+/* eslint-disable import/no-extraneous-dependencies */
+import moment from 'moment';
 import XYFilter from '../components/Filter.vue';
 
 export default {
@@ -36,94 +38,102 @@ Default.args = {
   filterOption: [
     {
       title: 'BU',
-      dataIndex: 'business_unit',
-      type: 'dropdown',
-      typeOption: [
-        { title: 'YT-CWD', dataIndex: 'YT-CWD' },
-        { title: 'XJ', dataIndex: 'XJ' },
-        { title: 'SBK', dataIndex: 'SBK' },
+      field: 'business_unit',
+      format: 'dropdown',
+      formatOption: [
+        { title: 'YT-CWD', field: 'YT-CWD' },
+        { title: 'XJ', field: 'XJ' },
+        { title: 'SBK', field: 'SBK' },
       ],
     },
     {
-      title: 'Group Admin',
-      dataIndex: 'group_admin',
-      type: 'dropdown',
-      typeOption: [
-        { title: 'Derek Chong (SBK))', dataIndex: 'Derek Chong (SBK)' },
-        { title: 'Jin Chen (YT-CWD)', dataIndex: 'Jin Chen (YT-CWD)' },
-        { title: 'CK Chang (YT-CWD)', dataIndex: 'CK Chang (YT-CWD)' },
-        { title: 'Henry Chien (YT-CWD)', dataIndex: 'Henry Chien (YT-CWD)' },
+      title: 'Shared with',
+      field: 'shared_with',
+      format: 'dropdown',
+      formatOption: [
+        { title: '188Asia', field: '188Asia' },
+        { title: 'BI', field: 'BI' },
+        { title: 'Innovation Lab', field: 'Innovation Lab' },
+        { title: 'INFRA-APP', field: 'INFRA-APP' },
+        { title: 'INFRA-CEM', field: 'INFRA-CEM' },
+        { title: 'INFRA-STORM', field: 'INFRA-STORM' },
       ],
     },
     {
       title: 'ServiceLAN IP',
-      dataIndex: 'service_lan_ip',
+      field: 'service_lan_ip',
     },
     {
       title: 'Hostname',
-      dataIndex: 'hostname',
+      field: 'hostname',
     },
     {
       title: 'BU Application Name',
-      dataIndex: 'bu_application',
+      field: 'bu_application',
     },
     {
       title: 'Type',
-      dataIndex: 'server_type',
-      type: 'dropdown',
-      typeOption: [
+      field: 'server_type',
+      format: 'dropdown',
+      formatOption: [
         {
           title: 'VM',
-          dataIndex: 'vm',
+          field: 'vm',
         },
         {
-          title: 'VPY',
-          dataIndex: 'vpy',
+          title: 'PHY',
+          field: 'phy',
         },
       ],
     },
     {
       title: 'CPU (GB)',
-      dataIndex: 'cpu',
+      field: 'cpu',
     },
     {
       title: 'RAM (GB)',
-      dataIndex: 'ram',
+      field: 'ram',
     },
     {
-      title: 'Disk',
-      dataIndex: 'disk',
+      title: 'Disk (GB)',
+      field: 'disk',
     },
     {
       title: 'OS',
-      dataIndex: 'os',
+      field: 'os',
+      format: 'dropdown',
+      formatOption: [
+        {
+          title: 'Windows',
+          field: 'windows',
+        },
+        {
+          title: 'Linux',
+          field: 'linux',
+        },
+      ],
     },
     {
-      title: 'Provision date',
-      dataIndex: 'provison_date',
-      type: 'date',
-    },
-    {
-      title: 'Decom date',
-      dataIndex: 'decom_date',
-      type: 'date',
+      title: 'Last Update',
+      field: 'last_update',
+      format: 'calendar',
     },
   ],
   filterDefaultValue: [
     {
-      dataIndex: 'hostname',
-      sort: 'is',
-      value: 'host',
+      field: 'hostname',
+      mode: 'in',
+      value: ['host', '1234', 'abc'],
     },
     {
-      dataIndex: 'server_type',
-      sort: 'is',
-      value: 'vpy',
+      field: 'server_type',
+      mode: 'in',
+      value: ['phy'],
     },
     {
-      dataIndex: 'provison_date',
-      sort: 'is',
-      value: '2021-08-01 18:01:44',
+      field: 'last_update',
+      mode: 'in',
+      value: [moment('2021-08-01 18:01:44'), moment('2021-08-01 18:01:44')],
     },
   ],
 };
