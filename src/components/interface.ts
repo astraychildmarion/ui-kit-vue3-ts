@@ -5,7 +5,7 @@ export interface ActionOptionType {
   tooltipShow: boolean;
 }
 export interface ActionMenuClickType {
-  item: { class: string };
+  item: { class: string; title: string };
   key: string;
   keyPath: string;
 }

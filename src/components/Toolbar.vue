@@ -108,27 +108,21 @@ export default defineComponent({
   },
   setup(props, { emit }) {
     function changePage(data: object) {
-      console.log('change page', data);
       emit('changePage', data);
     }
     function showSizeChange(...pageSize: [number, boolean]) {
-      console.log('show size change', ...pageSize);
       emit('showSizeChange', ...pageSize);
     }
     function clickExport(data: string) {
-      console.log('click export', data);
       emit('clickExport', data);
     }
     function filterChange(data: object) {
-      console.log('filter change', data);
       emit('filterChange', data);
     }
     function clickAction(data: string) {
-      console.log('click action', data);
       emit('clickAction', data);
     }
     function clickCustomizeConfirm(data: object[]) {
-      console.log('click action', data);
       emit('clickCustomizeConfirm', data);
     }
     return {
