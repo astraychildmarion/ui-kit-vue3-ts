@@ -1,20 +1,22 @@
 <template>
-  <Space :size="40">
-    <Button :disabled="!decreasable" @click="decrease" class="iconbtn">
-      <template #icon>
-        <MinusSquareOutlined />
-      </template>
-    </Button>
+  <div class="xy-number-input-wrapper">
     <Space :size="40">
-      <!-- <Input suffix="VM" style="width: 5rem" v-model:value="inputValue" @change="change" /> -->
-      <span class="vmqty" @change="change">{{ inputValue }} VM</span>
-      <Button :disabled="!increasable" @click="increase" class="iconbtn">
+      <Button :disabled="!decreasable" @click="decrease" class="iconbtn">
         <template #icon>
-          <PlusSquareOutlined />
+          <MinusSquareOutlined />
         </template>
       </Button>
+      <Space :size="40">
+        <!-- <Input suffix="VM" style="width: 5rem" v-model:value="inputValue" @change="change" /> -->
+        <span class="vmqty" @change="change">{{ inputValue }} VM</span>
+        <Button :disabled="!increasable" @click="increase" class="iconbtn">
+          <template #icon>
+            <PlusSquareOutlined />
+          </template>
+        </Button>
+      </Space>
     </Space>
-  </Space>
+  </div>
 </template>
 <script lang="ts">
 import { defineComponent, ref, watch, computed } from 'vue';
@@ -92,42 +94,44 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-:deep(.ant-input),
-:deep(.ant-input-affix-wrapper) {
-  border: none;
-  outline: none;
-  box-shadow: none;
-  text-align: center;
-}
-:deep(.ant-btn) {
-  &:focus {
-    color: $toolbar-text-color;
-    border-color: #d9d9d9;
+.xy-number-input-wrapper {
+  :deep(.ant-input),
+  :deep(.ant-input-affix-wrapper) {
+    border: none;
+    outline: none;
+    box-shadow: none;
+    text-align: center;
   }
-}
-.vmqty {
-  width: 5rem;
-  height: 22px;
-  flex-grow: 0;
-  margin: 0 9px;
-  font-weight: 500;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.57;
-  letter-spacing: normal;
-  text-align: left;
-  color: #5c666f;
-}
-.iconbtn {
-  display: grid;
-  justify-content: center;
-  align-content: center;
-  border: none;
-  outline: none;
-  box-shadow: none;
-  min-width: 16px;
-  width: 16px;
-  height: 16px;
-  background: none;
+  :deep(.ant-btn) {
+    &:focus {
+      color: $toolbar-text-color;
+      border-color: #d9d9d9;
+    }
+  }
+  .vmqty {
+    width: 5rem;
+    height: 22px;
+    flex-grow: 0;
+    margin: 0 9px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.57;
+    letter-spacing: normal;
+    text-align: left;
+    color: #5c666f;
+  }
+  .iconbtn {
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    min-width: 16px;
+    width: 16px;
+    height: 16px;
+    background: none;
+  }
 }
 </style>
