@@ -116,7 +116,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.ant-dropdown-menu {
+.xy-action-button .ant-dropdown-menu {
   :deep(.ant-dropdown-menu-item) {
     &.itemDisable {
       color: $action-item-disabled-text;

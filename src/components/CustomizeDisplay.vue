@@ -1,5 +1,5 @@
 <template>
-  <div class="modal_bottle" ref="divref"></div>
+  <div class="xy-customize-modal" ref="divref"></div>
   <div class="xy-customize-display__wrapper">
     <Button @click="showCustomizeDisplay">
       Customize Display
@@ -229,7 +229,7 @@ export default defineComponent({
   opacity: 0.5;
   background: #dadcde;
 }
-.xy-customize-display {
+.xy-customize-modal .xy-customize-display {
   &--media-query {
     color: $toolbar-text-color;
     @media screen and (max-width: 1000px) {
@@ -279,15 +279,14 @@ export default defineComponent({
       }
     }
   }
-}
-
-:deep(.ant-modal-footer) {
-  border-top: none;
-}
-:deep(.ant-btn) {
-  &:focus {
-    color: $toolbar-text-color;
-    border-color: #d9d9d9;
+  :deep(.ant-modal-footer) {
+    border-top: none;
+  }
+  :deep(.ant-btn) {
+    &:focus {
+      color: $toolbar-text-color;
+      border-color: #d9d9d9;
+    }
   }
 }
 </style>

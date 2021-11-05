@@ -189,21 +189,21 @@ export default defineComponent({
       // check data sort
       // sort is IN coerece to array
       // sort is contain coerece to string
-      const editFilterItems = filterItems.map(item => {
+      const editFilterItems = filterItems.map((item) => {
         if (item.mode === 'contain' && typeof item.value === 'string') {
-          return item
+          return item;
         } else if (item.mode === 'contain' && typeof item.value !== 'string') {
-          item.value = String(item.value)
-          return item
+          item.value = String(item.value);
+          return item;
         } else if (item.mode === 'in' && Array.isArray(item.value)) {
-          return item
+          return item;
         } else if (item.mode === 'in' && !Array.isArray(item.value)) {
-          item.value = item.value.split(',')
-          return item
+          item.value = item.value.split(',');
+          return item;
         } else {
           console.log('WEIRED!', item);
         }
-      })
+      });
       emit('filterChange', editFilterItems);
     }, 500);
 
@@ -248,7 +248,7 @@ export default defineComponent({
       const noshow = { visibility: 'hidden' };
       // 19 digits and the input can not show the whole phase
       return text.length > 18 ? undefined : noshow;
-    }
+    };
     const hideFilterPopup = () => {
       visible.value = false;
     };
@@ -276,7 +276,7 @@ export default defineComponent({
             item.mode = 'in';
           }
           if (item.mode === 'in' && checkDataFormat(item.field) === undefined) {
-            item.value = item.value.toString()
+            item.value = item.value.toString();
           }
         });
       }
@@ -360,86 +360,89 @@ menu.ant-dropdown-content {
   padding-inline-start: 0px;
   margin-block-start: 0;
 }
+.xy-filter--active {
+  color: $filter-active-icon;
+  border-color: $filter-active-icon;
+  background-color: #fff;
+}
 .xy-filter {
-  &--active {
-    color: $filter-active-icon;
-    border-color: $filter-active-icon;
-    background-color: #fff;
-  }
-  &--media-query {
-    @media screen and (max-width: 1000px) {
-      display: none;
-    }
-  }
-  &__wrapper {
-    box-shadow: $box-shadow;
-    border-radius: $box-radius;
-    border: $box-border;
-    width: 530px;
-    background-color: $filter-bg;
-    :deep(.ant-select-selection-selected-value) {
-      color: $filter-title-color;
-    }
-  }
-  &__title {
-    border-bottom: $box-border;
-    padding: 16px 24px;
-    font-size: 16px;
-    font-weight: bold;
-    text-align: left;
-    color: $filter-title-color;
-    &__button {
-      float: right;
-      color: $filter-title-btn-color;
-    }
-  }
-  &__body {
-    padding: 24px;
-    &-item {
-      &-button {
-        display: inline-block;
-        &.ant-btn {
-          border-color: transparent;
-          box-shadow: unset;
-          color: $filter-text-color;
-        }
-      }
-      &-select {
-        margin-right: 8px;
-        width: 170px;
-        &.filter__sort {
-          width: 100px;
-        }
-        &-sub {
-          width: 150px;
-          margin-right: 8px;
-        }
-      }
-      &-input {
-        width: 150px;
-        margin-right: 8px;
-      }
-      .ant-calendar-picker {
-        width: 258px !important;
-        margin-right: 8px;
-      }
-    }
-    &-plus-button {
-      &.button-right {
-        position: relative;
-        right: -350px;
-      }
-      .ant-btn {
-        color: $filter-text-color;
-        .anticon {
-          font-size: initial;
-        }
-      }
-    }
-  }
   .ant-dropdown-menu {
     box-shadow: none;
     padding: 0;
+  }
+
+  .xy-filter {
+    &--media-query {
+      @media screen and (max-width: 1000px) {
+        display: none;
+      }
+    }
+    &__wrapper {
+      box-shadow: $box-shadow;
+      border-radius: $box-radius;
+      border: $box-border;
+      width: 530px;
+      background-color: $filter-bg;
+      :deep(.ant-select-selection-selected-value) {
+        color: $filter-title-color;
+      }
+    }
+    &__title {
+      border-bottom: $box-border;
+      padding: 16px 24px;
+      font-size: 16px;
+      font-weight: bold;
+      text-align: left;
+      color: $filter-title-color;
+      &__button {
+        float: right;
+        color: $filter-title-btn-color;
+      }
+    }
+    &__body {
+      padding: 24px;
+      &-item {
+        &-button {
+          display: inline-block;
+          &.ant-btn {
+            border-color: transparent;
+            box-shadow: unset;
+            color: $filter-text-color;
+          }
+        }
+        &-select {
+          margin-right: 8px;
+          width: 170px;
+          &.filter__sort {
+            width: 100px;
+          }
+          &-sub {
+            width: 150px;
+            margin-right: 8px;
+          }
+        }
+        &-input {
+          width: 150px;
+          margin-right: 8px;
+        }
+        .ant-calendar-picker {
+          width: 258px !important;
+          margin-right: 8px;
+        }
+      }
+      &-plus-button {
+        &.button-right {
+          position: relative;
+          right: -350px;
+        }
+        .ant-btn {
+          color: $filter-text-color;
+          .anticon {
+            font-size: initial;
+          }
+        }
+      }
+    }
   }
 }
 </style>

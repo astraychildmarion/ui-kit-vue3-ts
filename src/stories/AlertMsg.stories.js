@@ -8,6 +8,10 @@ export default {
       options: ['success', 'error'],
       control: { type: 'select' },
     },
+    seconds: {
+      description: 'To set seconds till Alert disappear. Default is 3.',
+      type: Number,
+    },
   },
 };
 
@@ -30,4 +34,5 @@ Default.args = {
   isShow: false,
   alertMsg: 'alert message',
   alertType: 'success',
+  seconds: 3,
 };
