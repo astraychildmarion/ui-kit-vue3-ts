@@ -174,7 +174,6 @@ export default defineComponent({
       const result = props.filterOption.find(
         (item) => item.field === field && item?.format !== undefined,
       );
-      console.log(field, result?.format);
       return result?.format;
     };
     const checkSortDisable = (field: string) => {
