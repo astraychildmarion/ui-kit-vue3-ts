@@ -86,7 +86,6 @@ export default defineComponent({
       type: Array as PropType<ActionOptionType[]>,
     },
     exportExcelOption: {
-      required: true,
       type: Array as PropType<ExportExcelDropdownData[]>,
     },
     isTableCheckbox: {
