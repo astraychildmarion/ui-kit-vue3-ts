@@ -27,6 +27,7 @@ export default defineComponent({
     },
     alertType: {
       type: String as PropType<'error' | 'success' | 'warning' | 'info'>,
+      default: 'success',
     },
     alertMsg: {
       type: String,

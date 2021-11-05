@@ -99,11 +99,11 @@ export default defineComponent({
     };
 
     watchEffect(() => {
+      console.log('props.cleanDayValue', props.cleanDayValue);
       if (props.cleanDayValue === true) {
         value.value = null;
         currentValue.value = null;
-      }
-      if (props.defaultValue) {
+      } else if (props.defaultValue) {
         value.value = props.defaultValue;
         currentValue.value = props.defaultValue;
         const payload = generateEventPayload(props.defaultValue);
