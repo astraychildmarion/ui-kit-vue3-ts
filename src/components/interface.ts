@@ -12,6 +12,7 @@ export interface ActionMenuClickType {
 export interface CustomizeDisplayItemOptType {
   label: string;
   value: string;
+  fixed: boolean;
 }
 export interface DayOption {
   title: string;

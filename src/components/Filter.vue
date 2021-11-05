@@ -85,7 +85,11 @@
                     v-model:value="rangeValue"
                     format="MM-DD-YYYY"
                     @change="handlerGetRange"
-                  />
+                  >
+                    <template #suffixIcon>
+                      <CalendarOutlined />
+                    </template>
+                  </RangePicker>
                 </template>
                 <template v-if="checkDataFormat(filterItem.field) === undefined">
                   <Tooltip placement="top" :overlayStyle="handlerOverlayStyle(filterItem.value)">
@@ -134,6 +138,7 @@ import {
   FilterOutlined,
   PlusOutlined,
   DeleteOutlined,
+  CalendarOutlined,
 } from '@ant-design/icons-vue';
 /* eslint-disable import/no-extraneous-dependencies */
 import moment, { Moment } from 'moment';
@@ -169,7 +174,6 @@ export default defineComponent({
       const result = props.filterOption.find(
         (item) => item.field === field && item?.format !== undefined,
       );
-      console.log(field, result?.format);
       return result?.format;
     };
     const checkSortDisable = (field: string) => {
@@ -326,6 +330,7 @@ export default defineComponent({
     CheckCircleOutlined,
     FilterOutlined,
     PlusOutlined,
+    CalendarOutlined,
     DeleteOutlined,
   },
   data() {
