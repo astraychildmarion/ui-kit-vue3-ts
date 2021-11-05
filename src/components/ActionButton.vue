@@ -58,7 +58,7 @@
   </Dropdown>
 </template>
 <script lang="ts">
-import { PropType, defineComponent, reactive, ref, watchEffect } from 'vue';
+import { PropType, defineComponent, ref, watchEffect } from 'vue';
 import { Button, Dropdown, Menu, Tooltip } from 'ant-design-vue';
 import { DownOutlined } from '@ant-design/icons-vue';
 import { ActionOptionType, ActionMenuClickType } from './interface';
@@ -81,7 +81,7 @@ export default defineComponent({
   emits: ['clickAction'],
   setup(props, { emit }) {
     const isCheckboxSelectedText = 'You need to select an item or more on the list.';
-    let actionInnerOption = reactive(props.actionOption);
+    const actionInnerOption = ref(props.actionOption);
     const isTableInnerChecked = ref(props.isTableCheckbox);
 
     function handleMenuClick({ item }: ActionMenuClickType) {
@@ -93,7 +93,7 @@ export default defineComponent({
       return tooltipShow ? undefined : noshow;
     }
     watchEffect(() => {
-      actionInnerOption = reactive(props.actionOption);
+      actionInnerOption.value = props.actionOption;
       isTableInnerChecked.value = props.isTableCheckbox;
     });
     return {
