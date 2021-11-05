@@ -1,5 +1,6 @@
 <template>
   <Alert
+    class="xy-alert"
     v-if="propsisShow"
     :type="alertType"
     :message="alertMsg"
@@ -30,23 +31,27 @@ export default defineComponent({
     alertMsg: {
       type: String,
     },
+    seconds: {
+      type: Number,
+      default: 3,
+    },
   },
   setup(props: any) {
     console.log('props=>', props);
+    const secondsToGo = ref<number>(props.seconds);
     const propsisShow = ref(props.isShow);
     const propsAlertType = ref(props.alertType);
 
     const countDown = () => {
-      let secondsToGo = 3;
       const interval = setInterval(() => {
-        secondsToGo -= 1;
+        secondsToGo.value -= 1;
       }, 1000);
 
       setTimeout(() => {
         clearInterval(interval);
         propsisShow.value = false;
         console.log(propsisShow.value, interval);
-      }, secondsToGo * 1000);
+      }, secondsToGo.value * 1000);
     };
 
     const showCustomizeDisplay = () => {
@@ -90,19 +95,21 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-:deep(.ant-alert-message) {
-  font-size: 14px;
-  line-height: 1.57;
-  color: rgba(5, 19, 34, 0.65);
-  margin-left: 5px;
-  margin-right: 5px;
-}
+.xy-alert {
+  :deep(.ant-alert-message) {
+    font-size: 14px;
+    line-height: 1.57;
+    color: rgba(5, 19, 34, 0.65);
+    margin-left: 5px;
+    margin-right: 5px;
+  }
 
-:deep(.ant-alert-success .ant-alert-icon) {
-  color: #37c5a0;
-}
+  :deep(.ant-alert-success .ant-alert-icon) {
+    color: #37c5a0;
+  }
 
-:deep(.ant-alert-error .ant-alert-icon) {
-  color: #fac7d3;
+  :deep(.ant-alert-error .ant-alert-icon) {
+    color: #fac7d3;
+  }
 }
 </style>
