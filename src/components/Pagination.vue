@@ -14,7 +14,7 @@
       @change="onChangePage"
       @showSizeChange="OnShowSizeChange"
     >
-      <template #buildOptionText="props">{{ props.value }} / Page</template>
+      <template #buildOptionText="props">{{ props.value }} / page</template>
     </Pagination>
   </div>
 </template>
