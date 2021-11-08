@@ -8,7 +8,7 @@
           @clickCustomizeConfirm="clickCustomizeConfirm"
         />
         <Filter
-          :filterOption="filterOption"
+          :dropdownOption="dropdownOption"
           :filterDefaultValue="filterDefaultValue"
           @filterChange="filterChange"
         />
@@ -74,7 +74,7 @@ export default defineComponent({
     customizeDisplayDefaultSelected: {
       type: Array,
     },
-    filterOption: {
+    dropdownOption: {
       required: true,
       type: Array as PropType<FilterOption[]>,
     },

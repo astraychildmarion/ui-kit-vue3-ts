@@ -99,7 +99,6 @@ export default defineComponent({
     };
 
     watchEffect(() => {
-      console.log('props.cleanDayValue', props.cleanDayValue);
       if (props.cleanDayValue === true) {
         value.value = null;
         currentValue.value = null;
