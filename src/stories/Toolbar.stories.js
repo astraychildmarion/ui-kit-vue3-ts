@@ -26,10 +26,9 @@ export default {
       description:
         "Props data for Customize display component 's defaultSelected. You can see CustomizeDisplay for more info.",
     },
-    filterOption: {
+    dropdownOption: {
       type: 'object',
-      description:
-        "Props data for Filter component in Object format to render filter's option. please see Filter for more info.",
+      description: "Filter's field dropdown option data.",
     },
     exportExcelOption: {
       type: 'object',
@@ -97,7 +96,7 @@ export const Default = Template.bind({});
 Default.args = {
   customizeDisplayCheckboxOption: customizeDisplay.Default.args.itemOption,
   customizeDisplayDefaultSelected: customizeDisplay.Default.args.defaultSelected,
-  filterOption: [...filter.Default.args.filterOption],
+  dropdownOption: filter.Default.args.dropdownOption,
   filterDefaultValue: filter.Default.args.filterDefaultValue,
   actionOption: actionButton.Default.args.actionOption,
   isTableCheckbox: actionButton.Default.args.isTableCheckbox,

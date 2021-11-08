@@ -1,30 +1,36 @@
 <template>
   <div class="xy-sider__wrapper">
     <div className="xy-sider__menu-wrapper__first">
-      <Menu mode="inline" theme="dark" @click="$emit('clickMenu', $event)">
+      <Menu
+        mode="inline"
+        theme="dark"
+        :inline-collapsed="isSiderCollapse"
+        @click="$emit('clickMenu', $event)"
+      >
         <MenuItem v-if="firstData.path" :key="firstData.key">
-          <span className="fix-icon-position">
+          <template #icon>
             <slot v-if="firstData.icon" :name="`sider_${firstData.icon}`"></slot>
-          </span>
+          </template>
           <img v-if="firstData.iconPath" :src="firstData.iconPath" className="anticon" />
           <span>{{ firstData.name }}</span>
         </MenuItem>
         <Divider />
       </Menu>
     </div>
-    <div className="xy-sider__menu-wrapper__second">
+    <div class="xy-sider__menu-wrapper__second">
       <Menu
         mode="inline"
-        v-model:selectedKeys="selectedKeysInnerData"
+        :selectedKeys="selectedKeys"
+        :inline-collapsed="isSiderCollapse"
         theme="dark"
         @click="$emit('clickMenu', $event)"
       >
         <template v-for="item in restData">
           <MenuItem v-if="item.path" :key="item.key">
-            <span className="fix-icon-position">
-              <slot v-if="item.icon" :name="`sider_${item.icon}`"></slot>
-            </span>
-            <img v-if="item.iconPath" :src="item.iconPath" className="anticon" />
+            <template #icon>
+              <slot v-if="item.icon" :name="`sider_${item.icon}`" />
+            </template>
+            <img v-if="item.iconPath" :src="item.iconPath" class="anticon" />
             <span>{{ item.name }}</span>
           </MenuItem>
         </template>
@@ -77,18 +83,13 @@ export default defineComponent({
 });
 </script>
 <style lang="scss" scoped>
-.fix-icon-position {
-  :deep(.anticon) {
-    padding-right: 16px;
-  }
-}
 .xy-sider {
   &__wrapper {
     max-width: 256px;
     transition: width 0.3s cubic-bezier(0.2, 0, 0, 1) 0s;
     :deep(.ant-menu) {
       &.ant-menu-inline-collapsed {
-        // width: 72px;
+        width: 72px;
         > .ant-menu-item {
           padding: 0 24px !important;
         }
@@ -131,7 +132,7 @@ export default defineComponent({
             background-color: $sider-item-active-dark;
           }
           .anticon {
-            margin: 2px 16px 0px 6px;
+            margin: 5px;
             color: $sider-item-icon-dark;
           }
         }
@@ -196,7 +197,6 @@ export default defineComponent({
       }
     }
     &__second {
-      // padding-bottom: 56px;
       overflow: hidden overlay;
       height: calc(100vh - 195px);
     }

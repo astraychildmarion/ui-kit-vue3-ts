@@ -19,7 +19,8 @@ export default {
   component: Sider,
   argTypes: {
     theme: {
-      control: { type: 'select', options: ['light', 'dark'] },
+      options: ['light', 'dark'],
+      control: { type: 'select' },
       description: 'Provide 2 themes, light one for default console page, dark for product pages.',
     },
     siderData: {
@@ -144,7 +145,7 @@ const Template = (args) => ({
   },
   // And then the `args` are bound to your component with `v-bind="args"`
   template: `
-  <sider v-bind="args" >
+  <sider v-bind="args">
     <template #sider_ControlOutlined>
       <ProfileOutlined />
     </template>

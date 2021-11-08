@@ -1,3 +1,5 @@
+/* eslint-disable import/no-extraneous-dependencies */
+import moment from 'moment';
 import CalendarDays from '../components/CalendarDays.vue';
 
 export default {
@@ -17,10 +19,10 @@ export default {
         'A props to tell days button to cancel day choice. Inside the days button would listen to `cleanDayValue`, if it is true, then days would clean..',
       type: 'boolean',
     },
-    onClickDayButton: {
-      action: 'clickDayButton',
+    onChangeTime: {
+      action: 'changeTime',
       description:
-        "Event name is `clickDayButton`. A customize event triggered when click. Return target's value.",
+        "Event name is `changeTime`. A customize event triggered when change RangePicker's value or Days. Return a period of selected time.",
     },
     onChangeDefaultValue: {
       action: 'changeDefaultValue',
@@ -52,4 +54,5 @@ Default.args = {
   ],
   defaultValue: '7',
   cleanDayValue: false,
+  defaultRangePickerValue: [moment('2021-08-01 18:01:44'), moment('2021-08-01 18:01:44')],
 };

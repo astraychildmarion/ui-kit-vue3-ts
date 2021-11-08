@@ -6,8 +6,8 @@ export default {
   title: 'UI-Kit/Filter',
   component: XYFilter,
   argTypes: {
-    filterOption: {
-      description: 'The data source for selectors.',
+    dropdownOption: {
+      description: "The data source for dropdown's option.",
       control: 'array',
     },
     filterDefaultValue: {
@@ -35,100 +35,54 @@ const Template = (args) => ({
 
 export const Default = Template.bind({});
 Default.args = {
-  filterOption: [
+  dropdownOption: [
     {
-      title: 'BU',
-      field: 'business_unit',
-      format: 'dropdown',
-      formatOption: [
-        { title: 'YT-CWD', field: 'YT-CWD' },
-        { title: 'XJ', field: 'XJ' },
-        { title: 'SBK', field: 'SBK' },
-      ],
+      field: 'bu',
+      options: ['188Asia', 'BI', 'CAS', 'CP', 'FYT', 'INFRA-APP', 'INFRA-CEM', 'XJ'],
     },
     {
-      title: 'Shared with',
       field: 'shared_with',
-      format: 'dropdown',
-      formatOption: [
-        { title: '188Asia', field: '188Asia' },
-        { title: 'BI', field: 'BI' },
-        { title: 'Innovation Lab', field: 'Innovation Lab' },
-        { title: 'INFRA-APP', field: 'INFRA-APP' },
-        { title: 'INFRA-CEM', field: 'INFRA-CEM' },
-        { title: 'INFRA-STORM', field: 'INFRA-STORM' },
-      ],
+      options: ['188Asia', 'BI', 'Innovation Lab', 'INFRA-APP', 'INFRA-CEM', 'INFRA-STORM'],
     },
     {
-      title: 'ServiceLAN IP',
-      field: 'service_lan_ip',
+      field: 'cpu_gb',
+      options: ['1gb', '4gb', '8gb'],
     },
     {
-      title: 'Hostname',
-      field: 'hostname',
+      field: 'vm_status',
+      options: ['Proceeding', 'Enable', 'Disable', 'Offline'],
     },
     {
-      title: 'BU Application Name',
-      field: 'bu_application',
+      field: 'ltm_status',
+      options: ['Proceeding', 'Enable', 'Disable', 'Offline'],
     },
     {
-      title: 'Type',
-      field: 'server_type',
-      format: 'dropdown',
-      formatOption: [
-        {
-          title: 'VM',
-          field: 'vm',
-        },
-        {
-          title: 'PHY',
-          field: 'phy',
-        },
-      ],
+      field: 'ram_gb',
+      options: ['1gb', '4gb', '8gb'],
     },
     {
-      title: 'CPU (GB)',
-      field: 'cpu',
-    },
-    {
-      title: 'RAM (GB)',
-      field: 'ram',
-    },
-    {
-      title: 'Disk (GB)',
-      field: 'disk',
-    },
-    {
-      title: 'OS',
       field: 'os',
-      format: 'dropdown',
-      formatOption: [
-        {
-          title: 'Windows',
-          field: 'windows',
-        },
-        {
-          title: 'Linux',
-          field: 'linux',
-        },
-      ],
+      options: ['CentOs7.0', 'CentOs9.0'],
     },
     {
-      title: 'Last Update',
-      field: 'last_update',
-      format: 'calendar',
+      field: 'type',
+      options: ['VM', 'PHY'],
+    },
+    {
+      field: 'env',
+      options: ['UAT', 'Prod'],
     },
   ],
   filterDefaultValue: [
     {
       field: 'hostname',
-      mode: 'in',
-      value: ['host', '1234', 'abc'],
+      mode: 'contain',
+      value: 'host123',
     },
     {
-      field: 'server_type',
+      field: 'type',
       mode: 'in',
-      value: ['phy'],
+      value: ['PHY'],
     },
     {
       field: 'last_update',

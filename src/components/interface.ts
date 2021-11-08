@@ -30,11 +30,15 @@ export interface ExportExcelMenuType {
   key: string;
   keyPath: string;
 }
+export interface DropdownOption {
+  field: string;
+  options?: any[];
+}
 export interface FilterOption {
   title: string;
   field: string;
   format?: string;
-  formatOption?: any[];
+  options?: string[];
 }
 export interface FilterDefaultValue {
   field: string;
