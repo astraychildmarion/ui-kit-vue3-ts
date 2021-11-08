@@ -52,7 +52,7 @@
       </Menu>
     </template>
     <Button>
-      Action
+      Actions
       <DownOutlined />
     </Button>
   </Dropdown>
