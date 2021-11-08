@@ -72,7 +72,7 @@ Default.args = {
   ],
   userMenu: [{ name: 'Member', url: '#' }],
   userInfo: {
-    name: 'Amberiel Cheng',
-    avatar: 'AC',
+    name: 'System User',
+    avatar: 'SU',
   },
 };

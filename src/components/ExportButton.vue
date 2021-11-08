@@ -9,7 +9,7 @@
     </template>
     <Button :loading="loading">
       <template #icon>
-        <ExportOutlined />
+        <CloudDownloadOutlined />
       </template>
       <span class="xy-export-excel--media-query">Export excel</span>
     </Button>
@@ -18,12 +18,12 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
 import { Dropdown, Button, Menu } from 'ant-design-vue';
-import { ExportOutlined } from '@ant-design/icons-vue';
+import { CloudDownloadOutlined } from '@ant-design/icons-vue';
 import { ExportExcelDropdownData, ExportExcelMenuType } from './interface';
 
 export default defineComponent({
   name: 'ExportButton',
-  components: { Dropdown, Button, Menu, MenuItem: Menu.Item, ExportOutlined },
+  components: { Dropdown, Button, Menu, MenuItem: Menu.Item, CloudDownloadOutlined },
   emits: ['clickExport'],
   props: {
     loading: {
@@ -33,8 +33,8 @@ export default defineComponent({
     exportExcelOption: {
       type: Array as PropType<ExportExcelDropdownData[]>,
       default: () => [
-        { title: 'All Servers', value: '1' },
-        { title: 'Current Result', value: '2' },
+        { title: 'All servers', value: '1' },
+        { title: 'Current result', value: '2' },
       ],
     },
   },
