@@ -206,8 +206,8 @@ Default.args = {
   ],
   userMenu: [{ name: 'Member', url: '#', icon: 'team' }],
   userInfo: {
-    name: 'Amberiel Cheng 1',
-    avatar: '/logo.png',
+    name: 'System User',
+    avatar: 'SU',
   },
   siderData: [...siderData.default.args.siderData],
   appListDrawerData: [...appListData.Default.args.appListDrawerData],

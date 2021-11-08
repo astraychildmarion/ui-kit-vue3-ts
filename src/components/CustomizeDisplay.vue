@@ -25,7 +25,7 @@
             <Row type="flex">
               <Col>
                 <Space size="small">
-                  <img src="@/assets/drag_outline.svg" className="anticon" />
+                  <img src="@/assets/drag_outline.svg" className="anticon" v-if="!element.fixed" />
                   {{ element.label }}
                 </Space>
               </Col>
