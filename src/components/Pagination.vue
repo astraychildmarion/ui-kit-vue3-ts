@@ -108,19 +108,22 @@ export default defineComponent({
   :deep(.ant-select-focused .ant-select-selection .ant-select-arrow) {
     transition: color 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
   }
-
-  :deep(.ant-select-selection-item) {
-    line-height: 22px;
-    height: 24px;
+  :deep(.ant-select-single .ant-select-selector .ant-select-selection-item) {
+    line-height: unset;
   }
-  :deep(.ant-select-selector-selected-value),
-  :deep(.ant-select-selector__rendered),
-  .ant-select-single:not(.ant-select-customize-input) :deep(.ant-select-selector) {
-    line-height: 22px;
+  :deep(.ant-select-single:not(.ant-select-customize-input) .ant-select-selector) {
     height: 25px;
     .ant-select-selection-item {
       line-height: 23px;
     }
+    &:after {
+      line-height: 23px;
+    }
+  }
+
+  :deep(.ant-select-selection-item) {
+    line-height: 22px;
+    height: 24px;
   }
   :deep(.ant-pagination-options) {
     margin-left: 4px;

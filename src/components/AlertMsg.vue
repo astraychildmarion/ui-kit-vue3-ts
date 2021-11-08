@@ -38,7 +38,6 @@ export default defineComponent({
     },
   },
   setup(props: any) {
-    console.log('props=>', props);
     const secondsToGo = ref<number>(props.seconds);
     const propsisShow = ref(props.isShow);
     const propsAlertType = ref(props.alertType);
@@ -51,7 +50,6 @@ export default defineComponent({
       setTimeout(() => {
         clearInterval(interval);
         propsisShow.value = false;
-        console.log(propsisShow.value, interval);
       }, secondsToGo.value * 1000);
     };
 
@@ -67,8 +65,7 @@ export default defineComponent({
 
     watch(
       () => propsisShow.value,
-      (NewVal) => {
-        console.log('alertTtl watch visible=>', NewVal);
+      () => {
         if (propsisShow.value && propsAlertType.value === 'success') {
           countDown();
         }

@@ -85,13 +85,9 @@
               <slot :name="`sider_` + item.icon" />
             </template>
           </XYSider>
-          <div
-            class="ant-layout-sider-trigger"
-            :style="collapseStyle"
-            @click="() => (isSiderCollapse = !isSiderCollapse)"
-          >
+          <div class="ant-layout-sider-trigger" :style="collapseStyle" @click="handlerSider">
             <MenuUnfoldOutlined v-if="isSiderCollapse" />
-            <MenuFoldOutlined v-else @click="() => (isSiderCollapse = !isSiderCollapse)" />
+            <MenuFoldOutlined v-else />
             <span v-show="!isSiderCollapse" :style="{ paddingLeft: '10px' }">Close</span>
           </div>
         </LayoutSider>
@@ -202,9 +198,7 @@ export default defineComponent({
       emit('clickAppListDrawerMenu', $event);
     }
     function clickTopLeftCorner(boo: boolean) {
-      console.log('click!@', boo);
       appListDrawerShow.value = !boo;
-      console.log('appListDrawerShow.value', appListDrawerShow.value);
     }
     function clickMenu({ key }: { key: string }) {
       emit('clickMenu', key);
@@ -215,7 +209,9 @@ export default defineComponent({
     function onBreakpoint(broken: boolean) {
       emit('onBreakpoint', broken);
     }
-
+    function handlerSider() {
+      isSiderCollapse.value = !isSiderCollapse.value;
+    }
     const collapseStyle = computed(() => ({
       width: isSiderCollapse.value ? '72px' : '256px',
     }));
@@ -229,6 +225,7 @@ export default defineComponent({
       appListDrawerShow,
       selectedInnerKeys,
       collapseStyle,
+      handlerSider,
       clickAppListDrawerMenu,
       clickTopLeftCorner,
       clickMenu,
