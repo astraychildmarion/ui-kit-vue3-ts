@@ -19,7 +19,6 @@ export default {
         'A props to tell days button to cancel day choice. Inside the days button would listen to `cleanDayValue`, if it is true, then days would clean..',
       type: 'boolean',
     },
-
     onChangeTime: {
       action: 'changeTime',
       description:
