@@ -18,10 +18,12 @@
         class="xy-applist-drawer__first-item"
       >
         <MenuItem v-if="firstData.path" :key="firstData.key">
-          <span class="fix-icon-position">
-            <slot v-if="firstData.icon" :name="`appListDrawer_${firstData.icon}`" />
-          </span>
-          <img v-if="firstData.iconPath" :src="firstData.iconPath" class="anticon" />
+          <template #icon>
+            <span class="fix-icon-position">
+              <slot v-if="firstData.icon" :name="`appListDrawer_${firstData.icon}`" />
+              <img v-if="firstData.iconPath" :src="firstData.iconPath" class="anticon" />
+            </span>
+          </template>
           <span>{{ firstData.name }}</span>
         </MenuItem>
         <Divider />
@@ -35,10 +37,12 @@
       >
         <template v-for="item in restData">
           <MenuItem v-if="item.path" :key="item.key">
-            <span class="fix-icon-position">
-              <slot v-if="item.icon" :name="`appListDrawer_${item.icon}`" />
-            </span>
-            <img v-if="item.iconPath" :src="item.iconPath" class="anticon" />
+            <template #icon>
+              <span class="fix-icon-position">
+                <slot v-if="item.icon" :name="`appListDrawer_${item.icon}`" />
+                <img v-if="item.iconPath" :src="item.iconPath" class="anticon" />
+              </span>
+            </template>
             <span>{{ item.name }}</span>
           </MenuItem>
         </template>
@@ -122,12 +126,6 @@ export default defineComponent({
 });
 </script>
 <style lang="scss" scoped>
-.fix-icon-position {
-  :deep(.anticon) {
-    vertical-align: text-top;
-    padding-right: 16px;
-  }
-}
 .xy-applist-drawer {
   &__wrapper {
     background-color: #f0f0f0;
@@ -186,7 +184,7 @@ export default defineComponent({
             background: $sider-item-selected-light;
             color: $sider-item-text-light;
             &::after {
-              border-right: 3px solid $sider-item-selected-border-light;
+              border-right: 4px solid $sider-item-selected-border-light;
               transform: scaleY(1);
               opacity: 1;
             }
@@ -196,7 +194,7 @@ export default defineComponent({
             color: $sider-item-text-light;
           }
           .anticon {
-            margin-right: 16px;
+            margin-right: 9px;
             padding-left: 6px;
           }
         }
