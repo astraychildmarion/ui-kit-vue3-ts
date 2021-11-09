@@ -18,10 +18,12 @@
         class="xy-applist-drawer__first-item"
       >
         <MenuItem v-if="firstData.path" :key="firstData.key">
-          <span class="fix-icon-position">
-            <slot v-if="firstData.icon" :name="`appListDrawer_${firstData.icon}`" />
-          </span>
-          <img v-if="firstData.iconPath" :src="firstData.iconPath" class="anticon" />
+          <template #icon>
+            <span class="fix-icon-position">
+              <slot v-if="firstData.icon" :name="`appListDrawer_${firstData.icon}`" />
+              <img v-if="firstData.iconPath" :src="firstData.iconPath" class="anticon" />
+            </span>
+          </template>
           <span>{{ firstData.name }}</span>
         </MenuItem>
         <Divider />
@@ -35,10 +37,12 @@
       >
         <template v-for="item in restData">
           <MenuItem v-if="item.path" :key="item.key">
-            <span class="fix-icon-position">
-              <slot v-if="item.icon" :name="`appListDrawer_${item.icon}`" />
-            </span>
-            <img v-if="item.iconPath" :src="item.iconPath" class="anticon" />
+            <template #icon>
+              <span class="fix-icon-position">
+                <slot v-if="item.icon" :name="`appListDrawer_${item.icon}`" />
+                <img v-if="item.iconPath" :src="item.iconPath" class="anticon" />
+              </span>
+            </template>
             <span>{{ item.name }}</span>
           </MenuItem>
         </template>

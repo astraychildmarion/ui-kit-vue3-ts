@@ -46,7 +46,7 @@
       </LayoutHeader>
       <Layout :style="fixLayoutStyle">
         <LayoutSider
-          v-if="!hideUI && !hideSider"
+          v-show="!hideUI && !hideSider"
           v-model:collapsed="isSiderCollapse"
           breakpoint="xxl"
           collapsible
@@ -59,7 +59,7 @@
           }"
         />
         <LayoutSider
-          v-if="!hideUI && !hideSider"
+          v-show="!hideUI && !hideSider"
           v-model:collapsed="isSiderCollapse"
           breakpoint="xxl"
           collapsible
