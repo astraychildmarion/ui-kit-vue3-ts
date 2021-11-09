@@ -45,7 +45,7 @@ Default.args = {
       options: ['188Asia', 'BI', 'Innovation Lab', 'INFRA-APP', 'INFRA-CEM', 'INFRA-STORM'],
     },
     {
-      field: 'cpu_gb',
+      field: 'cpu',
       options: ['1gb', '4gb', '8gb'],
     },
     {
@@ -65,7 +65,7 @@ Default.args = {
       options: ['CentOs7.0', 'CentOs9.0'],
     },
     {
-      field: 'type',
+      field: 'server_type',
       options: ['VM', 'PHY'],
     },
     {
@@ -80,12 +80,12 @@ Default.args = {
       value: 'host123',
     },
     {
-      field: 'type',
+      field: 'server_type',
       mode: 'in',
       value: ['PHY'],
     },
     {
-      field: 'last_update',
+      field: 'last_update_at',
       mode: 'in',
       value: [moment('2021-08-01 18:01:44'), moment('2021-08-01 18:01:44')],
     },
