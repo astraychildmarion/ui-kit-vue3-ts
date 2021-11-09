@@ -8,7 +8,7 @@
           @clickCustomizeConfirm="clickCustomizeConfirm"
         />
         <Filter
-          :dropdownOption="dropdownOption"
+          :dropdownOption="filterDropdownOption"
           :filterDefaultValue="filterDefaultValue"
           @filterChange="filterChange"
         />
@@ -51,7 +51,7 @@ import {
   ActionOptionType,
   CustomizeDisplayItemOptType,
   ExportExcelDropdownData,
-  FilterOption,
+  DropdownOption,
   FilterDefaultValue,
 } from './interface';
 
@@ -74,9 +74,9 @@ export default defineComponent({
     customizeDisplayDefaultSelected: {
       type: Array,
     },
-    dropdownOption: {
+    filterDropdownOption: {
       required: true,
-      type: Array as PropType<FilterOption[]>,
+      type: Array as PropType<DropdownOption[]>,
     },
     filterDefaultValue: {
       type: Array as PropType<FilterDefaultValue[]>,

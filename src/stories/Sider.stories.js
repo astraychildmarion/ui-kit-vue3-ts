@@ -18,18 +18,10 @@ export default {
   title: 'UI-KIT/Layout/Sider',
   component: Sider,
   argTypes: {
-    theme: {
-      options: ['light', 'dark'],
-      control: { type: 'select' },
-      description: 'Provide 2 themes, light one for default console page, dark for product pages.',
-    },
     siderData: {
       control: 'array',
       description:
         "Data to render the sider's structure. Allow second layer of data as child. 'Icon' is for a-icon, 'name' is display name, 'to' is the router url",
-    },
-    collapsed: {
-      description: 'A props to open or fold the sider.',
     },
     selectedKeys: {
       control: 'array',
@@ -43,7 +35,6 @@ export default {
   },
   args: {
     selectedKeys: ['1'],
-    collapsed: false,
     siderData: [
       {
         icon: 'ControlOutlined',
