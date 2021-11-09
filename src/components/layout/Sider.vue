@@ -1,17 +1,12 @@
 <template>
   <div class="xy-sider__wrapper">
     <div className="xy-sider__menu-wrapper__first">
-      <Menu
-        mode="inline"
-        theme="dark"
-        :inline-collapsed="isSiderCollapse"
-        @click="$emit('clickMenu', $event)"
-      >
+      <Menu mode="inline" theme="dark" @click="$emit('clickMenu', $event)">
         <MenuItem v-if="firstData.path" :key="firstData.key">
           <template #icon>
             <slot v-if="firstData.icon" :name="`sider_${firstData.icon}`"></slot>
+            <img v-if="firstData.iconPath" :src="firstData.iconPath" className="anticon" />
           </template>
-          <img v-if="firstData.iconPath" :src="firstData.iconPath" className="anticon" />
           <span>{{ firstData.name }}</span>
         </MenuItem>
         <Divider />
@@ -21,7 +16,6 @@
       <Menu
         mode="inline"
         :selectedKeys="selectedKeys"
-        :inline-collapsed="isSiderCollapse"
         theme="dark"
         @click="$emit('clickMenu', $event)"
       >
@@ -29,8 +23,8 @@
           <MenuItem v-if="item.path" :key="item.key">
             <template #icon>
               <slot v-if="item.icon" :name="`sider_${item.icon}`" />
+              <img v-if="item.iconPath" :src="item.iconPath" class="anticon" />
             </template>
-            <img v-if="item.iconPath" :src="item.iconPath" class="anticon" />
             <span>{{ item.name }}</span>
           </MenuItem>
         </template>
@@ -53,10 +47,6 @@ export default defineComponent({
     },
     siderData: {
       type: Array as PropType<SiderData[]>,
-      required: true,
-    },
-    isSiderCollapse: {
-      type: Boolean,
       required: true,
     },
   },
