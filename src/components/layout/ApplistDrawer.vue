@@ -126,12 +126,6 @@ export default defineComponent({
 });
 </script>
 <style lang="scss" scoped>
-.fix-icon-position {
-  :deep(.anticon) {
-    vertical-align: text-top;
-    padding-right: 16px;
-  }
-}
 .xy-applist-drawer {
   &__wrapper {
     background-color: #f0f0f0;
@@ -190,7 +184,7 @@ export default defineComponent({
             background: $sider-item-selected-light;
             color: $sider-item-text-light;
             &::after {
-              border-right: 3px solid $sider-item-selected-border-light;
+              border-right: 4px solid $sider-item-selected-border-light;
               transform: scaleY(1);
               opacity: 1;
             }
@@ -200,7 +194,7 @@ export default defineComponent({
             color: $sider-item-text-light;
           }
           .anticon {
-            margin-right: 16px;
+            margin-right: 9px;
             padding-left: 6px;
           }
         }
