@@ -167,9 +167,7 @@ export default defineComponent({
     const visible = ref(false);
     const rangeValue = ref<[]>([]);
     const filterItems = ref<FilterDefaultValue[]>([]);
-    // map field
-    // add format
-    // return an array filterOption
+    // map field, add format, return an array filterOption
     const filterOption = computed(() =>
       dropdownMap.map((item: FilterOption) => {
         props.dropdownOption.forEach((option) => {
@@ -199,7 +197,9 @@ export default defineComponent({
       // check data sort
       // sort is IN coerece to array
       // sort is contain coerece to string
-      const editFilterItems = filterItems.value.map((item) => {
+      const deepCloneFilterItems = JSON.parse(JSON.stringify(filterItems.value));
+      const editFilterItems = deepCloneFilterItems.map((item: FilterDefaultValue) => {
+
         if (item.mode === 'contain' && typeof item.value === 'string') {
           return item;
         } else if (item.mode === 'contain' && typeof item.value !== 'string') {
@@ -208,7 +208,7 @@ export default defineComponent({
         } else if (item.mode === 'in' && Array.isArray(item.value)) {
           return item;
         } else if (item.mode === 'in' && !Array.isArray(item.value)) {
-          item.value = item.value.split(',');
+          item.value = (item.value.length === 0) ? [] : item.value.split(',');
           return item;
         } else {
           console.log('WEIRED!', item);
@@ -237,7 +237,6 @@ export default defineComponent({
       const type = formatMap.get(name);
       if (type === 'calendar') rangeValue.value = [];
       filterItems.value.splice(index, 1);
-      // emit('filterChange', filterItems);
       debounceFilterEmit();
     };
     const getSuboption = (field: string) => {
@@ -252,7 +251,6 @@ export default defineComponent({
     const handlerClean = () => {
       rangeValue.value = [];
       filterItems.value.splice(0, filterItems.value.length);
-      // emit('filterChange', filterItems);
       debounceFilterEmit();
     };
     const handlerOverlayStyle = (text: string) => {
@@ -270,7 +268,6 @@ export default defineComponent({
           item.mode = 'in';
         }
       });
-      // emit('filterChange', filterItems);
       debounceFilterEmit();
     };
     // Can not select days after today
