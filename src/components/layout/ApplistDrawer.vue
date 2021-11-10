@@ -60,6 +60,7 @@
 import { defineComponent, ref, reactive, watchEffect, PropType } from 'vue';
 import { Drawer, Menu } from 'ant-design-vue';
 import { SiderData } from '../interface';
+import packageJson from '../../../package.json';
 
 export default defineComponent({
   name: 'XYAppListDrawer',
@@ -94,7 +95,11 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const uiKit = { name: 'xy-cloud-kit-2', version: '0.0.1' };
+    const { version } = packageJson;
+    const uiKit = {
+      name: 'xy-cloud-kit-2',
+      version,
+    };
     const isDrawerShow = ref(props.appListDrawerShow);
     // get applist item
     const firstData = ref(props.appListDrawerData[0]);
