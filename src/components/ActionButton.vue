@@ -80,7 +80,7 @@ export default defineComponent({
   },
   emits: ['clickAction'],
   setup(props, { emit }) {
-    const isCheckboxSelectedText = 'You need to select an item or more on the list.';
+    const isCheckboxSelectedText = 'One or more items from server list must be selected.';
     const actionInnerOption = ref(props.actionOption);
     const isTableInnerChecked = ref(props.isTableCheckbox);
 
