@@ -223,9 +223,10 @@ export default defineComponent({
         } else if (item.mode === 'in' && !Array.isArray(item.value)) {
           item.value = item.value.length === 0 ? [] : item.value.split(',');
         } else if (item.field === 'last_update_at') {
-          console.log('rangeValue.value', rangeValue.value);
-          const start = rangeValue.value.slice(0);
-          const end = rangeValue.value.slice(1, 1);
+          const copy = [...rangeValue.value]
+          const start = copy.shift();
+          const end = copy.shift();
+          console.log(start, end);
           item.value = [moment(start).format('YYYY-MM-DD'), moment(end).format('YYYY-MM-DD')];
           console.log('item.value last up date', item.value);
         }
