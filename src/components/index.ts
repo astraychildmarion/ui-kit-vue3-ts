@@ -14,8 +14,6 @@ export { default as XYFilter } from './Filter.vue';
 export { default as XYNumberInput } from './NumberInput.vue';
 export { default as XYPagination } from './Pagination.vue';
 export { default as XYPancilInput } from './Pencil.vue';
-// remove refresh button 2021/11/04
-// export { default as XYRefreshButton } from './RefreshButton.vue';
 export { default as XYSearchBar } from './SearchBar.vue';
 export { default as XYToolbar } from './Toolbar.vue';
 export * from './interface';
