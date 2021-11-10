@@ -13,7 +13,7 @@ export { default as XYExportButton } from './ExportButton.vue';
 export { default as XYFilter } from './Filter.vue';
 export { default as XYNumberInput } from './NumberInput.vue';
 export { default as XYPagination } from './Pagination.vue';
-export { default as XYPancilInput } from './Pencil.vue';
+export { default as XYPencilInput } from './Pencil.vue';
 export { default as XYSearchBar } from './SearchBar.vue';
 export { default as XYToolbar } from './Toolbar.vue';
 export * from './interface';
