@@ -26,6 +26,11 @@ export default {
       description:
         "Props data for Customize display component 's defaultSelected. You can see CustomizeDisplay for more info.",
     },
+    customizeUserSelected: {
+      type: 'array',
+      description:
+        "Props data for Customize display component 's userSelected. You can see CustomizeDisplay for more info.",
+    },
     filterDropdownOption: {
       type: 'object',
       description: "Filter's field dropdown option data.",
@@ -96,6 +101,7 @@ export const Default = Template.bind({});
 Default.args = {
   customizeDisplayCheckboxOption: customizeDisplay.Default.args.itemOption,
   customizeDisplayDefaultSelected: customizeDisplay.Default.args.defaultSelected,
+  customizeUserSelected: customizeDisplay.Default.args.userSelected,
   filterDropdownOption: filter.Default.args.dropdownOption,
   filterDefaultValue: filter.Default.args.filterDefaultValue,
   actionOption: actionButton.Default.args.actionOption,
