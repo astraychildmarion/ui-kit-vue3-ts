@@ -83,7 +83,7 @@
                   <RangePicker
                     :disabled-date="disabledDate"
                     v-model:value="rangeValue"
-                    format="MM-DD-YYYY"
+                    format="MMM-DD-YYYY"
                     @change="handlerGetRange"
                   >
                     <template #suffixIcon>
@@ -314,6 +314,7 @@ export default defineComponent({
       active,
       titleText,
       filterOption,
+      formatMap,
       handleMenuClick,
       handlerClean,
       handlerGetRange,
@@ -324,7 +325,6 @@ export default defineComponent({
       disabledDate,
       changeFilterSelector,
       checkSortDisable,
-      formatMap,
       getSuboption,
     };
   },
