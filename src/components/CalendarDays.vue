@@ -70,6 +70,14 @@ export default defineComponent({
         emit('changeTime', editValue);
       }
     };
+    const openChange = (status: any) => {
+      console.log('openChange', status);
+      if (status) {
+        const bb = document.querySelector('.ant-calendar-ok-btn');
+        console.log(bb);
+        console.log(bb?.innerHTML);
+      }
+    };
     watchEffect(() => {
       if (props.defaultRangePickerValue.length > 0) {
         rangeValue.value = props.defaultRangePickerValue;
@@ -80,6 +88,7 @@ export default defineComponent({
     return {
       cleanDayValue,
       rangeValue,
+      openChange,
       disabledDate,
       clickDayButton,
       changeDaysDefault,
