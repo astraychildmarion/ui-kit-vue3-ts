@@ -14,8 +14,10 @@ export default {
         'data to render Select Item. It is an Array includes objects. Each object has label and value 2 attributes.',
     },
     defaultSelected: {
-      description:
-        "Array to set default selected item. It is an Array including selectOption's value attribute.<br> For example: `['bu', 'disk_partition]`",
+      description: 'Array to set default 8 selected items.',
+    },
+    userSelected: {
+      description: "Array to set user's selected item.",
     },
   },
 };
@@ -48,7 +50,7 @@ Default.args = {
     },
     {
       label: 'Hostname',
-      value: 'host',
+      value: 'hostname',
     },
     {
       label: 'CPU',
@@ -56,7 +58,7 @@ Default.args = {
     },
     {
       label: 'RAM (GB)',
-      value: 'ram',
+      value: 'ram_gb',
     },
 
     {
@@ -73,7 +75,7 @@ Default.args = {
     },
     {
       label: 'Disk (GB)',
-      value: 'disk',
+      value: 'disk_capacity_gb',
     },
     {
       label: 'Disk Partition',
@@ -85,7 +87,7 @@ Default.args = {
     },
     {
       label: 'Last Update',
-      value: 'last_update',
+      value: 'last_update_at',
     },
     {
       label: 'Layer',
@@ -93,7 +95,7 @@ Default.args = {
     },
     {
       label: 'Type',
-      value: 'type',
+      value: 'server_type',
     },
     {
       label: 'Shared with',
@@ -101,7 +103,7 @@ Default.args = {
     },
     {
       label: 'Environment',
-      value: 'environment',
+      value: 'env',
     },
   ],
   defaultSelected: [
@@ -117,7 +119,7 @@ Default.args = {
     },
     {
       label: 'Hostname',
-      value: 'host',
+      value: 'hostname',
       fixed: false,
     },
     {
@@ -127,7 +129,7 @@ Default.args = {
     },
     {
       label: 'RAM (GB)',
-      value: 'ram',
+      value: 'ram_gb',
       fixed: false,
     },
     {
@@ -143,6 +145,33 @@ Default.args = {
     {
       label: 'LTM Status',
       value: 'ltm_status',
+      fixed: false,
+    },
+  ],
+  userSelected: [
+    {
+      label: 'ServiceLan IP',
+      value: 'service_lan_ip',
+      fixed: true,
+    },
+    {
+      label: 'BU',
+      value: 'bu',
+      fixed: false,
+    },
+    {
+      label: 'Hostname',
+      value: 'hostname',
+      fixed: false,
+    },
+    {
+      label: 'RAM (GB)',
+      value: 'ram_gb',
+      fixed: false,
+    },
+    {
+      label: 'Last Update',
+      value: 'last_update_at',
       fixed: false,
     },
   ],

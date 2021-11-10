@@ -8,7 +8,7 @@
 
     <Modal
       :keyboard="keyboard"
-      :visible="propsvisible"
+      :visible="propsVisible"
       :closable="closable"
       :maskClosable="maskClosable"
       wrapClassName="xy-customize-display"
@@ -98,13 +98,21 @@ export default defineComponent({
       type: Boolean,
     },
     itemOption: {
-      type: Array as PropType<CustomizeDisplayItemOptType[]>,
       required: true,
+      type: Array as PropType<CustomizeDisplayItemOptType[]>,
       default() {
         return [];
       },
     },
     defaultSelected: {
+      required: true,
+      type: Array,
+      default() {
+        return [];
+      },
+    },
+    userSelected: {
+      required: true,
       type: Array,
       default() {
         return [];
@@ -113,8 +121,9 @@ export default defineComponent({
   },
   emits: ['clickCustomizeConfirm'],
   setup(props: any, { emit }) {
-    const propsvisible = ref(props.visible);
-    const propsdefaultSelected = ref(props.defaultSelected);
+    const propsVisible = ref(props.visible);
+    const propsDefaultSelected = ref(props.defaultSelected);
+    const propsUserSelected = ref(props.userSelected);
     const propsItemOption = ref(props.itemOption);
     const keyboard = ref<boolean>(false);
     const closable = ref<boolean>(false);
@@ -125,6 +134,7 @@ export default defineComponent({
     const headerText = ref<string>('');
     const emptyvalue = ref([]);
     const divref = ref(null);
+
     function CheckSelectedItem(): void {
       if (selectedItem.value.length > 1) {
         selectedCountWrong.value = false;
@@ -138,14 +148,14 @@ export default defineComponent({
     const currentNumber = computed(() => selectedItem.value.length);
 
     const showCustomizeDisplay = () => {
-      propsvisible.value = true;
+      propsVisible.value = true;
     };
     const clickCancel = () => {
-      propsvisible.value = false;
+      propsVisible.value = false;
     };
     const clickConfirm = () => {
       emit('clickCustomizeConfirm', selectedItem.value);
-      propsvisible.value = false;
+      propsVisible.value = false;
     };
 
     const onMove = (evt: any) => {
@@ -155,7 +165,7 @@ export default defineComponent({
     };
 
     const clickResetDefault = () => {
-      selectedItem.value = JSON.parse(JSON.stringify(propsdefaultSelected.value));
+      selectedItem.value = JSON.parse(JSON.stringify(propsDefaultSelected.value));
       emptyvalue.value = [];
       CheckSelectedItem();
     };
@@ -180,7 +190,7 @@ export default defineComponent({
     };
 
     watch(
-      () => propsvisible.value,
+      () => propsVisible.value,
       (NewVal) => {
         if (NewVal) {
           selectedCountWrong.value = false;
@@ -190,7 +200,7 @@ export default defineComponent({
     );
 
     watch(
-      () => propsdefaultSelected.value,
+      () => propsUserSelected.value,
       (NewVal) => {
         selectedItem.value = JSON.parse(JSON.stringify(NewVal));
       },
@@ -207,8 +217,9 @@ export default defineComponent({
       onMove,
       getContainer,
       divref,
-      propsvisible,
-      propsdefaultSelected,
+      propsVisible,
+      propsDefaultSelected,
+      propsUserSelected,
       propsItemOption,
       keyboard,
       closable,
