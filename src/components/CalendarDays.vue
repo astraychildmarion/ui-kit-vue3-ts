@@ -15,7 +15,6 @@
         showTime
         :disabledDate="disabledDate"
         @ok="handlerRangePicker"
-        @openChange="openChange"
       >
         <template #suffixIcon>
           <CalendarOutlined />

@@ -5,6 +5,7 @@
         <CustomizeDisplay
           :itemOption="customizeDisplayCheckboxOption"
           :defaultSelected="customizeDisplayDefaultSelected"
+          :userSelected="customizeUserSelected"
           @clickCustomizeConfirm="clickCustomizeConfirm"
         />
         <Filter
@@ -72,6 +73,11 @@ export default defineComponent({
       type: Array as PropType<CustomizeDisplayItemOptType[]>,
     },
     customizeDisplayDefaultSelected: {
+      required: true,
+      type: Array,
+    },
+    customizeUserSelected: {
+      required: true,
       type: Array,
     },
     filterDropdownOption: {
