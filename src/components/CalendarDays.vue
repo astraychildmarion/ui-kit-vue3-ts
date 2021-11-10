@@ -11,9 +11,11 @@
     <div class="xy-calendar-day">
       <RangePicker
         v-model:value="rangeValue"
-        format="MM-DD-YYYY"
+        format="MMM-DD-YYYY"
+        showTime
         :disabledDate="disabledDate"
-        @change="handlerRangePicker"
+        @ok="handlerRangePicker"
+        @openChange="openChange"
       >
         <template #suffixIcon>
           <CalendarOutlined />
@@ -69,6 +71,14 @@ export default defineComponent({
         emit('changeTime', editValue);
       }
     };
+    const openChange = (status: any) => {
+      console.log('openChange', status);
+      if (status) {
+        const bb = document.querySelector('.ant-calendar-ok-btn');
+        console.log(bb);
+        console.log(bb?.innerHTML);
+      }
+    };
     watchEffect(() => {
       if (props.defaultRangePickerValue.length > 0) {
         rangeValue.value = props.defaultRangePickerValue;
@@ -79,6 +89,7 @@ export default defineComponent({
     return {
       cleanDayValue,
       rangeValue,
+      openChange,
       disabledDate,
       clickDayButton,
       changeDaysDefault,
@@ -95,5 +106,13 @@ export default defineComponent({
   &-wrapper {
     display: flex;
   }
+}
+.ant-calendar .ant-calendar-ok-btn {
+  font-size: 0;
+}
+
+.ant-calendar .ant-calendar-ok-btn:after {
+  content: 'Confirm';
+  font-size: 14px; /* original font size */
 }
 </style>
