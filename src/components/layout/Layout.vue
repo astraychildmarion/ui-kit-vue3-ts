@@ -100,7 +100,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed, watchEffect, PropType } from 'vue';
+import { defineComponent, ref, computed, watch, PropType } from 'vue';
 import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons-vue';
 import { Layout } from 'ant-design-vue';
 import XYHeader from './Header.vue';
@@ -216,9 +216,13 @@ export default defineComponent({
       width: isSiderCollapse.value ? '72px' : '256px',
     }));
 
-    watchEffect(() => {
-      selectedInnerKeys.value = props.selectedKeys;
-    });
+    watch(
+      () => props.selectedKeys,
+      (n) => {
+        selectedInnerKeys.value = n;
+        console.log('selectedInnerKeys.value', selectedInnerKeys.value);
+      },
+    );
 
     return {
       isSiderCollapse,

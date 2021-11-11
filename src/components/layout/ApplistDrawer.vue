@@ -57,7 +57,7 @@
   </Drawer>
 </template>
 <script lang="ts">
-import { defineComponent, ref, reactive, watchEffect, PropType } from 'vue';
+import { defineComponent, ref, reactive, watch, PropType } from 'vue';
 import { Drawer, Menu } from 'ant-design-vue';
 import { SiderData } from '../interface';
 import packageJson from '../../../package.json';
@@ -115,9 +115,12 @@ export default defineComponent({
       isDrawerShow.value = false;
     }
 
-    watchEffect((): void => {
-      isDrawerShow.value = props.appListDrawerShow;
-    });
+    watch(
+      () => props.appListDrawerShow,
+      (n) => {
+        isDrawerShow.value = n;
+      },
+    );
 
     return {
       firstData,

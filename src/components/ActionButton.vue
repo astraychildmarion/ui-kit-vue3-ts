@@ -58,7 +58,7 @@
   </Dropdown>
 </template>
 <script lang="ts">
-import { PropType, defineComponent, ref, watchEffect } from 'vue';
+import { PropType, defineComponent, ref, watch } from 'vue';
 import { Button, Dropdown, Menu, Tooltip } from 'ant-design-vue';
 import { DownOutlined } from '@ant-design/icons-vue';
 import { ActionOptionType, ActionMenuClickType } from './interface';
@@ -92,10 +92,18 @@ export default defineComponent({
       const noshow = { visibility: 'hidden' };
       return tooltipShow ? undefined : noshow;
     }
-    watchEffect(() => {
-      actionInnerOption.value = props.actionOption;
-      isTableInnerChecked.value = props.isTableCheckbox;
-    });
+    watch(
+      () => props.actionOption,
+      (nAction) => {
+        actionInnerOption.value = nAction;
+      },
+    );
+    watch(
+      () => props.isTableCheckbox,
+      (nTable) => {
+        isTableInnerChecked.value = nTable;
+      },
+    );
     return {
       handleMenuClick,
       handlerOverlayStyle,

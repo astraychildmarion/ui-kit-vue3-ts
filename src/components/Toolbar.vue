@@ -135,7 +135,6 @@ export default defineComponent({
       () => props.isExportLoading,
       (NewVal) => {
         if (NewVal) {
-          console.log('NewVal', NewVal);
           propsIsExportLoading.value = NewVal;
         }
       },
