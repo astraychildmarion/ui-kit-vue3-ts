@@ -85,8 +85,10 @@ export default defineComponent({
     const isTableInnerChecked = ref(props.isTableCheckbox);
 
     function handleMenuClick({ item }: ActionMenuClickType) {
-      const isDisabled = item.class === 'itemDisable';
-      if (isTableInnerChecked.value && !isDisabled) emit('clickAction', item.title);
+      const isDisabled = item.class.indexOf('itemDisable') !== -1;
+      if (isTableInnerChecked.value && !isDisabled) {
+        emit('clickAction', item.title);
+      }
     }
     function handlerOverlayStyle(tooltipShow: boolean) {
       const noshow = { visibility: 'hidden' };
