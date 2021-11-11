@@ -28,13 +28,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, PropType } from 'vue';
+import { defineComponent, ref, watch, PropType } from 'vue';
 import { Modal, Space, Button } from 'ant-design-vue';
 import { ExclamationCircleOutlined } from '@ant-design/icons-vue';
 
 export default defineComponent({
   name: 'XYConfirmModal',
-  emits: ['clickConfirm'],
+  emits: ['clickConfirm', 'clickCancel'],
   components: {
     Modal,
     Space,
@@ -62,16 +62,14 @@ export default defineComponent({
     const divref = ref(null);
     const propsConfirmType = ref(props.confirmType);
     const getContainer = () => divref.value;
-    const showModal = () => {
-      propsisShow.value = true;
-    };
-    const handleCancel = () => {
-      propsisShow.value = false;
-    };
+
     const handleOk = () => {
       emit('clickConfirm');
-      propsisShow.value = false;
     };
+    const handleCancel = () => {
+      emit('clickCancel');
+    };
+
     const ConfirmStyle = (ConfirmType: any) => {
       switch (ConfirmType) {
         case 'error':
@@ -88,8 +86,14 @@ export default defineComponent({
     };
     const typeStyle = ConfirmStyle(propsConfirmType.value);
 
+    watch(
+      () => props.isShow,
+      (Show) => {
+        propsisShow.value = Show;
+      },
+    );
+
     return {
-      showModal,
       getContainer,
       handleCancel,
       handleOk,
