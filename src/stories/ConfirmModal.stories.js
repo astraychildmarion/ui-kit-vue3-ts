@@ -12,6 +12,10 @@ export default {
       action: 'click',
       description: 'Event name is "clickConfirm".',
     },
+    onClickCancel: {
+      action: 'click',
+      description: 'Event name is "clickCancel".',
+    },
   },
 };
 
@@ -33,4 +37,6 @@ export const Default = Template.bind({});
 Default.args = {
   isShow: false,
   confirmType: 'error',
+  title: 'message title',
+  content: 'message content,message content, message content, message content',
 };
