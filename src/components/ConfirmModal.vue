@@ -6,18 +6,18 @@
       :closable="false"
       :maskClosable="false"
       :keyboard="false"
+      centered
       width="416px"
-      class="xy-confirm-modal"
       :getContainer="getContainer"
     >
       <div class="ant-modal-confirm-body-wrapper">
-        <span class="ant-modal-confirm-body">
-          <ExclamationCircleOutlined :class="typeStyle" />
+        <Space size="middle" align="start" class="ant-modal-confirm-body">
+          <ExclamationCircleOutlined :class="typeStyle" style="font-size: 22px" />
           <Space size="small" direction="vertical">
             <span class="ant-modal-confirm-title">{{ title }}</span>
             <span class="ant-modal-confirm-content">{{ content }}</span>
           </Space>
-        </span>
+        </Space>
       </div>
       <template #footer>
         <Button @click="handleCancel">Cancel</Button>
@@ -110,16 +110,6 @@ export default defineComponent({
   border-top: none;
 }
 .xy-confirm-modal__ref .confirm-modal {
-  .ant-modal-confirm-title {
-    border-bottom: none;
-    font-weight: bold;
-  }
-
-  .ant-modal-confirm-content {
-    background-color: #fff;
-    color: #5c666f;
-    font-size: 16px;
-  }
   .ant-modal-body {
     background-color: #fff;
     padding: 24px;
@@ -156,5 +146,16 @@ export default defineComponent({
       border-color: #37c5a0;
     }
   }
+}
+.ant-modal-confirm-title {
+  border-bottom: none;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.ant-modal-confirm-content {
+  background-color: #fff;
+  color: #5c666f;
+  font-size: 16px;
 }
 </style>
