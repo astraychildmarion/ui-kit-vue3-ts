@@ -87,7 +87,7 @@ Default.args = {
     {
       field: 'last_update_at',
       mode: 'in',
-      value: [moment('2021-08-01 18:01:44'), moment('2021-08-01 18:01:44')],
+      value: [moment('2021-11-08 18:01:44'), moment('2021-11-10 18:01:44')],
     },
   ],
 };
