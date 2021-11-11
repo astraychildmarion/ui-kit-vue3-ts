@@ -7,22 +7,22 @@
       </div>
     </div>
     <div class="xy-pencil-input__wrapper">
-      <Input v-if="editMode" v-model:value="editValue" @pressEnter="pressEnter" />
+      <Input v-if="editMode" v-model:value="inputText" @pressEnter="pressEnter" />
     </div>
     <div class="xy-pencil-input__icon-check" @click="pressEnter">
       <CheckOutlined
         style="color: #5c666f; font-size: 16px"
-        v-if="editMode && editValue.length < 1"
+        v-if="editMode && inputText.length < 1"
       />
       <CheckOutlined
         style="color: #37c5a0; font-size: 16px"
-        v-if="editMode && editValue.length > 0"
+        v-if="editMode && inputText.length > 0"
       />
     </div>
   </div>
 </template>
 <script lang="ts">
-import { PropType, defineComponent, ref } from 'vue';
+import { PropType, defineComponent, ref, watch } from 'vue';
 import { Input } from 'ant-design-vue';
 import { EditOutlined, CheckOutlined } from '@ant-design/icons-vue';
 
@@ -39,21 +39,23 @@ export default defineComponent({
   setup(props, { emit }) {
     const inputText = ref<string>(props.text || '');
     const editMode = ref<boolean>(false);
-    const editValue = ref<string>('');
     const clickPen = () => {
       editMode.value = true;
-      editValue.value = inputText.value;
     };
     const pressEnter = () => {
-      if (editValue.value.length < 1) return;
-      inputText.value = editValue.value;
-      emit('pressEnter', editValue.value);
+      if (inputText.value.length < 1) return;
+      emit('pressEnter', inputText.value);
       editMode.value = false;
     };
+    watch(
+      () => props.text,
+      (n) => {
+        inputText.value = n;
+      },
+    );
     return {
       inputText,
       editMode,
-      editValue,
       clickPen,
       pressEnter,
     };
