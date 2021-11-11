@@ -1,15 +1,14 @@
 <template>
   <div class="xy-number-input-wrapper">
     <Space :size="40">
-      <Button :disabled="!decreasable" @click="decrease" class="iconbtn">
+      <Button class="iconbtn" :disabled="!decreasable" @click="decrease">
         <template #icon>
           <MinusSquareOutlined />
         </template>
       </Button>
       <Space :size="40">
-        <!-- <Input suffix="VM" style="width: 5rem" v-model:value="inputValue" @change="change" /> -->
-        <span class="vmqty" @change="change">{{ inputValue }} VM</span>
-        <Button :disabled="!increasable" @click="increase" class="iconbtn">
+        <span class="vmqty">{{ inputValue }} VM</span>
+        <Button class="iconbtn" @click="increase">
           <template #icon>
             <PlusSquareOutlined />
           </template>
@@ -25,7 +24,6 @@ import { PlusSquareOutlined, MinusSquareOutlined } from '@ant-design/icons-vue';
 
 export default defineComponent({
   name: 'NumberInput',
-  emits: ['clickChange'],
   components: { Button, Space, PlusSquareOutlined, MinusSquareOutlined },
   props: {
     max: {
@@ -37,9 +35,9 @@ export default defineComponent({
       default: -Infinity,
     },
   },
+  emits: ['clickChange'],
   setup(props: any, { emit }) {
-    const inputValue = ref<number>(1);
-    const maxVal = ref<number>(props.max);
+    const inputValue = ref<number>(props.min);
     const minVal = ref<number>(props.min);
     const format = (val: string, preVal: string) => {
       const reg = /^-?\d*(\.\d*)?$/;
@@ -53,8 +51,6 @@ export default defineComponent({
     watch(inputValue, (val, preVal) => {
       format(val.toString(), preVal.toString());
     });
-
-    const increasable = computed(() => inputValue.value < maxVal.value);
     const decreasable = computed(() => inputValue.value > minVal.value);
     const emitEvent = () => {
       emit('clickChange', Number(inputValue.value));
@@ -73,20 +69,11 @@ export default defineComponent({
       inputValue.value += 1;
       emitEvent();
     };
-    const change = () => {
-      if (inputValue.value > maxVal.value) {
-        inputValue.value = maxVal.value;
-      } else if (inputValue.value < minVal.value) {
-        inputValue.value = minVal.value;
-      }
-      emitEvent();
-    };
+
     return {
       increase,
       decrease,
-      change,
       inputValue,
-      increasable,
       decreasable,
     };
   },
