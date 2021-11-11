@@ -19,7 +19,7 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, ref, watchEffect } from 'vue';
+import { defineComponent, ref, watch } from 'vue';
 import { Pagination } from 'ant-design-vue';
 
 export default defineComponent({
@@ -42,8 +42,6 @@ export default defineComponent({
   setup(props, { emit }) {
     const page = ref<number>(1);
     const pageSize = ref<number>(30);
-    const defaultCurrent = ref(props.defaultCurrent);
-    const defaultPageSize = ref(props.defaultPageSize);
     const total = ref(props.total);
 
     const pageInfo = (totalPage: number, range: string[]) =>
@@ -60,10 +58,18 @@ export default defineComponent({
       pageSize.value = size;
       emit('showSizeChange', size, exceedTotalAmount);
     };
-    watchEffect((): void => {
-      pageSize.value = defaultPageSize.value;
-      page.value = defaultCurrent.value;
-    });
+    watch(
+      () => props.defaultPageSize,
+      (n) => {
+        pageSize.value = n;
+      },
+    );
+    watch(
+      () => props.defaultCurrent,
+      (n) => {
+        page.value = n;
+      },
+    );
 
     return {
       page,

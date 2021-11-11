@@ -24,7 +24,7 @@
   </div>
 </template>
 <script lang="ts">
-import { PropType, defineComponent, ref, watchEffect } from 'vue';
+import { PropType, defineComponent, ref, watch } from 'vue';
 import { DatePicker } from 'ant-design-vue';
 import { CalendarOutlined } from '@ant-design/icons-vue';
 /* eslint-disable import/no-extraneous-dependencies */
@@ -70,25 +70,19 @@ export default defineComponent({
         emit('changeTime', editValue);
       }
     };
-    const openChange = (status: any) => {
-      console.log('openChange', status);
-      if (status) {
-        const bb = document.querySelector('.ant-calendar-ok-btn');
-        console.log(bb);
-        console.log(bb?.innerHTML);
-      }
-    };
-    watchEffect(() => {
-      if (props.defaultRangePickerValue.length > 0) {
-        rangeValue.value = props.defaultRangePickerValue;
-        cleanDayValue.value = true;
-      }
-    });
+    watch(
+      () => props.defaultRangePickerValue,
+      (n) => {
+        if (n.length > 0) {
+          rangeValue.value = props.defaultRangePickerValue;
+          cleanDayValue.value = true;
+        }
+      },
+    );
 
     return {
       cleanDayValue,
       rangeValue,
-      openChange,
       disabledDate,
       clickDayButton,
       changeDaysDefault,

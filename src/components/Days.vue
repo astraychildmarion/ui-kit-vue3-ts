@@ -15,7 +15,7 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, ref, watchEffect, PropType } from 'vue';
+import { defineComponent, ref, watch, PropType } from 'vue';
 import { Radio, Space } from 'ant-design-vue';
 import { DayOption, DayClickRadioButtonEvent } from './interface';
 
@@ -97,18 +97,26 @@ export default defineComponent({
         }
       }
     };
-
-    watchEffect(() => {
-      if (props.cleanDayValue === true) {
-        value.value = null;
-        currentValue.value = null;
-      } else if (props.defaultValue) {
-        value.value = props.defaultValue;
-        currentValue.value = props.defaultValue;
-        const payload = generateEventPayload(props.defaultValue);
-        emitChangeDefaultValue(payload);
-      }
-    });
+    watch(
+      () => props.defaultValue,
+      (n) => {
+        if (n) {
+          value.value = n;
+          currentValue.value = n;
+          const payload = generateEventPayload(n);
+          emitChangeDefaultValue(payload);
+        }
+      },
+    );
+    watch(
+      () => props.cleanDayValue,
+      (n) => {
+        if (n) {
+          value.value = null;
+          currentValue.value = null;
+        }
+      },
+    );
 
     return {
       value,
