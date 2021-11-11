@@ -1,6 +1,6 @@
 {
   "name": "@xycloud/xycloud-ui-kit-2",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "exports": {
     ".": {
       "import": "./dist/xy-cloud-kit-2.es.js"

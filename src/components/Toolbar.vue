@@ -26,7 +26,7 @@
         <ExportButton
           :exportExcelOption="exportExcelOption"
           @clickExport="clickExport"
-          :isLoading="isExportLoading"
+          :loading="isExportLoading"
         />
         <XYPagination
           :total="tablePageSetting.total"
@@ -40,7 +40,7 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, PropType } from 'vue';
+import { defineComponent, PropType, ref, watch } from 'vue';
 import { Space } from 'ant-design-vue';
 import Filter from './Filter.vue';
 import ActionButton from './ActionButton.vue';
@@ -112,6 +112,7 @@ export default defineComponent({
     },
   },
   setup(props, { emit }) {
+    const propsIsExportLoading = ref<boolean>(props.isExportLoading);
     function changePage(data: object) {
       emit('changePage', data);
     }
@@ -130,6 +131,16 @@ export default defineComponent({
     function clickCustomizeConfirm(data: object[]) {
       emit('clickCustomizeConfirm', data);
     }
+    watch(
+      () => props.isExportLoading,
+      (NewVal) => {
+        if (NewVal) {
+          console.log('NewVal', NewVal);
+          propsIsExportLoading.value = NewVal;
+        }
+      },
+      { deep: true },
+    );
     return {
       changePage,
       showSizeChange,

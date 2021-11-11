@@ -22,4 +22,5 @@ export const Default = Template.bind({});
 Default.args = {
   min: 1,
   max: Infinity,
+  isDisable: false,
 };
