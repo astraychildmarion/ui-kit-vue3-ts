@@ -1,5 +1,5 @@
 <template>
-  <div class="xy-confirm-modal" ref="divref"></div>
+  <div class="xy-confirm-modal__ref" ref="divref"></div>
   <div>
     <Modal
       v-model:visible="propsisShow"
@@ -7,7 +7,7 @@
       :maskClosable="false"
       :keyboard="false"
       width="416px"
-      class="confirm-modal"
+      class="xy-confirm-modal"
       :getContainer="getContainer"
     >
       <div class="ant-modal-confirm-body-wrapper">
@@ -105,7 +105,7 @@ export default defineComponent({
 :deep(.ant-modal-footer) {
   border-top: none;
 }
-.xy-confirm-modal .confirm-modal {
+.xy-confirm-modal__ref .confirm-modal {
   .ant-modal-confirm-title {
     border-bottom: none;
     font-weight: bold;

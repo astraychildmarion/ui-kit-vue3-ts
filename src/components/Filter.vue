@@ -199,38 +199,19 @@ export default defineComponent({
       // sort is contain coerece to string
       const deepCloneFilterItems = JSON.parse(JSON.stringify(filterItems.value));
       const editFilterItems = deepCloneFilterItems.map((item: FilterDefaultValue) => {
-        // if (item.mode === 'contain' && typeof item.value === 'string') {
-        //   return item;
-        // } else if (item.mode === 'contain' && typeof item.value !== 'string') {
-        //   item.value = String(item.value);
-        //   return item;
-        // } else if (item.mode === 'in' && Array.isArray(item.value)) {
-        //   return item;
-        // } else if (item.mode === 'in' && !Array.isArray(item.value)) {
-        //   item.value = item.value.length === 0 ? [] : item.value.split(',');
-        //   return item;
-        // } else if (item.field === 'last_update_at') {
-        //   const start = rangeValue.value.slice(0, 1);
-        //   const end = rangeValue.value.slice(1, 1);
-        //   item.value = [moment(start).format('YYYY-MM-DD'), moment(end).format('YYYY-MM-DD')];
-        //   console.log('item.value last up date', item.value);
-        //   return item;
-        // } else {
-        //   console.log('WEIRED!', item);
-        // }
         if (item.mode === 'contain' && typeof item.value !== 'string') {
           item.value = String(item.value);
         } else if (item.mode === 'in' && !Array.isArray(item.value)) {
           item.value = item.value.length === 0 ? [] : item.value.split(',');
         } else if (item.field === 'last_update_at') {
-          const copy = [...rangeValue.value]
-          const start = copy.shift();
-          const end = copy.shift();
-          console.log(start, end);
-          item.value = [moment(start).format('YYYY-MM-DD'), moment(end).format('YYYY-MM-DD')];
-          console.log('item.value last up date', item.value);
+          const copy = [...rangeValue.value];
+          if (copy.length > 0) {
+            const start = copy.shift();
+            const end = copy.shift();
+            item.value = [moment(start).format('YYYY-MM-DD'), moment(end).format('YYYY-MM-DD')];
+          }
         }
-        return item
+        return item;
       });
       emit('filterChange', editFilterItems);
     }, 500);
@@ -240,7 +221,7 @@ export default defineComponent({
       filterItems.value.forEach((item: FilterDefaultValue) => {
         // eslint-disable-next-line no-param-reassign
         if (item.field === field) {
-          if (formatMap.get(field) === 'dropdown' || formatMap.get(field) === 'canlendar') {
+          if (formatMap.get(field) === 'dropdown' || formatMap.get(field) === 'calendar') {
             item.value = [];
             item.mode = 'in';
           } else {

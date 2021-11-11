@@ -8,8 +8,8 @@ export default {
       action: 'clickExport',
       description: "Event name is `clickExport`. Throw back click menu's value.",
     },
-    isLoading: {
-      type: 'Boolean',
+    loading: {
+      type: 'boolean',
       description: 'Set the loading status of button. Default is false.',
     },
   },
@@ -30,5 +30,5 @@ const Template = (args) => ({
 
 export const Default = Template.bind({});
 Default.args = {
-  isLoading: false,
+  loading: false,
 };
