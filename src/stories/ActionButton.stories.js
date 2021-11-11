@@ -20,7 +20,7 @@ export default {
       type: 'boolean',
     },
     onClickAction: {
-      action: 'click',
+      action: 'clickAction',
       description: 'Event name is "clickAction". Click Action\'s menu and return title.',
     },
   },
