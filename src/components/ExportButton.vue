@@ -7,23 +7,31 @@
         </template>
       </Menu>
     </template>
-    <Button :loading="loading">
+    <Button>
+      Export excel
       <template #icon>
-        <CloudDownloadOutlined />
+        <LoadingOutlined v-show="loading" />
+        <CloudDownloadOutlined v-show="!loading" />
       </template>
-      <span class="xy-export-excel--media-query">Export excel</span>
     </Button>
   </Dropdown>
 </template>
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
 import { Dropdown, Button, Menu } from 'ant-design-vue';
-import { CloudDownloadOutlined } from '@ant-design/icons-vue';
+import { CloudDownloadOutlined, LoadingOutlined } from '@ant-design/icons-vue';
 import { ExportExcelDropdownData, ExportExcelMenuType } from './interface';
 
 export default defineComponent({
   name: 'ExportButton',
-  components: { Dropdown, Button, Menu, MenuItem: Menu.Item, CloudDownloadOutlined },
+  components: {
+    Dropdown,
+    Button,
+    Menu,
+    MenuItem: Menu.Item,
+    CloudDownloadOutlined,
+    LoadingOutlined,
+  },
   emits: ['clickExport'],
   props: {
     loading: {
@@ -51,6 +59,10 @@ export default defineComponent({
 });
 </script>
 <style lang="scss" scoped>
+.xy-export-excel__wrapper .ant-btn > .xy-export-excel__wrapper .anticon + span,
+.ant-btn > span + .anticon {
+  margin-left: 0px;
+}
 .xy-export-excel--media-query {
   @media screen and (max-width: 1000px) {
     display: none;
