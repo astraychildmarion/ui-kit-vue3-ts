@@ -51,7 +51,7 @@ export default {
     },
     isExportLoading: {
       type: 'boolean',
-      description: 'Set the loading status of button. Default is false.',
+      description: 'Set the loading status of export excel button. Default is false.',
     },
     onFilterChange: {
       action: 'filterChange',
