@@ -220,7 +220,6 @@ export default defineComponent({
       () => props.selectedKeys,
       (n) => {
         selectedInnerKeys.value = n;
-        console.log('selectedInnerKeys.value', selectedInnerKeys.value);
       },
     );
 
