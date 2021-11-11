@@ -27,6 +27,7 @@ export default defineComponent({
   emits: ['clickExport'],
   props: {
     loading: {
+      required: true,
       default: false,
       type: Boolean as PropType<boolean>,
     },
@@ -42,6 +43,7 @@ export default defineComponent({
     const click = ({ key }: ExportExcelMenuType) => {
       emit('clickExport', key);
     };
+
     return {
       click,
     };
