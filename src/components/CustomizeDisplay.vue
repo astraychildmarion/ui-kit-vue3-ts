@@ -64,7 +64,7 @@
       <template #footer>
         <Space size="middle">
           <Button @click="clickCancel">Cancel</Button>
-          <Button type="primary" @click="clickConfirm">Confirm</Button>
+          <Button class="btn-color" @click="clickConfirm">Confirm</Button>
         </Space>
       </template>
     </Modal>
@@ -241,6 +241,11 @@ export default defineComponent({
   background: #dadcde;
 }
 .xy-customize-modal .xy-customize-display {
+  .btn-color {
+    color: #ffff;
+    background-color: #0488c5;
+    border: none;
+  }
   &--media-query {
     color: $toolbar-text-color;
     @media screen and (max-width: 1000px) {
