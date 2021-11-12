@@ -94,6 +94,14 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .xy-alert {
+  width: 395px;
+  align-items: start;
+  :deep(.ant-alert-close-icon) {
+    padding-top: 5px;
+  }
+  :deep(.ant-alert-icon) {
+    padding-top: 5px;
+  }
   :deep(.ant-alert-message) {
     font-size: 14px;
     line-height: 1.57;
