@@ -110,6 +110,17 @@ export default defineComponent({
   border-top: none;
 }
 .xy-confirm-modal__ref .confirm-modal {
+  .ant-modal-confirm-title {
+    border-bottom: none;
+    font-weight: bold;
+    font-size: 16px;
+  }
+
+  .ant-modal-confirm-content {
+    background-color: #fff;
+    color: #5c666f;
+    font-size: 16px;
+  }
   .ant-modal-body {
     background-color: #fff;
     padding: 24px;
@@ -146,16 +157,5 @@ export default defineComponent({
       border-color: #37c5a0;
     }
   }
-}
-.ant-modal-confirm-title {
-  border-bottom: none;
-  font-weight: bold;
-  font-size: 16px;
-}
-
-.ant-modal-confirm-content {
-  background-color: #fff;
-  color: #5c666f;
-  font-size: 16px;
 }
 </style>
