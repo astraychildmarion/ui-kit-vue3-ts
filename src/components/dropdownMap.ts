@@ -1,15 +1,35 @@
 export const dropdownMap = [
   {
+    title: 'IP',
+    field: 'ip',
+  },
+  {
     title: 'BU',
     field: 'bu',
+  },
+  {
+    title: 'Hostname',
+    field: 'hostname',
+  },
+  {
+    title: 'CPU',
+    field: 'cpu',
+  },
+  {
+    title: 'RAM (GB)',
+    field: 'ram_gb',
   },
   {
     title: 'BU Application Name',
     field: 'bu_application_name',
   },
   {
-    title: 'CPU (GB)',
-    field: 'cpu',
+    title: 'VM Status',
+    field: 'vm_status',
+  },
+  {
+    title: 'LTM Status',
+    field: 'ltm_status',
   },
   {
     title: 'Disk (GB)',
@@ -20,42 +40,13 @@ export const dropdownMap = [
     field: 'disk_partition',
   },
   {
-    title: 'Environment',
-    field: 'env',
-  },
-  {
-    title: 'Hostname',
-    field: 'hostname',
-  },
-  {
-    title: 'IP',
-    field: 'ip',
+    title: 'OS',
+    field: 'os',
   },
   {
     title: 'Last Update',
     field: 'last_update_at',
   },
-  {
-    title: 'LTM Status',
-    field: 'ltm_status',
-  },
-  {
-    title: 'OS',
-    field: 'os',
-  },
-  {
-    title: 'RAM (GB)',
-    field: 'ram_gb',
-  },
-  {
-    title: 'Shared with',
-    field: 'shared_with',
-  },
-  {
-    title: 'VM Status',
-    field: 'vm_status',
-  },
-
   {
     title: 'Layer',
     field: 'layer',
@@ -63,6 +54,14 @@ export const dropdownMap = [
   {
     title: 'Type',
     field: 'server_type',
+  },
+  {
+    title: 'Shared with',
+    field: 'shared_with',
+  },
+  {
+    title: 'Environment',
+    field: 'env',
   },
 ];
 export const formatMap = new Map();
