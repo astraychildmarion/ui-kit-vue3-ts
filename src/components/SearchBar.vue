@@ -8,9 +8,10 @@
         @change="searchBarChange"
         :placeholder="placeholder"
         allow-clear
+        autocomplete="off"
       >
         <template #suffix>
-          <SearchOutlined :style="{ color: '#9c9c9c' }" v-show="searchContent.length < 1" />
+          <SearchOutlined :style="{ color: '#9c9c9c' }" v-if="searchContent.length < 1" />
         </template>
       </Input>
       <template #overlay>
