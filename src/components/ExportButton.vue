@@ -1,5 +1,5 @@
 <template>
-  <Dropdown :trigger="['click']" class="xy-export-excel__wrapper">
+  <Dropdown :trigger="['click']">
     <template #overlay>
       <Menu @click="click">
         <template v-for="item in exportExcelOption" :key="item.value">
@@ -7,7 +7,7 @@
         </template>
       </Menu>
     </template>
-    <Button>
+    <Button class="xy-export-excel__button">
       Export excel
       <template #icon>
         <LoadingOutlined v-show="loading" />
@@ -59,7 +59,12 @@ export default defineComponent({
 });
 </script>
 <style lang="scss" scoped>
-.xy-export-excel__wrapper .ant-btn > .xy-export-excel__wrapper .anticon + span,
+:deep(.ant-dropdown-menu-item) {
+  &:hover {
+    background-color: $dropdown-hover-bg;
+  }
+}
+.xy-export-excel__button .ant-btn > .xy-export-excel__button .anticon + span,
 .ant-btn > span + .anticon {
   margin-left: 0px;
 }
