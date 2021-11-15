@@ -49,7 +49,7 @@
       </Menu>
       <div id="appVersion">
         <div>
-          <div>{{ VER }}</div>
+          <div>{{ ver }}</div>
           <div>{{ uiKit.name }}: {{ uiKit.version }}</div>
         </div>
       </div>
@@ -89,7 +89,7 @@ export default defineComponent({
       type: Array,
       default: () => ['1'],
     },
-    VER: {
+    ver: {
       type: String,
       default: 'default',
     },
