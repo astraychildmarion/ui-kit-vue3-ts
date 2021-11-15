@@ -48,7 +48,7 @@
           :key="index"
           :value="item.value"
           :title="item.label"
-          :disabled="selectedItem.some((filteritem) => filteritem.value === item.value)"
+          :disabled="selectedItem.some((filteritem) => filteritem.label === item.label)"
         >
           {{ item.label }}
         </SelectOption>
@@ -154,7 +154,7 @@ export default defineComponent({
       propsVisible.value = false;
     };
     const clickConfirm = () => {
-      emit('clickCustomizeConfirm', selectedItem.value);
+      emit('clickCustomizeConfirm', JSON.parse(JSON.stringify(selectedItem.value)));
       propsVisible.value = false;
     };
 
