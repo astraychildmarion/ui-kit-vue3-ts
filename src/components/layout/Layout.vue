@@ -2,7 +2,7 @@
   <div class="xy-layout">
     <XYAppListDrawer
       v-show="!hideUI"
-      :VER="VER"
+      :ver="ver"
       :appListDrawerData="appListDrawerData"
       :selectAppListDrawerKey="selectAppListDrawerKey"
       :appListDrawerShow="appListDrawerShow"
@@ -158,7 +158,7 @@ export default defineComponent({
       type: Array,
       default: () => [],
     },
-    VER: {
+    ver: {
       type: String,
     },
     // header

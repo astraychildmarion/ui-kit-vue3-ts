@@ -82,6 +82,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .xy-number-input-wrapper {
+  width: 180px;
   :deep(.ant-input),
   :deep(.ant-input-affix-wrapper) {
     border: none;
@@ -96,7 +97,8 @@ export default defineComponent({
     }
   }
   .vmqty {
-    width: 5rem;
+    display: inline-block;
+    width: 3rem;
     height: 22px;
     flex-grow: 0;
     margin: 0 9px;
@@ -105,7 +107,7 @@ export default defineComponent({
     font-style: normal;
     line-height: 1.57;
     letter-spacing: normal;
-    text-align: left;
+    text-align: center;
     color: #5c666f;
   }
   .iconbtn {

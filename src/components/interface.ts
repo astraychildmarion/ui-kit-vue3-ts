@@ -54,6 +54,9 @@ export interface HeaderUserMenu {
 export interface SearchBarTargetType {
   target: { value: string };
 }
+export interface SearchBarDropdownType {
+  item: { value: string };
+}
 export interface SiderData {
   name: string;
   path: string;
