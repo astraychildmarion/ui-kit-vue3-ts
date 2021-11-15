@@ -14,8 +14,17 @@ export default {
       description:
         "Event name is `searchBarChange`. This event would be triggered when input value change. Throw back input's value.",
     },
+    onClickSearchbarMenu: {
+      action: 'clickSearchbarMenu',
+      description:
+        "Event name is `clickSearchbarMenu`. Click searchbar's history menu and throwback menu's value.",
+    },
     placeholder: {
       description: 'Placeholder default is `Search on server list`.',
+    },
+    searchHistory: {
+      type: 'array',
+      description: "Search history's value",
     },
   },
 };
@@ -35,4 +44,6 @@ const Template = (args) => ({
     `,
 });
 export const Default = Template.bind({});
-Default.args = {};
+Default.args = {
+  searchHistory: ['ip 123', 'vm 123', 'status running'],
+};
