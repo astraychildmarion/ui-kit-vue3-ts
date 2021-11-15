@@ -143,7 +143,7 @@ export default defineComponent({
       &.itemDisable {
         color: $action-item-disabled-text;
         background-color: transparent;
-        cursor: default;
+        cursor: not-allowed;
       }
     }
   }

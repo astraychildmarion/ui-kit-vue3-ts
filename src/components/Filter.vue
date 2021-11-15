@@ -43,6 +43,7 @@
                 <Select
                   v-model:value="filterItem.field"
                   class="xy-filter__body-item-select"
+                  dropdownClassName="xy-filter__body-dropdown"
                   @change="changeFilterSelector(filterItem.field)"
                 >
                   <Option
@@ -57,6 +58,7 @@
                   v-if="formatMap.get(filterItem.field) !== 'calendar'"
                   v-model:value="filterItem.mode"
                   class="xy-filter__body-item-select filter__sort"
+                  dropdownClassName="xy-filter__body-dropdown"
                   @change="debounceFilterEmit"
                   :disabled="checkSortDisable(filterItem.field)"
                 >
@@ -70,6 +72,7 @@
                     mode="multiple"
                     @change="debounceFilterEmit"
                     class="xy-filter__body-item-select-sub"
+                    dropdownClassName="xy-filter__body-dropdown"
                   >
                     <Option
                       v-for="subOption in getSuboption(filterItem.field)"
@@ -363,6 +366,21 @@ export default defineComponent({
   },
 });
 </script>
+<style lang="scss">
+.xy-filter__body-dropdown .ant-select-item-option-selected {
+  background-color: $dropdown-selected-bg;
+  font-weight: 600;
+  &:not(.ant-select-item-option-disabled) {
+    background-color: $dropdown-selected-bg;
+  }
+}
+.xy-filter__body-dropdown .ant-select-item-option-active {
+  background-color: $dropdown-hover-bg;
+  &:not(.ant-select-item-option-disabled) {
+    background-color: $dropdown-hover-bg;
+  }
+}
+</style>
 <style lang="scss" scoped>
 menu.ant-dropdown-content {
   padding-inline-start: 0px;
@@ -373,6 +391,7 @@ menu.ant-dropdown-content {
   border-color: $filter-active-icon;
   background-color: #fff;
 }
+
 .xy-filter {
   .ant-dropdown-menu {
     box-shadow: none;
