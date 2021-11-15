@@ -1,7 +1,7 @@
 <template>
   <div class="xy-customize-modal" ref="divref"></div>
   <div class="xy-customize-display__wrapper">
-    <Button @click="showCustomizeDisplay">
+    <Button @click="showCustomizeDisplay" class="xy-customize-display__button">
       Customize Display
       <template #icon><EditOutlined /></template>
     </Button>
@@ -240,10 +240,16 @@ export default defineComponent({
   opacity: 0.5;
   background: #dadcde;
 }
+
+.xy-customize-display__button.ant-btn:focus {
+  color: $antd-button-text;
+  background: #fff;
+  border-color: $antd-button-border-color;
+}
 .xy-customize-modal .xy-customize-display {
   .btn-color {
     color: #ffff;
-    background-color: #0488c5;
+    background-color: $primary-color;
     border: none;
   }
   &--media-query {
@@ -253,7 +259,6 @@ export default defineComponent({
     }
   }
   &__list-group-item {
-    width: 530px;
     height: 36px;
     margin: 8px 0;
     padding: 6px 14px 6px 14px;

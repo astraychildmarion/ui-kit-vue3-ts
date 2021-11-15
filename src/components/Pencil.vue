@@ -10,14 +10,7 @@
       <Input v-if="editMode" v-model:value="inputText" @pressEnter="pressEnter" />
     </div>
     <div class="xy-pencil-input__icon-check" @click="pressEnter">
-      <CheckOutlined
-        style="color: #5c666f; font-size: 16px"
-        v-if="editMode && inputText.length < 1"
-      />
-      <CheckOutlined
-        style="color: #37c5a0; font-size: 16px"
-        v-if="editMode && inputText.length > 0"
-      />
+      <CheckOutlined style="color: #37c5a0; font-size: 16px" v-if="editMode" />
     </div>
   </div>
 </template>
@@ -43,7 +36,6 @@ export default defineComponent({
       editMode.value = true;
     };
     const pressEnter = () => {
-      if (inputText.value.length < 1) return;
       emit('pressEnter', inputText.value);
       editMode.value = false;
     };

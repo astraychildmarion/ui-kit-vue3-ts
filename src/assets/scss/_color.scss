@@ -1,10 +1,12 @@
-$error-color: rgb(245, 34, 45);
-$success-color: #06d6a0;
+$error-color: #ef476f;
+$success-color: #37c5a0;
 $primary-color: #0488c5;
 $warn-color: #ed952e;
 $box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.1);
 $box-radius: 5px;
 $box-border: 1px solid rgba(0, 0, 0, 0.1);
+$antd-button-border-color: #d9d9d9;
+$antd-button-text: rgba(0,0,0,.85);
 
 // sider color start
 $sider-bg-light: #f0f0f0;
@@ -18,7 +20,7 @@ $sider-item-icon-dark: #fafafa;
 $sider-item-text-dark: #fafafa;
 $sider-item-selected-dark: #334c66;
 $sider-item-active-dark: #334c66;
-$sider-item-selected-border-dark: #0488c5;
+$sider-item-selected-border-dark: $primary-color;
 // sider color end
 
 // header variables start
@@ -51,7 +53,7 @@ $filter-title-color: #102e4d;
 $filter-title-btn-color: #969ca1;
 $filter-text-color: #5c666f;
 $filter-bg: #ffffff;
-$filter-active-icon: #0488c5;
+$filter-active-icon: $primary-color;
 // filter variables end
 
 // alert start
@@ -66,7 +68,7 @@ $action-item-disabled-text: rgba(0, 0, 0, 0.25);
 // Action button end
 
 //server detail start
-$server-detail-modal-title: #0488c5;
+$server-detail-modal-title: $primary-color;
 $server-detail-card-title: #102e4d;
 $server-detail-card-bg: #fafafa;
 $server-detail-card-text: #5c666f;
