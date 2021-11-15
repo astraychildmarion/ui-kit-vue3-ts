@@ -126,35 +126,35 @@ export default defineComponent({
     padding: 24px;
   }
   &__warning {
-    color: #ed952e;
+    color: $warn-color;
     &.ant-btn {
       color: #fff;
-      background-color: #ed952e;
-      border-color: #ed952e;
+      background-color: $warn-color;
+      border-color: $warn-color;
     }
   }
   &__error {
-    color: #ef476f;
+    color: $error-color;
     &.ant-btn {
       color: #fff;
-      background-color: #ef476f;
-      border-color: #ef476f;
+      background-color: $error-color;
+      border-color: $error-color;
     }
   }
   &__info {
-    color: #0488c5;
+    color: $primary-color;
     &.ant-btn {
       color: #fff;
-      background-color: #0488c5;
-      border-color: #0488c5;
+      background-color: $primary-color;
+      border-color: $primary-color;
     }
   }
   &__success {
-    color: #37c5a0;
+    color: $success-color;
     &.ant-btn {
       color: #fff;
-      background-color: #37c5a0;
-      border-color: #37c5a0;
+      background-color: $success-color;
+      border-color: $success-color;
     }
   }
 }
