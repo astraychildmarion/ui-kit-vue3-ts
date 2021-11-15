@@ -49,7 +49,7 @@ export default {
       control: 'array',
       description: "Current selected app list drawer item's key. It sould be simulated with route.",
     },
-    VER: {
+    ver: {
       control: 'array',
       description: 'To identify the version of current product.',
     },
@@ -211,5 +211,5 @@ Default.args = {
   },
   siderData: [...siderData.default.args.siderData],
   appListDrawerData: [...appListData.Default.args.appListDrawerData],
-  VER: '2.0.0',
+  ver: '2.0.0',
 };

@@ -18,7 +18,7 @@ export default {
       control: 'array',
       description: "Current selected app list drawer item's key. It sould be simulated with route.",
     },
-    VER: {
+    ver: {
       control: 'array',
       description: 'To identify the version of current product.',
     },
@@ -49,7 +49,7 @@ const Template = (args) => ({
 
 export const Default = Template.bind({});
 Default.args = {
-  VER: '1.0.0',
+  ver: '1.0.0',
   appListDrawerShow: true,
   // selectAppListDrawerKey: ['2'],
   appListDrawerData: [
