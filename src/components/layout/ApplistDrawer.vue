@@ -183,6 +183,20 @@ export default defineComponent({
               opacity: 0;
             }
           }
+          .ant-menu-item {
+            &:hover {
+              background: $sider-item-active-light;
+              color: $sider-item-text-light;
+            }
+            &-active {
+              background: $sider-item-active-light;
+              color: $sider-item-text-light;
+            }
+            &:active {
+              background: $sider-item-active-light;
+              color: $sider-item-text-light;
+            }
+          }
         }
         .ant-menu-item {
           a {
@@ -197,7 +211,15 @@ export default defineComponent({
               opacity: 1;
             }
           }
+          &:hover {
+            background: $sider-item-active-light;
+            color: $sider-item-text-light;
+          }
           &-active {
+            background: $sider-item-active-light;
+            color: $sider-item-text-light;
+          }
+          &:active {
             background: $sider-item-active-light;
             color: $sider-item-text-light;
           }

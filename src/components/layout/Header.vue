@@ -33,7 +33,7 @@
           </template>
         </Dropdown>
         <div class="xy-header__user-notification">
-          <Badge dot>
+          <Badge>
             <BellOutlined :style="bellStyle" />
           </Badge>
         </div>
