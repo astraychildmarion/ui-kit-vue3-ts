@@ -9,6 +9,11 @@ export default {
       description:
         "Event name is `searchBarEnter`. This event would be triggered when press Enter. Throw back input's value.",
     },
+    onSearchBarChange: {
+      action: 'searchBarChange',
+      description:
+        "Event name is `searchBarChange`. This event would be triggered when input value change. Throw back input's value.",
+    },
     placeholder: {
       description: 'Placeholder default is `Search on server list`.',
     },

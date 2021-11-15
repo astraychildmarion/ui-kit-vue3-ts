@@ -4,10 +4,12 @@
       v-model:value="searchContent"
       id="xy-search-bar"
       @pressEnter="searchBarEnter"
+      @change="searchBarChange"
       :placeholder="placeholder"
+      allow-clear
     >
       <template #suffix>
-        <SearchOutlined />
+        <SearchOutlined :style="{ color: '#9c9c9c' }" v-show="searchContent.length < 1" />
       </template>
     </Input>
   </div>
@@ -20,7 +22,7 @@ import { SearchBarTargetType } from './interface';
 
 export default defineComponent({
   components: { Input, SearchOutlined },
-  emits: ['searchBarEnter'],
+  emits: ['searchBarEnter', 'searchBarChange'],
   props: {
     placeholder: {
       default: 'Search on server list',
@@ -32,13 +34,25 @@ export default defineComponent({
     function searchBarEnter({ target }: SearchBarTargetType) {
       emit('searchBarEnter', target.value);
     }
+    function searchBarChange({ target }: SearchBarTargetType) {
+      emit('searchBarChange', target.value);
+    }
     return {
       searchContent,
       searchBarEnter,
+      searchBarChange,
     };
   },
 });
 </script>
+<style lang="scss">
+input.ant-calendar-input::placeholder,
+input.ant-calendar-range-picker-input::placeholder,
+input.ant-input::placeholder,
+.ant-select-selection-search input.ant-select-selection-search-input::placeholder {
+  color: $placeholder-color;
+}
+</style>
 <style lang="scss" scoped>
 .xy-search-bar {
   &__wrapper {
