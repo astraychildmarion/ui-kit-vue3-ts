@@ -26,4 +26,10 @@ module.exports = {
     'vue/no-multiple-template-root': 'off',
     'import/extensions': 'off'
   },
+  globals: {
+    defineProps: 'readonly',
+    defineEmits: 'readonly',
+    defineExpose: 'readonly',
+    withDefaults: 'readonly',
+  }
 };

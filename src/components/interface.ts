@@ -9,6 +9,14 @@ export interface ActionMenuClickType {
   key: string;
   keyPath: string;
 }
+
+export interface BellCardDataType {
+  title: string;
+  content: string;
+  date: string | Date;
+  id: string;
+  read: boolean;
+}
 export interface CustomizeDisplayItemOptType {
   label: string;
   value: string;
