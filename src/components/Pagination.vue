@@ -144,5 +144,13 @@ export default defineComponent({
   &__page-info {
     line-height: 24px;
   }
+  :deep(.ant-select-item-option-selected:not(.ant-select-item-option-disabled)) {
+    // selected
+    background-color: $dropdown-selected-bg;
+  }
+  :deep(.ant-select-item-option-active:not(.ant-select-item-option-disabled)) {
+    // hover
+    background-color: $dropdown-hover-bg;
+  }
 }
 </style>

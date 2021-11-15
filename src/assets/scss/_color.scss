@@ -7,6 +7,8 @@ $box-radius: 5px;
 $box-border: 1px solid rgba(0, 0, 0, 0.1);
 $antd-button-border-color: #d9d9d9;
 $antd-button-text: rgba(0,0,0,.85);
+$dropdown-hover-bg: #e2f6ff;
+$dropdown-selected-bg: #f5f5f5;
 
 // sider color start
 $sider-bg-light: #f0f0f0;
@@ -63,7 +65,7 @@ $alert-text: #051322;
 // alert end
 
 // Action button start
-$action-item-hover-bg: #e2f6ff;
+$action-item-hover-bg: $dropdown-hover-bg;
 $action-item-disabled-text: rgba(0, 0, 0, 0.25);
 // Action button end
 
