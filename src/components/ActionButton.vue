@@ -1,5 +1,5 @@
 <template>
-  <Dropdown overlayClassName="xy-action-button">
+  <Dropdown overlayClassName="xy-action-button__dropdown">
     <template #overlay>
       <Menu @click="handleMenuClick">
         <template v-for="option in actionInnerOption" :key="option.title">
@@ -51,7 +51,7 @@
         </template>
       </Menu>
     </template>
-    <Button>
+    <Button class="xy-action-button">
       Actions
       <DownOutlined />
     </Button>
@@ -126,7 +126,12 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.xy-action-button .ant-dropdown-menu {
+.xy-action-button.ant-btn:focus {
+  color: $antd-button-text;
+  background: #fff;
+  border-color: $antd-button-border-color;
+}
+.xy-action-button__dropdown .ant-dropdown-menu {
   :deep(.ant-dropdown-menu-item) {
     &.itemDisable {
       color: $action-item-disabled-text;
