@@ -186,7 +186,7 @@ export default defineComponent({
       // e.preventDefault();
       const filterTemplate: FilterDefaultValue = {
         field: '',
-        mode: 'contain',
+        mode: 'in',
         value: '',
       };
       filterItems.value.push({ ...filterTemplate });
