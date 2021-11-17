@@ -20,11 +20,16 @@ export default {
         "Event name is `clickSearchbarMenu`. Click searchbar's history menu and throwback menu's value.",
     },
     placeholder: {
+      type: 'string',
       description: 'Placeholder default is `Search on server list`.',
     },
     searchHistory: {
       type: 'array',
       description: "Search history's value",
+    },
+    defaultValue: {
+      type: 'string',
+      description: 'To set default value to input.',
     },
   },
 };
