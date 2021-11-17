@@ -216,7 +216,7 @@ export default defineComponent({
 }
 
 .xy-customize-display__button.ant-btn:focus {
-  color: $antd-button-text;
+  color: #5c666f;
   background: #fff;
   border-color: $antd-button-border-color;
 }

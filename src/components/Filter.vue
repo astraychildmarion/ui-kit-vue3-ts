@@ -186,7 +186,7 @@ export default defineComponent({
       // e.preventDefault();
       const filterTemplate: FilterDefaultValue = {
         field: '',
-        mode: 'contain',
+        mode: 'in',
         value: '',
       };
       filterItems.value.push({ ...filterTemplate });
@@ -461,6 +461,11 @@ menu.ant-dropdown-content {
         &.button-right {
           position: relative;
           right: -350px;
+        }
+        &:focus {
+          color: $antd-button-text;
+          background: #fff;
+          border-color: $antd-button-border-color;
         }
         .ant-btn {
           color: $filter-text-color;
