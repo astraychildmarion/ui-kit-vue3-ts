@@ -48,7 +48,6 @@ export default defineComponent({
   },
   setup(props, { emit }) {
     const searchContent = ref<string>(props.defaultValue || '');
-    console.log('searchContent', searchContent.value);
     const searchHistoryInner = ref(props.searchHistory);
     function searchBarEnter({ target }: SearchBarTargetType) {
       emit('searchBarEnter', target.value);

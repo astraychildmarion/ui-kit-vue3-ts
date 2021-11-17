@@ -107,6 +107,7 @@ export default defineComponent({
           emitChangeDefaultValue(payload);
         }
       },
+      { immediate: true },
     );
     watch(
       () => props.cleanDayValue,
