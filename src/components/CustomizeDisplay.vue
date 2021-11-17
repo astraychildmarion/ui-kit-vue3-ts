@@ -37,18 +37,17 @@
         </div>
       </draggable>
       <Select
-        show-search
         :value="emptyvalue"
+        show-search
         style="width: 100%"
         placeholder="Column"
         @change="OnSelectChange"
       >
         <SelectOption
-          v-for="(item, index) in propsItemOption"
+          v-for="(item, index) in filteredOptions"
           :key="index"
           :value="item.value"
           :title="item.label"
-          :disabled="selectedItem.some((filteritem) => filteritem.label === item.label)"
         >
           {{ item.label }}
         </SelectOption>
@@ -76,6 +75,8 @@ import { defineComponent, PropType, ref, watch, computed } from 'vue';
 import { Button, Modal, Select, Row, Col, Space } from 'ant-design-vue';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons-vue';
 import { VueDraggableNext } from 'vue-draggable-next';
+/* eslint-disable import/no-extraneous-dependencies */
+import xorBy from 'lodash/xorBy';
 
 import { CustomizeDisplayItemOptType } from './interface';
 
@@ -129,23 +130,12 @@ export default defineComponent({
     const closable = ref<boolean>(false);
     const maskClosable = ref<boolean>(false);
     const selectedItem = ref<CustomizeDisplayItemOptType[]>([]);
-    const needColumnTextRight = ref<string>('Please select one column at least');
-    const selectedCountWrong = ref<boolean>(false);
-    const headerText = ref<string>('');
     const emptyvalue = ref([]);
     const divref = ref(null);
 
-    function CheckSelectedItem(): void {
-      if (selectedItem.value.length > 1) {
-        selectedCountWrong.value = false;
-        headerText.value = '';
-      }
-    }
     function getContainer() {
       return divref.value;
     }
-
-    const currentNumber = computed(() => selectedItem.value.length);
 
     const showCustomizeDisplay = () => {
       propsVisible.value = true;
@@ -167,17 +157,12 @@ export default defineComponent({
     const clickResetDefault = () => {
       selectedItem.value = JSON.parse(JSON.stringify(propsDefaultSelected.value));
       emptyvalue.value = [];
-      CheckSelectedItem();
     };
 
     const removeAt = (idx: number) => {
-      if (selectedItem.value.length <= 1) {
-        selectedCountWrong.value = true;
-        headerText.value = needColumnTextRight.value;
-        return;
-      }
       selectedItem.value.splice(idx, 1);
     };
+
     const OnSelectChange = (value: any, option: any) => {
       const objItem: CustomizeDisplayItemOptType = {
         label: option.title,
@@ -186,17 +171,9 @@ export default defineComponent({
       };
       selectedItem.value.push(objItem);
       emptyvalue.value = [];
-      CheckSelectedItem();
     };
-
-    watch(
-      () => propsVisible.value,
-      (NewVal) => {
-        if (NewVal) {
-          selectedCountWrong.value = false;
-        }
-      },
-      { deep: true },
+    const filteredOptions = computed(() =>
+      xorBy(selectedItem.value, propsItemOption.value, 'label'),
     );
 
     watch(
@@ -216,6 +193,7 @@ export default defineComponent({
       OnSelectChange,
       onMove,
       getContainer,
+      filteredOptions,
       divref,
       propsVisible,
       propsDefaultSelected,
@@ -224,11 +202,7 @@ export default defineComponent({
       keyboard,
       closable,
       maskClosable,
-      currentNumber,
       selectedItem,
-      needColumnTextRight,
-      selectedCountWrong,
-      headerText,
       emptyvalue,
     };
   },
