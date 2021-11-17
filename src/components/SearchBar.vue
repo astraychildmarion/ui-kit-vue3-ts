@@ -1,6 +1,6 @@
 <template>
   <div class="xy-search-bar__wrapper">
-    <Dropdown>
+    <Dropdown :trigger="['click']">
       <Input
         v-model:value="searchContent"
         id="xy-search-bar"
@@ -42,9 +42,13 @@ export default defineComponent({
       type: Array as PropType<string[]>,
       default: () => [],
     },
+    defaultValue: {
+      type: String,
+    },
   },
   setup(props, { emit }) {
-    const searchContent = ref<string>('');
+    const searchContent = ref<string>(props.defaultValue || '');
+    console.log('searchContent', searchContent.value);
     const searchHistoryInner = ref(props.searchHistory);
     function searchBarEnter({ target }: SearchBarTargetType) {
       emit('searchBarEnter', target.value);
@@ -62,6 +66,13 @@ export default defineComponent({
         searchHistoryInner.value = n;
       },
     );
+    watch(
+      () => props.defaultValue,
+      (n) => {
+        if (n && n.length > 0) searchContent.value = n;
+      },
+    );
+
     return {
       searchContent,
       searchHistoryInner,
