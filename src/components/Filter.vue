@@ -206,6 +206,9 @@ export default defineComponent({
           item.value = String(item.value);
         } else if (item.mode === 'in' && !Array.isArray(item.value)) {
           item.value = item.value.length === 0 ? [] : item.value.split(',');
+          if (item.value.length > 1) {
+            item.value = item.value.filter((i:string) => i.length > 0)
+          }
         } else if (item.field === 'last_update_at') {
           const copy = [...rangeValue.value];
           if (copy.length > 0) {
