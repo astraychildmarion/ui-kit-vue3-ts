@@ -63,12 +63,14 @@ export default defineComponent({
       (n) => {
         pageSize.value = n;
       },
+      { immediate: true },
     );
     watch(
       () => props.defaultCurrent,
       (n) => {
         page.value = n;
       },
+      { immediate: true },
     );
 
     return {

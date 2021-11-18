@@ -192,6 +192,9 @@ export default defineComponent({
       filterItems.value.push({ ...filterTemplate });
     };
     const checkSortDisable = (field: string) => {
+      if (field === 'disk_partition') {
+        return true;
+      }
       const format = formatMap.get(field);
       return format === 'calendar' || format === 'dropdown';
     };
@@ -206,6 +209,9 @@ export default defineComponent({
           item.value = String(item.value);
         } else if (item.mode === 'in' && !Array.isArray(item.value)) {
           item.value = item.value.length === 0 ? [] : item.value.split(',');
+          if (item.value.length > 1) {
+            item.value = item.value.filter((i: string) => i.length > 0);
+          }
         } else if (item.field === 'last_update_at') {
           const copy = [...rangeValue.value];
           if (copy.length > 0) {
@@ -217,14 +223,17 @@ export default defineComponent({
         return item;
       });
       emit('filterChange', editFilterItems);
-    }, 500);
+    }, 800);
 
     // clean value input when selector changed
     const changeFilterSelector = (field: string): void => {
       filterItems.value.forEach((item: FilterDefaultValue) => {
         // eslint-disable-next-line no-param-reassign
         if (item.field === field) {
-          if (formatMap.get(field) === 'dropdown' || formatMap.get(field) === 'calendar') {
+          if (field === 'disk_partition') {
+            item.value = '';
+            item.mode = 'contain';
+          } else if (formatMap.get(field) === 'dropdown' || formatMap.get(field) === 'calendar') {
             item.value = [];
             item.mode = 'in';
           } else {
@@ -408,7 +417,7 @@ menu.ant-dropdown-content {
       box-shadow: $box-shadow;
       border-radius: $box-radius;
       border: $box-border;
-      width: 530px;
+      width: 664px;
       background-color: $filter-bg;
       :deep(.ant-select-selection-selected-value) {
         color: $filter-title-color;
@@ -428,6 +437,30 @@ menu.ant-dropdown-content {
     }
     &__body {
       padding: 24px;
+      max-height: 391px;
+      overflow-y: auto;
+      &::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+        border-radius: 40px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: #d8d8d8;
+        border-radius: 8px;
+      }
+
+      &::-webkit-scrollbar-thumb:hover {
+        background: rgb(124, 122, 122);
+      }
+
+      &::-webkit-scrollbar-track:hover {
+        background: #f4f1f1;
+      }
       &-item {
         &-button {
           display: inline-block;
@@ -439,28 +472,28 @@ menu.ant-dropdown-content {
         }
         &-select {
           margin-right: 8px;
-          width: 170px;
+          width: 190px;
           &.filter__sort {
             width: 100px;
           }
           &-sub {
-            width: 150px;
+            width: 250px;
             margin-right: 8px;
           }
         }
         &-input {
-          width: 150px;
+          width: 250px;
           margin-right: 8px;
         }
         .ant-calendar-picker {
-          width: 258px !important;
+          width: 358px !important;
           margin-right: 8px;
         }
       }
       &-plus-button {
         &.button-right {
           position: relative;
-          right: -350px;
+          right: -460px;
         }
         &:focus {
           color: $antd-button-text;
