@@ -417,7 +417,7 @@ menu.ant-dropdown-content {
       box-shadow: $box-shadow;
       border-radius: $box-radius;
       border: $box-border;
-      width: 530px;
+      width: 664px;
       background-color: $filter-bg;
       :deep(.ant-select-selection-selected-value) {
         color: $filter-title-color;
@@ -437,6 +437,30 @@ menu.ant-dropdown-content {
     }
     &__body {
       padding: 24px;
+      max-height: 391px;
+      overflow-y: auto;
+      &::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+        border-radius: 40px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: #d8d8d8;
+        border-radius: 8px;
+      }
+
+      &::-webkit-scrollbar-thumb:hover {
+        background: rgb(124, 122, 122);
+      }
+
+      &::-webkit-scrollbar-track:hover {
+        background: #f4f1f1;
+      }
       &-item {
         &-button {
           display: inline-block;
@@ -448,28 +472,28 @@ menu.ant-dropdown-content {
         }
         &-select {
           margin-right: 8px;
-          width: 170px;
+          width: 190px;
           &.filter__sort {
             width: 100px;
           }
           &-sub {
-            width: 150px;
+            width: 250px;
             margin-right: 8px;
           }
         }
         &-input {
-          width: 150px;
+          width: 250px;
           margin-right: 8px;
         }
         .ant-calendar-picker {
-          width: 258px !important;
+          width: 358px !important;
           margin-right: 8px;
         }
       }
       &-plus-button {
         &.button-right {
           position: relative;
-          right: -350px;
+          right: -460px;
         }
         &:focus {
           color: $antd-button-text;

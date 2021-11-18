@@ -62,7 +62,12 @@ Default.args = {
     },
     {
       field: 'os',
-      options: ['CentOs7.0', 'CentOs9.0'],
+      options: [
+        'CentOs7.0',
+        'CentOs9.0',
+        'Oracle Enterprise Linux 6.6 (UEK)',
+        'W2K12R2 Storage Server',
+      ],
     },
     {
       field: 'server_type',
