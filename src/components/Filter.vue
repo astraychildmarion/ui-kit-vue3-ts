@@ -278,16 +278,16 @@ export default defineComponent({
     };
     watchEffect(() => {
       if (props.filterDefaultValue && props.filterDefaultValue.length > 0) {
-        filterItems.value = props.filterDefaultValue;
         // specially update range
-        filterItems.value.forEach((item) => {
+        filterItems.value = props.filterDefaultValue.map((item) => {
           if (formatMap.get(item.field) === 'calendar') {
             rangeValue.value = item.value;
-            item.mode = 'in';
+            return { ...item, mode: 'in' };
           }
           if (item.mode === 'in' && formatMap.get(item.field) === 'text') {
-            item.value = item.value.toString();
+            return { ...item, value: item.value.toString() };
           }
+          return { ...item };
         });
       }
     });
