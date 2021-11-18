@@ -55,7 +55,6 @@ export default defineComponent({
     const clickDayButton = (data: { end: Data; start: Date; dates: any[] }) => {
       cleanDayValue.value = false;
       daysValue.value = data;
-      console.log(data);
       rangeValue.value = [moment(data.start), moment(data.end)];
       // change datepicker here
       emit('changeTime', data);

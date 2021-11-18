@@ -192,6 +192,9 @@ export default defineComponent({
       filterItems.value.push({ ...filterTemplate });
     };
     const checkSortDisable = (field: string) => {
+      if (field === 'disk_partition') {
+        return true;
+      }
       const format = formatMap.get(field);
       return format === 'calendar' || format === 'dropdown';
     };
@@ -207,7 +210,7 @@ export default defineComponent({
         } else if (item.mode === 'in' && !Array.isArray(item.value)) {
           item.value = item.value.length === 0 ? [] : item.value.split(',');
           if (item.value.length > 1) {
-            item.value = item.value.filter((i:string) => i.length > 0)
+            item.value = item.value.filter((i: string) => i.length > 0);
           }
         } else if (item.field === 'last_update_at') {
           const copy = [...rangeValue.value];
@@ -220,14 +223,17 @@ export default defineComponent({
         return item;
       });
       emit('filterChange', editFilterItems);
-    }, 500);
+    }, 800);
 
     // clean value input when selector changed
     const changeFilterSelector = (field: string): void => {
       filterItems.value.forEach((item: FilterDefaultValue) => {
         // eslint-disable-next-line no-param-reassign
         if (item.field === field) {
-          if (formatMap.get(field) === 'dropdown' || formatMap.get(field) === 'calendar') {
+          if (field === 'disk_partition') {
+            item.value = '';
+            item.mode = 'contain';
+          } else if (formatMap.get(field) === 'dropdown' || formatMap.get(field) === 'calendar') {
             item.value = [];
             item.mode = 'in';
           } else {
