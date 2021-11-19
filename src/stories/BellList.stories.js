@@ -5,16 +5,23 @@ export default {
   component: BellList,
   argTypes: {
     isShow: {
-      type: 'boolean',
-      description: 'To control ',
+      control: 'boolean',
+      description: 'To show/hide notification list.',
     },
-    loading: {
-      type: 'boolean',
-      description: 'Set the loading status of button. Default is false.',
+    status: {
+      options: ['compete', 'ready'],
+      control: { type: 'select' },
+      description:
+        'Default status is `ready`. Set to `complete` when loading the last page of data.',
     },
-    onLoadMore: {
-      action: 'loadMore',
-      description: "Event name is `clickExport`. Throw back click menu's value.",
+    dataSource: {
+      control: 'array',
+      description: "Data for bell's notification.",
+    },
+    onInfiniteScroll: {
+      action: 'infiniteScroll',
+      description:
+        'Event name is infiniteScroll. It would be triggered when bell cardList in status `ready` and scrolled to the end.',
     },
   },
 };
@@ -35,7 +42,7 @@ const Template = (args) => ({
 });
 export const Default = Template.bind({});
 Default.args = {
-  isShow: false,
+  isShow: true,
   dataSource: [
     {
       title: 'Decom fail',
@@ -78,4 +85,5 @@ Default.args = {
       read: true,
     },
   ],
+  status: 'ready',
 };

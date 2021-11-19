@@ -1,10 +1,10 @@
 <template>
-  <div class="xy-bell-list__wrapper" v-if="isShow">
+  <div class="xy-bell-list__wrapper" v-show="isShow">
     <div
       class="xy-bell-list__card"
-      v-for="card in listData"
-      :key="card.id"
+      v-for="card in dataSource"
       :class="{ 'old-card': card.read }"
+      :key="card.id"
     >
       <div class="xy-bell-list__card-title">
         {{ card.title }}
@@ -17,81 +17,86 @@
       </div>
     </div>
     <transition name="fade">
-      <div class="xy-bell-list__hint xy-bell-list__loading" v-if="loading && !dataEnd">
-        <LoadingOutlined :style="{ fontSize: '24px' }" />
+      <div class="xy-bell-list__loading" v-show="isShowLoading">
+        <Skeleton active :loading="isShowLoading" />
       </div>
     </transition>
-    <div class="xy-bell-list__hint xy-bell-list__noData" v-if="dataEnd">No data</div>
   </div>
 </template>
 <script lang="ts">
-import {
-  defineComponent,
-  PropType,
-  reactive,
-  ref,
-  computed,
-  onMounted,
-  onUnmounted,
-  watch,
-} from 'vue';
-import { LoadingOutlined } from '@ant-design/icons-vue';
+import { defineComponent, PropType, ref, onMounted, onUnmounted, watch, computed } from 'vue';
+import { Skeleton } from 'ant-design-vue';
+/* eslint-disable import/no-extraneous-dependencies */
+import debounce from 'lodash/debounce';
 import { BellCardDataType } from './interface';
 
 export default defineComponent({
   name: 'XYBellCard',
-  components: { LoadingOutlined },
+  components: { Skeleton },
   props: {
     dataSource: {
       type: Array as PropType<BellCardDataType[]>,
       default: () => [],
     },
-    page: {
-      type: String,
-      default: '1',
-    },
-    totalPage: {
-      type: String,
-      default: '1',
+    status: {
+      type: String as PropType<'compete' | 'ready'>,
+      default: 'ready',
     },
     isShow: {
-      type: Boolean,
+      type: Boolean as PropType<boolean>,
       default: false,
     },
   },
-  emits: ['loadMore'],
+  emits: ['infiniteScroll'],
   setup(props, { emit }) {
-    const listData = reactive(props.dataSource);
-    const dataEnd = computed(() => props.page === props.totalPage);
-    const loading = ref<boolean>(false);
+    const STATUS = ref(props.status);
 
+    const infiniteScrollEvent = debounce(() => {
+      const cardList = document.querySelector('.xy-bell-list__wrapper');
+      if (STATUS.value === 'ready') {
+        if (
+          cardList &&
+          cardList.scrollHeight - cardList?.scrollTop - 150 <= cardList?.clientHeight
+        ) {
+          emit('infiniteScroll');
+        }
+      }
+    }, 500);
+
+    const isShowLoading = computed(() => STATUS.value !== 'compete');
+    watch(
+      () => props.status,
+      (n) => {
+        STATUS.value = n;
+      },
+      { immediate: true },
+    );
     watch(
       () => props.isShow,
       (n) => {
-        console.log('is show ineer', n);
+        if (!n) {
+          const cardList = document.querySelector('.xy-bell-list__wrapper');
+          if (cardList) {
+            cardList?.removeEventListener('scroll', infiniteScrollEvent);
+            cardList.scrollTop = 0;
+          }
+        } else {
+          const cardList = document.querySelector('.xy-bell-list__wrapper');
+          if (cardList) cardList?.addEventListener('scroll', infiniteScrollEvent);
+        }
       },
     );
-
-    const loadMoreEvent = () => {
-      const cardList = document.querySelector('.xy-bell-list__wrapper');
-      if (cardList && cardList?.scrollTop + cardList?.clientHeight >= cardList.scrollHeight) {
-        emit('loadMore');
-      }
-    };
     onMounted(() => {
-      console.log('nMount!');
       const cardList = document.querySelector('.xy-bell-list__wrapper');
-      cardList?.addEventListener('scroll', loadMoreEvent);
+      cardList?.addEventListener('scroll', infiniteScrollEvent);
     });
     onUnmounted(() => {
-      console.log('unmounted!');
       const cardList = document.querySelector('.xy-bell-list__wrapper');
-      cardList?.removeEventListener('scroll', loadMoreEvent);
+      cardList?.removeEventListener('scroll', infiniteScrollEvent);
     });
     return {
-      listData,
-      dataEnd,
-      loading,
+      STATUS,
+      isShowLoading,
     };
   },
 });
@@ -99,10 +104,11 @@ export default defineComponent({
 <style lang="scss" scoped>
 .xy-bell-list {
   &__wrapper {
-    box-shadow: 0 9px 28px 8px rgba(0, 0, 0, 0.05);
+    background-color: white;
     width: 288px;
     max-height: 400px;
     overflow-y: auto;
+    box-shadow: 0 9px 28px 8px rgba(0, 0, 0, 0.05);
   }
   &__card {
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
@@ -111,33 +117,39 @@ export default defineComponent({
       border-bottom: none;
     }
     &-title {
-      color: #102e4d;
+      color: $bell-list-title-color;
       font-size: 16px;
+      line-height: 1.5;
     }
     &-content {
-      color: #5c666f;
+      color: $bell-list-content-color;
       padding: 8px 0;
+      line-height: 1.5;
     }
     &-footer {
       font-size: 10px;
       text-align: right;
-      color: #5c666f;
+      color: $bell-list-content-color;
+      line-height: 1.5;
     }
     &.old-card {
       .xy-bell-list__card-title {
-        color: #dadcde;
+        color: $bell-list-content-old-color;
       }
       .xy-bell-list__card-content {
-        color: #dadcde;
+        color: $bell-list-content-old-color;
       }
       .xy-bell-list__card-footer {
-        color: #dadcde;
+        color: $bell-list-content-old-color;
       }
     }
   }
   &__hint {
     text-align: center;
     padding: 16px 0;
+  }
+  &__loading {
+    padding: 16px 24px 8px;
   }
 }
 ::-webkit-scrollbar {
@@ -151,15 +163,15 @@ export default defineComponent({
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #d8d8d8;
+  background: $scroll-thumb-color;
   border-radius: 8px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgb(124, 122, 122);
+  background: $scroll-thumb-color-hover;
 }
 
 ::-webkit-scrollbar-track:hover {
-  background: #f4f1f1;
+  background: $scroll-track-color-hover;
 }
 </style>

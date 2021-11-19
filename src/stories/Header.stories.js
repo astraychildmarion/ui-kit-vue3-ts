@@ -30,6 +30,24 @@ export default {
       description:
         'User information, including user name and avatar. Avatar is ant design avatar, please prepare content you want to show.',
     },
+    bellCount: {
+      control: 'number',
+      description: 'Number ofthe badge shows, default is 0.',
+    },
+    isShowBellList: {
+      control: 'boolean',
+      description: 'To show/hide notification list.',
+    },
+    bellDataSource: {
+      control: 'array',
+      description: "Data for bell's notification.",
+    },
+    bellDataStatus: {
+      options: ['loading', 'compete', 'ready'],
+      control: { type: 'select' },
+      description:
+        'Please set `loading` when you throw API request for notification data, then set to `ready` after the request complete. Set to `complete` for loading to the last page of data.',
+    },
     onLogOut: {
       action: 'logOut',
       description: 'Event name is `logOut`. Emit function for logout',
@@ -37,6 +55,15 @@ export default {
     onClickTopLeftCorner: {
       action: 'clickTopLeftCorner',
       description: 'Event name is `clickTopLeftCorner`. To control app list drawer.',
+    },
+    onClickBell: {
+      action: 'clickBell',
+      description: 'Event name is clickBell. It would be triggered when the Bell clicked.',
+    },
+    onScrollBellCardEnd: {
+      action: 'scrollBellCardEnd',
+      description:
+        'Event name is scrollBellCardEnd. It would be triggered when bell cardList in status `ready` and scrolled to the end.',
     },
   },
 };
@@ -75,4 +102,49 @@ Default.args = {
     name: 'System User',
     avatar: 'SU',
   },
+  bellCount: 5,
+  isShowBellList: false,
+  bellDataStatus: 'ready',
+  bellDataSource: [
+    {
+      title: 'Decom fail',
+      content:
+        'Server (IP, Host name) decommission failed, Cloud team will check and get back to you asap. We apologize for any inconvenience caused.',
+      date: '2011/11/13',
+      id: '10',
+      read: false,
+    },
+    {
+      title: 'Decom fail',
+      content:
+        'Server (IP, Host name) decommission failed, Cloud team will check and get back to you asap. We apologize for any inconvenience caused.',
+      date: '2011/11/13',
+      id: '21',
+      read: true,
+    },
+    {
+      title: 'Decom success',
+      content:
+        'Server (IP, Host name) is/ are now shut down with monitoring disabled. Infra will decommission the server(s) officially on (yyyy/mm/dd), please be noted.',
+      date: '2011/11/07',
+      id: '32',
+      read: true,
+    },
+    {
+      title: 'Decom success',
+      content:
+        'Server (IP, Host name) is/ are now shut down with monitoring disabled. Infra will decommission the server(s) officially on (yyyy/mm/dd), please be noted.',
+      date: '2011/11/07',
+      id: '43',
+      read: true,
+    },
+    {
+      title: 'Decom success',
+      content:
+        'Server (IP, Host name) is/ are now shut down with monitoring disabled. Infra will decommission the server(s) officially on (yyyy/mm/dd), please be noted.',
+      date: '2011/11/05',
+      id: '54',
+      read: true,
+    },
+  ],
 };
