@@ -11,7 +11,7 @@
     <div class="xy-calendar-day">
       <RangePicker
         v-model:value="rangeValue"
-        format="MMM-DD-YYYY"
+        format="MMM/DD/YYYY"
         showTime
         :disabledDate="disabledDate"
         @ok="handlerRangePicker"
