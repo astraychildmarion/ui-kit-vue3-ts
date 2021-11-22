@@ -86,7 +86,7 @@
                   <RangePicker
                     :disabled-date="disabledDate"
                     v-model:value="rangeValue"
-                    format="MMM-DD-YYYY"
+                    format="MMM/DD/YYYY"
                     @change="handlerGetRange"
                   >
                     <template #suffixIcon>
@@ -437,7 +437,7 @@ menu.ant-dropdown-content {
     }
     &__body {
       padding: 24px;
-      max-height: 391px;
+      max-height: 342px;
       overflow-y: auto;
       &::-webkit-scrollbar {
         width: 8px;
@@ -468,6 +468,7 @@ menu.ant-dropdown-content {
             border-color: transparent;
             box-shadow: unset;
             color: $filter-text-color;
+                margin-left: 8px;
           }
         }
         &-select {
@@ -493,7 +494,7 @@ menu.ant-dropdown-content {
       &-plus-button {
         &.button-right {
           position: relative;
-          right: -460px;
+          right: -480px;
         }
         &:focus {
           color: $antd-button-text;

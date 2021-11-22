@@ -2,7 +2,8 @@
   <Drawer
     placement="left"
     v-model:visible="isDrawerShow"
-    :mask="false"
+    :mask="true"
+    :maskStyle="{ opacity: '0.8' }"
     :closable="false"
     :width="256"
     :wrapStyle="{ marginTop: '72px' }"
