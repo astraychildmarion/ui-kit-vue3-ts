@@ -86,7 +86,7 @@
                   <RangePicker
                     :disabled-date="disabledDate"
                     v-model:value="rangeValue"
-                    format="MMM-DD-YYYY"
+                    format="MMM/DD/YYYY"
                     @change="handlerGetRange"
                   >
                     <template #suffixIcon>

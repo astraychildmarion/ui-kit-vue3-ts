@@ -2,12 +2,18 @@
   <div class="xy-pencil-input">
     <div class="xy-pencil-input__text" v-if="!editMode">
       {{ inputText }}
-      <div class="xy-pencil-input__icon" @click="clickPen">
-        <EditOutlined style="color: #102e4d; font-size: 15px" />
-      </div>
     </div>
-    <div class="xy-pencil-input__wrapper">
-      <Input v-if="editMode" v-model:value="inputText" @pressEnter="pressEnter" />
+    <div class="xy-pencil-input__icon" @click="clickPen" v-if="!editMode">
+      <EditOutlined style="color: #102e4d; font-size: 15px" />
+    </div>
+    <div class="xy-pencil-input__wrapper" v-if="editMode">
+      <TextArea
+        showCount
+        :maxlength="50"
+        v-model:value="inputText"
+        @pressEnter="pressEnter"
+        :autosize="{ minRows: 1, maxRows: 2 }"
+      />
     </div>
     <div class="xy-pencil-input__icon-check" @click="pressEnter">
       <CheckOutlined style="color: #37c5a0; font-size: 16px" v-if="editMode" />
@@ -28,7 +34,7 @@ export default defineComponent({
     },
   },
   emits: ['pressEnter'],
-  components: { Input, EditOutlined, CheckOutlined },
+  components: { TextArea: Input.TextArea, EditOutlined, CheckOutlined },
   setup(props, { emit }) {
     const inputText = ref<string>(props.text || '');
     const editMode = ref<boolean>(false);
@@ -36,6 +42,9 @@ export default defineComponent({
       editMode.value = true;
     };
     const pressEnter = () => {
+      if (inputText.value.length > 50) {
+        inputText.value = inputText.value.substring(0, 50);
+      }
       emit('pressEnter', inputText.value);
       editMode.value = false;
     };
@@ -55,24 +64,32 @@ export default defineComponent({
 });
 </script>
 <style lang="scss">
+.xy-pencil-input .ant-input-textarea-show-count::after {
+  font-size: 12px;
+  display: inline-block !important;
+  width: 45px;
+}
 .xy-pencil-input {
+  display: flex;
+  align-items: baseline;
   &__wrapper {
-    display: inline-block;
-    width: 400px;
+    .ant-input {
+      width: 450px;
+    }
   }
   &__text {
     font-weight: bold;
     color: $pencil-title-color;
     font-size: 24px;
+    max-width: 850px;
+    line-break: anywhere;
   }
   &__icon {
-    display: inline-block;
     font-weight: bold;
     margin-left: 10px;
     cursor: pointer;
   }
   &__icon-check {
-    display: inline-block;
     padding: 5px 10px;
     cursor: pointer;
   }
