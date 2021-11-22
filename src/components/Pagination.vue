@@ -51,7 +51,7 @@ export default defineComponent({
       emit('changePage', { pagenum, pagesize });
     };
     const OnShowSizeChange = (current: number, size: number) => {
-      const exceedTotalAmount = page.value * size > total.value;
+      const exceedTotalAmount = (page.value - 1) * size >= total.value;
       if (exceedTotalAmount) {
         page.value = 1;
       }
