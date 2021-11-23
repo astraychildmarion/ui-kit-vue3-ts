@@ -31,5 +31,5 @@ const Template = (args) => ({
 });
 export const Default = Template.bind({});
 Default.args = {
-  text: 'BU___002',
+  text: 'BU Application Name改為100個字元',
 };

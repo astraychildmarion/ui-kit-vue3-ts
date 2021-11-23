@@ -1,29 +1,36 @@
 <template>
   <div class="xy-pencil-input">
-    <div class="xy-pencil-input__text" v-if="!editMode">
-      {{ inputText }}
-    </div>
-    <div class="xy-pencil-input__icon" @click="clickPen" v-if="!editMode">
-      <EditOutlined style="color: #102e4d; font-size: 15px" />
+    <div class="xy-pencil-input__show">
+      <div class="xy-pencil-input__text" v-if="!editMode">
+        {{ showText }}
+      </div>
+      <div class="xy-pencil-input__icon" @click="clickPen" v-if="!editMode">
+        <EditOutlined style="color: #102e4d; font-size: 15px" />
+      </div>
     </div>
     <div class="xy-pencil-input__wrapper" v-if="editMode">
       <TextArea
         showCount
-        :maxlength="50"
+        :maxlength="100"
         v-model:value="inputText"
         @pressEnter="pressEnter"
-        :autosize="{ minRows: 1, maxRows: 2 }"
+        :autosize="{ minRows: 1, maxRows: 3 }"
       />
     </div>
-    <div class="xy-pencil-input__icon-check" @click="pressEnter">
-      <CheckOutlined style="color: #37c5a0; font-size: 16px" v-if="editMode" />
+    <div class="xy-pencil-input__icon-wrapper" v-if="editMode">
+      <div class="xy-pencil-input__icon-check" @click="pressCancel">
+        <CloseOutlined style="color: #ef476f; font-size: 16px" />
+      </div>
+      <div class="xy-pencil-input__icon-check" @click="pressEnter">
+        <CheckOutlined style="color: #37c5a0; font-size: 16px" />
+      </div>
     </div>
   </div>
 </template>
 <script lang="ts">
 import { PropType, defineComponent, ref, watch } from 'vue';
 import { Input } from 'ant-design-vue';
-import { EditOutlined, CheckOutlined } from '@ant-design/icons-vue';
+import { EditOutlined, CheckOutlined, CloseOutlined } from '@ant-design/icons-vue';
 
 export default defineComponent({
   name: 'XYPencilInput',
@@ -34,31 +41,39 @@ export default defineComponent({
     },
   },
   emits: ['pressEnter'],
-  components: { TextArea: Input.TextArea, EditOutlined, CheckOutlined },
+  components: { TextArea: Input.TextArea, EditOutlined, CheckOutlined, CloseOutlined },
   setup(props, { emit }) {
-    const inputText = ref<string>(props.text || '');
+    const showText = ref<string>(props.text);
+    const inputText = ref<string>('');
     const editMode = ref<boolean>(false);
     const clickPen = () => {
       editMode.value = true;
+      inputText.value = showText.value;
     };
     const pressEnter = () => {
-      if (inputText.value.length > 50) {
-        inputText.value = inputText.value.substring(0, 50);
+      if (inputText.value.length > 100) {
+        inputText.value = inputText.value.substring(0, 100);
       }
       emit('pressEnter', inputText.value);
       editMode.value = false;
     };
+    const pressCancel = () => {
+      editMode.value = false;
+      inputText.value = '';
+    };
     watch(
       () => props.text,
       (n) => {
-        inputText.value = n;
+        showText.value = n;
       },
     );
     return {
+      showText,
       inputText,
       editMode,
       clickPen,
       pressEnter,
+      pressCancel,
     };
   },
 });
@@ -66,16 +81,17 @@ export default defineComponent({
 <style lang="scss">
 .xy-pencil-input .ant-input-textarea-show-count::after {
   font-size: 12px;
-  display: inline-block !important;
-  width: 45px;
+  margin-right: 72px;
+  margin-top: 5px;
 }
 .xy-pencil-input {
-  display: flex;
-  align-items: baseline;
+  position: relative;
+  &__show {
+    display: flex;
+    align-items: center;
+  }
   &__wrapper {
-    .ant-input {
-      width: 450px;
-    }
+    width: 450px;
   }
   &__text {
     font-weight: bold;
@@ -88,10 +104,19 @@ export default defineComponent({
     font-weight: bold;
     margin-left: 10px;
     cursor: pointer;
+    &-wrapper {
+      display: flex;
+      position: relative;
+      top: -38px;
+      left: 382px;
+      font-size: 16px;
+      line-height: 21px;
+    }
   }
   &__icon-check {
-    padding: 5px 10px;
+    padding: 4px 8px;
     cursor: pointer;
+    border: $box-border;
   }
 }
 </style>
