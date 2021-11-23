@@ -119,19 +119,20 @@
                   </template>
                 </Button>
               </FormItem>
-
-              <Button
-                :class="{ 'button-right': filterItems.length < 1 }"
-                class="xy-filter__body-plus-button"
-                :disabled="addFilterBtnDisabled"
-                @click="addFilter"
-              >
-                <template #icon>
-                  <PlusOutlined />
-                </template>
-                Add a filter
-              </Button>
             </Form>
+          </div>
+          <div className="xy-filter__footer">
+            <Button
+              :class="{ 'button-right': filterItems.length < 1 }"
+              class="xy-filter__body-plus-button"
+              :disabled="addFilterBtnDisabled"
+              @click="addFilter"
+            >
+              <template #icon>
+                <PlusOutlined />
+              </template>
+              Add a filter
+            </Button>
           </div>
         </div>
       </Menu>
@@ -435,9 +436,12 @@ menu.ant-dropdown-content {
         color: $filter-title-btn-color;
       }
     }
+    &__footer {
+      padding: 10px 24px 24px;
+    }
     &__body {
-      padding: 24px;
-      max-height: 342px;
+      padding: 24px 24px 0;
+      max-height: 279px;
       overflow-y: auto;
       &::-webkit-scrollbar {
         width: 8px;
@@ -468,7 +472,7 @@ menu.ant-dropdown-content {
             border-color: transparent;
             box-shadow: unset;
             color: $filter-text-color;
-                margin-left: 8px;
+            margin-left: 8px;
           }
         }
         &-select {

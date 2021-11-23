@@ -215,6 +215,32 @@ export default defineComponent({
   opacity: 0.5;
   background: #dadcde;
 }
+:deep(.ant-modal-body) {
+  max-height: 342px;
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    border-radius: 40px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #d8d8d8;
+    border-radius: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: rgb(124, 122, 122);
+  }
+
+  &::-webkit-scrollbar-track:hover {
+    background: #f4f1f1;
+  }
+}
 
 .xy-customize-display__button.ant-btn:focus {
   color: #5c666f;
