@@ -116,7 +116,7 @@ export default defineComponent({
     function changePage(data: object) {
       emit('changePage', data);
     }
-    function showSizeChange(...pageSize: [number, boolean]) {
+    function showSizeChange(...pageSize: [number, number]) {
       emit('showSizeChange', ...pageSize);
     }
     function clickExport(data: string) {

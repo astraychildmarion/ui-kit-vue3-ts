@@ -51,12 +51,12 @@ export default defineComponent({
       emit('changePage', { pagenum, pagesize });
     };
     const OnShowSizeChange = (current: number, size: number) => {
-      const exceedTotalAmount = (page.value - 1) * size >= total.value;
+      const exceedTotalAmount = page.value > 1 && (page.value - 1) * size >= total.value;
       if (exceedTotalAmount) {
         page.value = 1;
       }
       pageSize.value = size;
-      emit('showSizeChange', size, exceedTotalAmount);
+      emit('showSizeChange', page.value, size);
     };
     watch(
       () => props.defaultPageSize,
@@ -69,6 +69,13 @@ export default defineComponent({
       () => props.defaultCurrent,
       (n) => {
         page.value = n;
+      },
+      { immediate: true },
+    );
+    watch(
+      () => props.total,
+      (n) => {
+        total.value = n;
       },
       { immediate: true },
     );
