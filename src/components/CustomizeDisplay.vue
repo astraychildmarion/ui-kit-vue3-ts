@@ -42,6 +42,7 @@
         style="width: 100%"
         placeholder="Column"
         @change="OnSelectChange"
+        dropdownClassName="xy-customize-display__dropdown"
       >
         <SelectOption
           v-for="(item, index) in filteredOptions"
@@ -274,6 +275,7 @@ export default defineComponent({
       }
     }
   }
+
   :deep(.ant-modal-footer) {
     border-top: none;
   }
@@ -282,6 +284,21 @@ export default defineComponent({
       color: $toolbar-text-color;
       border-color: #d9d9d9;
     }
+  }
+}
+</style>
+<style lang="scss">
+.xy-customize-display__dropdown .ant-select-item-option-selected {
+  background-color: $dropdown-selected-bg;
+  font-weight: 600;
+  &:not(.ant-select-item-option-disabled) {
+    background-color: $dropdown-selected-bg;
+  }
+}
+.xy-customize-display__dropdown .ant-select-item-option-active {
+  background-color: $dropdown-hover-bg;
+  &:not(.ant-select-item-option-disabled) {
+    background-color: $dropdown-hover-bg;
   }
 }
 </style>
