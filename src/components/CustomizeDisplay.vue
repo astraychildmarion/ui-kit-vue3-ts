@@ -41,8 +41,9 @@
         show-search
         style="width: 100%"
         placeholder="Column"
-        @change="OnSelectChange"
-        dropdownClassName="xy-customize-display__dropdown"
+        @change="onSelectChange"
+        dropdownClassName="xy-customize-display__dropdow"
+        optionFilterProp="title"
       >
         <SelectOption
           v-for="(item, index) in filteredOptions"
@@ -164,7 +165,9 @@ export default defineComponent({
       selectedItem.value.splice(idx, 1);
     };
 
-    const OnSelectChange = (value: any, option: any) => {
+    const onSelectChange = (value: any, option: any) => {
+      console.log('option->', option);
+      console.log('value->', value);
       const objItem: CustomizeDisplayItemOptType = {
         label: option.title,
         value: option.value,
@@ -176,7 +179,6 @@ export default defineComponent({
     const filteredOptions = computed(() =>
       xorBy(selectedItem.value, propsItemOption.value, 'label'),
     );
-
     watch(
       () => propsUserSelected.value,
       (NewVal) => {
@@ -191,7 +193,7 @@ export default defineComponent({
       clickConfirm,
       removeAt,
       clickResetDefault,
-      OnSelectChange,
+      onSelectChange,
       onMove,
       getContainer,
       filteredOptions,
