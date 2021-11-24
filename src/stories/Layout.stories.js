@@ -16,6 +16,7 @@ import {
 import XYAppLayout from '../components/layout/Layout.vue';
 import * as appListData from './ApplistDrawer.stories';
 import * as siderData from './Sider.stories';
+import * as headerData from './Header.stories';
 
 export default {
   title: 'UI-KIT/Layout/AppLayout',
@@ -87,6 +88,11 @@ export default {
       control: 'boolean',
       description: 'To hide sider of applayout.',
     },
+    // bell notification
+    bellCount: {
+      control: 'number',
+      description: 'Number ofthe badge shows, default is 0.',
+    },
     // app drawer list action
     onClickAppListDrawerMenu: {
       action: 'clickAppListDrawerMenu',
@@ -103,6 +109,10 @@ export default {
     onLogOut: {
       action: 'logOut',
       description: 'Event name is `logOut`. Emit function for logout',
+    },
+    onClickBell: {
+      action: 'clickBell',
+      description: 'Event name is clickBell. It would be triggered when the Bell clicked.',
     },
     content: {
       type: 'component',
@@ -212,4 +222,8 @@ Default.args = {
   siderData: [...siderData.default.args.siderData],
   appListDrawerData: [...appListData.Default.args.appListDrawerData],
   ver: '2.0.0',
+  bellCount: 5,
+  isShowBellList: false,
+  bellDataStatus: 'ready',
+  bellDataSource: headerData.Default.args.bellDataSource,
 };

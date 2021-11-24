@@ -454,16 +454,16 @@ menu.ant-dropdown-content {
       }
 
       &::-webkit-scrollbar-thumb {
-        background: #d8d8d8;
+        background: $scroll-thumb-color;
         border-radius: 8px;
       }
 
       &::-webkit-scrollbar-thumb:hover {
-        background: rgb(124, 122, 122);
+        background: $scroll-thumb-color-hover;
       }
 
       &::-webkit-scrollbar-track:hover {
-        background: #f4f1f1;
+        background: $scroll-track-color-hover;
       }
       &-item {
         &-button {

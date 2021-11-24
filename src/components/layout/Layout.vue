@@ -26,6 +26,7 @@
         }"
       >
         <XYHeader
+          :bellCount="bellCount"
           :manageAuth="manageAuth"
           :logoUrl="logoUrl"
           height="72"
@@ -35,6 +36,7 @@
           :userInfo="userInfo"
           @clickTopLeftCorner="clickTopLeftCorner"
           @logOut="$emit('logOut')"
+          @clickBell="clickBell"
         >
           <template v-for="item in manageMenu" #[`manageMenu_`+item.icon]>
             <slot :name="`manageMenu_` + item.icon" />
@@ -106,7 +108,7 @@ import { Layout } from 'ant-design-vue';
 import XYHeader from './Header.vue';
 import XYSider from './Sider.vue';
 import XYAppListDrawer from './ApplistDrawer.vue';
-import { SiderData, HeaderUserMenu } from '../interface';
+import { SiderData, HeaderUserMenu, BellCardDataType } from '../interface';
 
 export default defineComponent({
   name: 'XYAppLayout',
@@ -130,7 +132,14 @@ export default defineComponent({
       },
     };
   },
-  emits: ['clickAppListDrawerMenu', 'clickMenu', 'onBreakpoint', 'logOut'],
+  emits: [
+    'clickAppListDrawerMenu',
+    'clickMenu',
+    'onBreakpoint',
+    'logOut',
+    'clickBell',
+    'scrollBellCardEnd',
+  ],
   props: {
     hideUI: {
       type: Boolean,
@@ -188,6 +197,22 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+    isShowBellList: {
+      type: Boolean,
+      default: false,
+    },
+    bellCount: {
+      type: Number,
+      default: 0,
+    },
+    bellDataSource: {
+      type: Array as PropType<BellCardDataType[]>,
+      default: () => [],
+    },
+    bellDataStatus: {
+      type: String as PropType<'loading' | 'compete' | 'ready'>,
+      default: 'ready',
+    },
   },
   setup(props, { emit }) {
     const isSiderCollapse = ref<boolean>(false);
@@ -208,6 +233,9 @@ export default defineComponent({
     }
     function onBreakpoint(broken: boolean) {
       emit('onBreakpoint', broken);
+    }
+    function clickBell() {
+      emit('clickBell');
     }
     function handlerSider() {
       isSiderCollapse.value = !isSiderCollapse.value;
@@ -233,6 +261,7 @@ export default defineComponent({
       clickTopLeftCorner,
       clickMenu,
       siderCollapse,
+      clickBell,
       onBreakpoint,
     };
   },

@@ -29,7 +29,6 @@ import { DatePicker } from 'ant-design-vue';
 import { CalendarOutlined } from '@ant-design/icons-vue';
 /* eslint-disable import/no-extraneous-dependencies */
 import moment, { Moment } from 'moment';
-import { Data } from 'ant-design-vue/lib/_util/type';
 import Days from './Days.vue';
 
 export default defineComponent({
@@ -52,11 +51,10 @@ export default defineComponent({
     const rangeValue = ref<any[]>([]);
     const daysValue = ref<object>([]);
     const disabledDate = (current: Moment) => current && current > moment().endOf('day');
-    const clickDayButton = (data: { end: Data; start: Date; dates: any[] }) => {
+    const clickDayButton = (data: { end: Date; start: Date; dates: any[] }) => {
       cleanDayValue.value = false;
       daysValue.value = data;
       rangeValue.value = [moment(data.start), moment(data.end)];
-      // change datepicker here
       emit('changeTime', data);
     };
     const changeDaysDefault = () => {};

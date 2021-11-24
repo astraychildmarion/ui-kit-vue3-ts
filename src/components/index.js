@@ -4,6 +4,7 @@ export { default as XYLayout } from './layout/Layout.vue';
 export { default as XYSider } from './layout/Sider.vue';
 export { default as XYActionButton } from './ActionButton.vue';
 export { default as XYAlertMsg } from './AlertMsg.vue';
+export { default as XYBellList } from './BellList.vue';
 export { default as XYCustomizeDisplay } from './CustomizeDisplay.vue';
 export { default as XYCalendarDays } from './CalendarDays.vue';
 export { default as XYConfirmModal } from './ConfirmModal.vue';
