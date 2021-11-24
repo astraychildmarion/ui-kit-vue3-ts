@@ -218,7 +218,7 @@ export default defineComponent({
   background: #dadcde;
 }
 :deep(.ant-modal-body) {
-  max-height: 342px;
+  max-height: 428px;
   overflow-y: auto;
   &::-webkit-scrollbar {
     width: 8px;
@@ -263,7 +263,7 @@ export default defineComponent({
   }
   &__list-group-item {
     height: 36px;
-    margin: 8px 0;
+    margin: 0 0 8px 0;
     padding: 6px 14px 6px 14px;
     border-radius: 4px;
     border: solid 1px #dadcde;
