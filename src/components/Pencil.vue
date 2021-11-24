@@ -8,7 +8,7 @@
         <EditOutlined style="color: #102e4d; font-size: 15px" />
       </div>
     </div>
-    <div class="xy-pencil-input__wrapper" v-if="editMode">
+    <div class="xy-pencil-input__wrapper" v-show="editMode">
       <TextArea
         showCount
         :maxlength="100"
@@ -28,7 +28,7 @@
   </div>
 </template>
 <script lang="ts">
-import { PropType, defineComponent, ref, watch } from 'vue';
+import { PropType, defineComponent, ref, watch, onMounted } from 'vue';
 import { Input } from 'ant-design-vue';
 import { EditOutlined, CheckOutlined, CloseOutlined } from '@ant-design/icons-vue';
 
@@ -67,6 +67,13 @@ export default defineComponent({
         showText.value = n;
       },
     );
+
+    onMounted(() => {
+      const target = document.querySelector('.xy-pencil-input .ant-input-textarea textarea');
+      target?.addEventListener('keyup', (event: any) => {
+        if (event.code === 'Escape') pressCancel();
+      });
+    });
     return {
       showText,
       inputText,
@@ -83,6 +90,7 @@ export default defineComponent({
   font-size: 12px;
   margin-right: 72px;
   margin-top: 5px;
+  height: 19px;
 }
 .xy-pencil-input {
   position: relative;
@@ -107,7 +115,7 @@ export default defineComponent({
     &-wrapper {
       display: flex;
       position: relative;
-      top: -38px;
+      top: -24px;
       left: 382px;
       font-size: 16px;
       line-height: 21px;
