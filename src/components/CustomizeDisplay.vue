@@ -42,7 +42,7 @@
         style="width: 100%"
         placeholder="Column"
         @change="onSelectChange"
-        dropdownClassName="xy-customize-display__dropdow"
+        dropdownClassName="xy-customize-display__dropdown"
         optionFilterProp="title"
       >
         <SelectOption
@@ -215,7 +215,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 .ghost {
   opacity: 0.5;
-  background: #dadcde;
+  background-color: $dropdown-hover-bg;
 }
 :deep(.ant-modal-body) {
   max-height: 428px;
@@ -318,7 +318,6 @@ export default defineComponent({
 <style lang="scss">
 .xy-customize-display__dropdown .ant-select-item-option-selected {
   background-color: $dropdown-selected-bg;
-  font-weight: 600;
   &:not(.ant-select-item-option-disabled) {
     background-color: $dropdown-selected-bg;
   }
