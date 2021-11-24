@@ -25,9 +25,14 @@
         <div className="xy-filter__wrapper">
           <div className="xy-filter__title">
             {{ titleText }}
-            <Button @click="handlerClean" type="link" class="xy-filter__title__button"
-              >Clean all</Button
+            <Button
+              @click="handlerClean"
+              type="link"
+              class="xy-filter__title__button"
+              v-show="active"
             >
+              Clean all
+            </Button>
           </div>
           <div className="xy-filter__body">
             <p v-show="filterItems.length < 1">
@@ -441,7 +446,7 @@ menu.ant-dropdown-content {
     }
     &__body {
       padding: 24px 24px 0;
-      max-height: 252px;
+      max-height: 250px;
       overflow-y: auto;
       &::-webkit-scrollbar {
         width: 8px;
