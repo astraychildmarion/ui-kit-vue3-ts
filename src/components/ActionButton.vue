@@ -21,6 +21,7 @@
                   placement="left"
                   overlayClassName="tooltipCard"
                   :overlayStyle="handlerOverlayStyle(option.tooltipShow)"
+                  :getPopupContainer="getPopupContainer"
                 >
                   <template #title>
                     <span>{{ option.tooltipText }}</span>
@@ -37,7 +38,7 @@
             </template>
             <template v-else>
               <div class="action_tooltip">
-                <Tooltip placement="left">
+                <Tooltip placement="left" :getPopupContainer="getPopupContainer">
                   <template #title>
                     <span>{{ isCheckboxSelectedText }}</span>
                   </template>
@@ -94,6 +95,9 @@ export default defineComponent({
       const noshow = { visibility: 'hidden' };
       return tooltipShow ? undefined : noshow;
     }
+    function getPopupContainer() {
+      return document.querySelector('.xy-action-button__dropdown');
+    }
     watch(
       () => props.actionOption,
       (nAction) => {
@@ -112,6 +116,7 @@ export default defineComponent({
       actionInnerOption,
       isTableInnerChecked,
       isCheckboxSelectedText,
+      getPopupContainer,
     };
   },
   components: {
