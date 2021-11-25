@@ -79,6 +79,7 @@ import { EditOutlined, DeleteOutlined } from '@ant-design/icons-vue';
 import { VueDraggableNext } from 'vue-draggable-next';
 /* eslint-disable import/no-extraneous-dependencies */
 import xorBy from 'lodash/xorBy';
+import sortBy from 'lodash/sortBy';
 
 import { CustomizeDisplayItemOptType } from './interface';
 
@@ -127,7 +128,7 @@ export default defineComponent({
     const propsVisible = ref(props.visible);
     const propsDefaultSelected = ref(props.defaultSelected);
     const propsUserSelected = ref(props.userSelected);
-    const propsItemOption = ref(props.itemOption);
+    const propsItemOption = ref(sortBy(props.itemOption, ['label']));
     const keyboard = ref<boolean>(false);
     const closable = ref<boolean>(false);
     const maskClosable = ref<boolean>(false);
