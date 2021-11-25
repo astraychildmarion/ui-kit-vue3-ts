@@ -25,9 +25,14 @@
         <div className="xy-filter__wrapper">
           <div className="xy-filter__title">
             {{ titleText }}
-            <Button @click="handlerClean" type="link" class="xy-filter__title__button"
-              >Clean all</Button
+            <Button
+              @click="handlerClean"
+              type="link"
+              class="xy-filter__title__button"
+              v-show="active"
             >
+              Clean all
+            </Button>
           </div>
           <div className="xy-filter__body">
             <p v-show="filterItems.length < 1">
@@ -119,19 +124,20 @@
                   </template>
                 </Button>
               </FormItem>
-
-              <Button
-                :class="{ 'button-right': filterItems.length < 1 }"
-                class="xy-filter__body-plus-button"
-                :disabled="addFilterBtnDisabled"
-                @click="addFilter"
-              >
-                <template #icon>
-                  <PlusOutlined />
-                </template>
-                Add a filter
-              </Button>
             </Form>
+          </div>
+          <div className="xy-filter__footer">
+            <Button
+              :class="{ 'button-right': filterItems.length < 1 }"
+              class="xy-filter__body-plus-button"
+              :disabled="addFilterBtnDisabled"
+              @click="addFilter"
+            >
+              <template #icon>
+                <PlusOutlined />
+              </template>
+              Add a filter
+            </Button>
           </div>
         </div>
       </Menu>
@@ -435,9 +441,12 @@ menu.ant-dropdown-content {
         color: $filter-title-btn-color;
       }
     }
+    &__footer {
+      padding: 10px 24px 24px;
+    }
     &__body {
-      padding: 24px;
-      max-height: 342px;
+      padding: 24px 24px 0;
+      max-height: 250px;
       overflow-y: auto;
       &::-webkit-scrollbar {
         width: 8px;
@@ -450,16 +459,16 @@ menu.ant-dropdown-content {
       }
 
       &::-webkit-scrollbar-thumb {
-        background: #d8d8d8;
+        background: $scroll-thumb-color;
         border-radius: 8px;
       }
 
       &::-webkit-scrollbar-thumb:hover {
-        background: rgb(124, 122, 122);
+        background: $scroll-thumb-color-hover;
       }
 
       &::-webkit-scrollbar-track:hover {
-        background: #f4f1f1;
+        background: $scroll-track-color-hover;
       }
       &-item {
         &-button {
@@ -468,7 +477,7 @@ menu.ant-dropdown-content {
             border-color: transparent;
             box-shadow: unset;
             color: $filter-text-color;
-                margin-left: 8px;
+            margin-left: 8px;
           }
         }
         &-select {

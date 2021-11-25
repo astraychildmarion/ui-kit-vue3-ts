@@ -79,7 +79,7 @@ Default.args = {
     },
     {
       label: 'Disk Partition',
-      value: 'disk_partition',
+      value: 'diskPartitionInlineText',
     },
     {
       label: 'OS',
@@ -87,7 +87,7 @@ Default.args = {
     },
     {
       label: 'Last Update',
-      value: 'last_update_at',
+      value: 'lastUpdateFormatted',
     },
     {
       label: 'Layer',
@@ -167,11 +167,6 @@ Default.args = {
     {
       label: 'RAM (GB)',
       value: 'ram_gb',
-      fixed: false,
-    },
-    {
-      label: 'Last Update',
-      value: 'last_update_at',
       fixed: false,
     },
   ],

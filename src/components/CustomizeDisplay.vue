@@ -41,7 +41,9 @@
         show-search
         style="width: 100%"
         placeholder="Column"
-        @change="OnSelectChange"
+        @change="onSelectChange"
+        dropdownClassName="xy-customize-display__dropdown"
+        optionFilterProp="title"
       >
         <SelectOption
           v-for="(item, index) in filteredOptions"
@@ -163,7 +165,9 @@ export default defineComponent({
       selectedItem.value.splice(idx, 1);
     };
 
-    const OnSelectChange = (value: any, option: any) => {
+    const onSelectChange = (value: any, option: any) => {
+      console.log('option->', option);
+      console.log('value->', value);
       const objItem: CustomizeDisplayItemOptType = {
         label: option.title,
         value: option.value,
@@ -175,7 +179,6 @@ export default defineComponent({
     const filteredOptions = computed(() =>
       xorBy(selectedItem.value, propsItemOption.value, 'label'),
     );
-
     watch(
       () => propsUserSelected.value,
       (NewVal) => {
@@ -190,7 +193,7 @@ export default defineComponent({
       clickConfirm,
       removeAt,
       clickResetDefault,
-      OnSelectChange,
+      onSelectChange,
       onMove,
       getContainer,
       filteredOptions,
@@ -212,7 +215,33 @@ export default defineComponent({
 <style lang="scss" scoped>
 .ghost {
   opacity: 0.5;
-  background: #dadcde;
+  background-color: $dropdown-hover-bg;
+}
+:deep(.ant-modal-body) {
+  max-height: 428px;
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    border-radius: 40px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #d8d8d8;
+    border-radius: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: rgb(124, 122, 122);
+  }
+
+  &::-webkit-scrollbar-track:hover {
+    background: #f4f1f1;
+  }
 }
 
 .xy-customize-display__button.ant-btn:focus {
@@ -234,7 +263,7 @@ export default defineComponent({
   }
   &__list-group-item {
     height: 36px;
-    margin: 8px 0;
+    margin: 0 0 8px 0;
     padding: 6px 14px 6px 14px;
     border-radius: 4px;
     border: solid 1px #dadcde;
@@ -274,6 +303,7 @@ export default defineComponent({
       }
     }
   }
+
   :deep(.ant-modal-footer) {
     border-top: none;
   }
@@ -282,6 +312,20 @@ export default defineComponent({
       color: $toolbar-text-color;
       border-color: #d9d9d9;
     }
+  }
+}
+</style>
+<style lang="scss">
+.xy-customize-display__dropdown .ant-select-item-option-selected {
+  background-color: $dropdown-selected-bg;
+  &:not(.ant-select-item-option-disabled) {
+    background-color: $dropdown-selected-bg;
+  }
+}
+.xy-customize-display__dropdown .ant-select-item-option-active {
+  background-color: $dropdown-hover-bg;
+  &:not(.ant-select-item-option-disabled) {
+    background-color: $dropdown-hover-bg;
   }
 }
 </style>

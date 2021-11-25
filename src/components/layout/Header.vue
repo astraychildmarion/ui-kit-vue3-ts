@@ -32,8 +32,8 @@
             </div>
           </template>
         </Dropdown>
-        <div class="xy-header__user-notification">
-          <Badge>
+        <div class="xy-header__user-notification" @click="clickBellHandler">
+          <Badge :count="bellCount" :numberStyle="{ fontSize: '10px' }" :offset="[6, 0]">
             <BellOutlined :style="bellStyle" />
           </Badge>
         </div>
@@ -120,8 +120,12 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+    bellCount: {
+      type: Number,
+      default: 0,
+    },
   },
-  emits: ['clickTopLeftCorner', 'logOut'],
+  emits: ['clickTopLeftCorner', 'logOut', 'clickBell', 'scrollBellCardEnd'],
   setup(props, { emit }) {
     const manageMenuVisible = ref(false);
     const isDrawerClose = ref(true);
@@ -129,10 +133,14 @@ export default defineComponent({
       isDrawerClose.value = !isDrawerClose.value;
       emit('clickTopLeftCorner', isDrawerClose.value);
     }
+    function clickBellHandler() {
+      emit('clickBell');
+    }
     return {
       manageMenuVisible,
       isDrawerClose,
       clickTopLeftCorner,
+      clickBellHandler,
     };
   },
   data() {
@@ -191,7 +199,7 @@ a:hover {
     &-notification {
       display: grid;
       align-items: center;
-      padding: 0 10px;
+      padding: 0 20px;
       height: 100%;
       cursor: pointer;
       &:hover {
