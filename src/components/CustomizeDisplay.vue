@@ -219,7 +219,7 @@ export default defineComponent({
   background-color: $dropdown-hover-bg;
 }
 :deep(.ant-modal-body) {
-  max-height: 428px;
+  max-height: 436px;
   overflow-y: auto;
   &::-webkit-scrollbar {
     width: 8px;
@@ -232,16 +232,16 @@ export default defineComponent({
   }
 
   &::-webkit-scrollbar-thumb {
-    background: #d8d8d8;
+    background: $scroll-thumb-color;
     border-radius: 8px;
   }
 
   &::-webkit-scrollbar-thumb:hover {
-    background: rgb(124, 122, 122);
+    background: $scroll-thumb-color-hover;
   }
 
   &::-webkit-scrollbar-track:hover {
-    background: #f4f1f1;
+    background: $scroll-track-color-hover;
   }
 }
 

@@ -395,6 +395,17 @@ export default defineComponent({
     background-color: $dropdown-hover-bg;
   }
 }
+.xy-filter__body-dropdown .rc-virtual-list-scrollbar {
+  &:hover {
+    background: $scroll-track-color-hover;
+  }
+}
+.xy-filter__body-dropdown .rc-virtual-list-scrollbar-thumb {
+  background: $scroll-thumb-color !important;
+  &:hover {
+    background: $scroll-thumb-color-hover !important;
+  }
+}
 </style>
 <style lang="scss" scoped>
 menu.ant-dropdown-content {
