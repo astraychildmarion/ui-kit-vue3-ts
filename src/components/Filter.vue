@@ -47,7 +47,7 @@
               >
                 <Select
                   v-model:value="filterItem.field"
-                  class="xy-filter__body-item-select"
+                  class="xy-filter__body-item-select xy-filter__body-menu"
                   dropdownClassName="xy-filter__body-dropdown"
                   @change="changeFilterSelector(filterItem.field)"
                 >
@@ -145,7 +145,7 @@
   </Dropdown>
 </template>
 <script lang="ts">
-import { PropType, defineComponent, ref, watchEffect, computed } from 'vue';
+import { PropType, defineComponent, ref, watchEffect, computed, nextTick, watch } from 'vue';
 import { Button, Dropdown, Select, Input, Form, DatePicker, Menu, Tooltip } from 'ant-design-vue';
 import {
   CheckCircleOutlined,
@@ -196,6 +196,17 @@ export default defineComponent({
         value: '',
       };
       filterItems.value.push({ ...filterTemplate });
+      nextTick(() => {
+        const filterBody = document.querySelector('.xy-filter__body');
+        if (filterBody) {
+          const filterBodyHeight = filterBody?.scrollHeight;
+          const filterBodyClientHeight = filterBody?.clientHeight;
+          filterBody?.scroll({
+            top: filterBodyHeight - filterBodyClientHeight,
+            behavior: 'smooth',
+          });
+        }
+      });
     };
     const checkSortDisable = (field: string) => {
       if (field === 'disk_partition') {
@@ -306,6 +317,22 @@ export default defineComponent({
         });
       }
     });
+    watch(
+      ()=> visible.value,
+      (n: boolean,o: boolean) => {
+        console.log(n,o);
+        if (!n&&o) {
+        const filterBody = document.querySelector('.xy-filter__body');
+        if (filterBody) {
+          filterBody?.scroll({
+            top: 0,
+            behavior: 'smooth',
+          });
+        }
+
+        }
+      }
+    )
 
     const addFilterBtnDisabled = computed(() => {
       return filterItems.value.length >= filterOption.value.length;

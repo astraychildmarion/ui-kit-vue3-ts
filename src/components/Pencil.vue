@@ -88,9 +88,10 @@ export default defineComponent({
 <style lang="scss">
 .xy-pencil-input .ant-input-textarea-show-count::after {
   font-size: 12px;
-  margin-right: 72px;
-  margin-top: 5px;
+  padding-right: 72px;
+  padding-top: 5px;
   height: 19px;
+  line-height: 1.75;
 }
 .xy-pencil-input {
   position: relative;
@@ -115,7 +116,7 @@ export default defineComponent({
     &-wrapper {
       display: flex;
       position: relative;
-      top: -24px;
+      top: -20px;
       left: 382px;
       font-size: 16px;
       line-height: 21px;
@@ -125,6 +126,7 @@ export default defineComponent({
     padding: 4px 8px;
     cursor: pointer;
     border: $box-border;
+    border-radius: 2px;
   }
 }
 </style>
