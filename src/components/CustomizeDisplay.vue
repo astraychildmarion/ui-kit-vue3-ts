@@ -73,7 +73,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, ref, watch, computed } from 'vue';
+import { defineComponent, PropType, ref, watch, computed, nextTick } from 'vue';
 import { Button, Modal, Select, Row, Col, Space } from 'ant-design-vue';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons-vue';
 import { VueDraggableNext } from 'vue-draggable-next';
@@ -145,10 +145,28 @@ export default defineComponent({
     };
     const clickCancel = () => {
       propsVisible.value = false;
+      nextTick(() => {
+        const body = document.querySelector('.xy-customize-display .ant-modal-body');
+        if (body) {
+          body?.scroll({
+            top: 0,
+            behavior: 'smooth',
+          });
+        }
+      });
     };
     const clickConfirm = () => {
       emit('clickCustomizeConfirm', JSON.parse(JSON.stringify(selectedItem.value)));
       propsVisible.value = false;
+      nextTick(() => {
+        const body = document.querySelector('.xy-customize-display .ant-modal-body');
+        if (body) {
+          body?.scroll({
+            top: 0,
+            behavior: 'smooth',
+          });
+        }
+      });
     };
 
     const onMove = (evt: any) => {
@@ -167,8 +185,6 @@ export default defineComponent({
     };
 
     const onSelectChange = (value: any, option: any) => {
-      console.log('option->', option);
-      console.log('value->', value);
       const objItem: CustomizeDisplayItemOptType = {
         label: option.title,
         value: option.value,
@@ -176,6 +192,17 @@ export default defineComponent({
       };
       selectedItem.value.push(objItem);
       emptyvalue.value = [];
+      nextTick(() => {
+        const body = document.querySelector('.xy-customize-display .ant-modal-body');
+        if (body) {
+          const customizeBodyHeight = body?.scrollHeight;
+          const customizeBodyClientHeight = body?.clientHeight;
+          body?.scroll({
+            top: customizeBodyHeight - customizeBodyClientHeight,
+            behavior: 'smooth',
+          });
+        }
+      });
     };
     const filteredOptions = computed(() =>
       xorBy(selectedItem.value, propsItemOption.value, 'label'),
