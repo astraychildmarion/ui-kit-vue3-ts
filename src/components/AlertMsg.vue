@@ -1,13 +1,13 @@
 <template>
   <Alert
     class="xy-alert"
-    v-if="propsisShow"
+    v-if="isShow"
     :type="alertType"
     :message="alertMsg"
     :style="alertType === 'success' ? successStyle : errorStyle"
     showIcon
     closable
-    :afterClose="handleClose"
+    :afterClose="alertClose"
   />
 </template>
 
@@ -37,36 +37,30 @@ export default defineComponent({
       default: 3,
     },
   },
-  setup(props: any) {
-    const secondsToGo = ref<number>(props.seconds);
-    const propsisShow = ref(props.isShow);
-    const propsAlertType = ref(props.alertType);
+  setup(props: any, { emit }) {
+    const secondsToGo = ref<number>(0);
 
     const countDown = () => {
+      // update seconds each time before start
+      secondsToGo.value = props.seconds;
       const interval = setInterval(() => {
         secondsToGo.value -= 1;
       }, 1000);
 
       setTimeout(() => {
         clearInterval(interval);
-        propsisShow.value = false;
+        emit('update:isShow', false);
       }, secondsToGo.value * 1000);
     };
 
-    const showCustomizeDisplay = () => {
-      propsisShow.value = true;
-      if (propsisShow.value && propsAlertType.value === 'success') {
-        countDown();
-      }
-    };
-    const handleClose = () => {
-      propsisShow.value = false;
+    const alertClose = () => {
+      emit('update:isShow', false);
     };
 
     watch(
-      () => propsisShow.value,
-      () => {
-        if (propsisShow.value && propsAlertType.value === 'success') {
+      () => props.isShow,
+      (n) => {
+        if (n && props.alertType === 'success') {
           countDown();
         }
       },
@@ -74,9 +68,7 @@ export default defineComponent({
     );
 
     return {
-      showCustomizeDisplay,
-      handleClose,
-      propsisShow,
+      alertClose,
       successStyle: {
         backgroundColor: '#c9fff1',
         borderColor: '#37c5a0',
@@ -97,7 +89,7 @@ export default defineComponent({
   width: 395px;
   align-items: start;
   :deep(.ant-alert-close-icon) {
-    padding-top: 5px;
+    padding-top: 4px;
   }
   :deep(.ant-alert-icon) {
     padding-top: 5px;
@@ -108,6 +100,7 @@ export default defineComponent({
     color: rgba(5, 19, 34, 0.65);
     margin-left: 5px;
     margin-right: 5px;
+    text-align: left;
   }
 
   :deep(.ant-alert-success .ant-alert-icon) {

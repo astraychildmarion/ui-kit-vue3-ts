@@ -10,7 +10,11 @@ export default {
     },
     seconds: {
       description: 'To set seconds till Alert disappear. Default is 3.',
-      type: Number,
+      type: 'number',
+    },
+    isShow: {
+      description: '`iShow(v-model)` The alert is show or not.',
+      control: 'boolean',
     },
   },
 };
