@@ -1,5 +1,5 @@
 <template>
-  <Dropdown overlayClassName="xy-action-button__dropdown">
+  <Dropdown :overlayClassName="`xy-action-button__dropdown ${dropdownId}`">
     <template #overlay>
       <Menu @click="handleMenuClick">
         <template v-for="option in actionInnerOption" :key="option.title">
@@ -95,9 +95,12 @@ export default defineComponent({
       const noshow = { visibility: 'hidden' };
       return tooltipShow ? undefined : noshow;
     }
+
+    const dropdownId = `dropdown__id_${Date.now()}`;
     function getPopupContainer() {
-      return document.querySelector('.xy-action-button__dropdown');
+      return document.querySelector(`.${dropdownId}`);
     }
+
     watch(
       () => props.actionOption,
       (nAction) => {
@@ -110,7 +113,9 @@ export default defineComponent({
         isTableInnerChecked.value = nTable;
       },
     );
+
     return {
+      dropdownId,
       handleMenuClick,
       handlerOverlayStyle,
       actionInnerOption,
