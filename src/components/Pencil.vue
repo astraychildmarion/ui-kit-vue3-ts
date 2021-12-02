@@ -14,7 +14,7 @@
         :maxlength="100"
         v-model:value="inputText"
         @pressEnter="pressEnter"
-        :autosize="{ minRows: 1, maxRows: 3 }"
+        :autoSize="{ minRows: 1, maxRows: 3 }"
       />
     </div>
     <div class="xy-pencil-input__icon-wrapper" v-if="editMode">
