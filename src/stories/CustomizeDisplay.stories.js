@@ -10,13 +10,16 @@ export default {
         'Event name is `clickCustomizeConfirm`. A custom event triggered after click confirm. Pass selected checkboxes as argument. Please remember to close the modal by yourself.',
     },
     itemOption: {
+      control: 'array',
       description:
         'data to render Select Item. It is an Array includes objects. Each object has label and value 2 attributes.',
     },
     defaultSelected: {
+      control: 'array',
       description: 'Array to set default 8 selected items.',
     },
     userSelected: {
+      control: 'array',
       description: "Array to set user's selected item.",
     },
   },
@@ -38,7 +41,6 @@ const Template = (args) => ({
 });
 export const Default = Template.bind({});
 Default.args = {
-  visible: false,
   itemOption: [
     {
       label: 'ServiceLan IP',
