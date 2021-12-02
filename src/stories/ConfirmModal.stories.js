@@ -16,6 +16,14 @@ export default {
       action: 'click',
       description: 'Event name is "clickCancel".',
     },
+    cancelButtonText: {
+      type: String,
+      description: 'Text to show on button, default is Cancel.',
+    },
+    confirmButtonText: {
+      type: String,
+      description: 'Text to show on button, default is Confirm',
+    },
   },
 };
 
@@ -39,4 +47,6 @@ Default.args = {
   confirmType: 'error',
   title: 'message title',
   content: 'message content,message content, message content, message content',
+  cancelButtonText: 'Cancel',
+  confirmButtonText: 'Confirm',
 };

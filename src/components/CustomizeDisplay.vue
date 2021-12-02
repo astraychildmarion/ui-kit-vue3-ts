@@ -8,7 +8,7 @@
 
     <Modal
       :keyboard="keyboard"
-      :visible="propsVisible"
+      :visible="visible"
       :closable="closable"
       :maskClosable="maskClosable"
       wrapClassName="xy-customize-display"
@@ -98,9 +98,6 @@ export default defineComponent({
     draggable: VueDraggableNext,
   },
   props: {
-    visible: {
-      type: Boolean,
-    },
     itemOption: {
       required: true,
       type: Array as PropType<CustomizeDisplayItemOptType[]>,
@@ -125,9 +122,8 @@ export default defineComponent({
   },
   emits: ['clickCustomizeConfirm'],
   setup(props: any, { emit }) {
-    const propsVisible = ref(props.visible);
+    const visible = ref(false);
     const propsDefaultSelected = ref(props.defaultSelected);
-    const propsUserSelected = ref(props.userSelected);
     const propsItemOption = ref(sortBy(props.itemOption, ['label']));
     const keyboard = ref<boolean>(false);
     const closable = ref<boolean>(false);
@@ -141,10 +137,10 @@ export default defineComponent({
     }
 
     const showCustomizeDisplay = () => {
-      propsVisible.value = true;
+      visible.value = true;
     };
     const clickCancel = () => {
-      propsVisible.value = false;
+      visible.value = false;
       nextTick(() => {
         const body = document.querySelector('.xy-customize-display .ant-modal-body');
         if (body) {
@@ -157,7 +153,7 @@ export default defineComponent({
     };
     const clickConfirm = () => {
       emit('clickCustomizeConfirm', JSON.parse(JSON.stringify(selectedItem.value)));
-      propsVisible.value = false;
+      visible.value = false;
       nextTick(() => {
         const body = document.querySelector('.xy-customize-display .ant-modal-body');
         if (body) {
@@ -208,9 +204,9 @@ export default defineComponent({
       xorBy(selectedItem.value, propsItemOption.value, 'label'),
     );
     watch(
-      () => propsUserSelected.value,
-      (NewVal) => {
-        selectedItem.value = JSON.parse(JSON.stringify(NewVal));
+      () => visible.value,
+      () => {
+        selectedItem.value = JSON.parse(JSON.stringify(props.userSelected));
       },
       { immediate: true },
     );
@@ -226,9 +222,8 @@ export default defineComponent({
       getContainer,
       filteredOptions,
       divref,
-      propsVisible,
+      visible,
       propsDefaultSelected,
-      propsUserSelected,
       propsItemOption,
       keyboard,
       closable,
