@@ -14,6 +14,17 @@ export default {
       control: 'array',
       description: 'To set default filter condition. You can use it in `change log` page.',
     },
+    filterSelector: {
+      description: 'To set filter selectors, default is CS version.',
+    },
+    filterFormatMap: {
+      description: 'To bind field to datatype, default is CS version.',
+    },
+    filterRangePickerFormat: {
+      description: 'range picker data type',
+      options: ['MMM/DD/YYYY', 'YYYY/MM/DD'],
+      control: { type: 'select' },
+    },
     onFilterChange: {
       description:
         'Event name is `filterChange`. The function would be trigger when all displayed inputs are filled, and emit a object of value.',
@@ -32,6 +43,14 @@ const Template = (args) => ({
   // And then the `args` are bound to your component with `v-bind="args"`
   template: '<x-y-filter v-bind="args" />',
 });
+
+export const formatMap = new Map();
+formatMap.set('vip', 'text');
+formatMap.set('bu', 'dropdown');
+formatMap.set('bu_application_name', 'text');
+formatMap.set('hostname', 'text');
+formatMap.set('cpu', 'dropdown');
+formatMap.set('ram_gb', 'dropdown');
 
 export const Default = Template.bind({});
 Default.args = {
@@ -95,4 +114,31 @@ Default.args = {
       value: [moment('2021-11-08 18:01:44'), moment('2021-11-10 18:01:44')],
     },
   ],
+  filterSelector: [
+    {
+      title: 'VIP',
+      field: 'vip',
+    },
+    {
+      title: 'BU',
+      field: 'bu',
+    },
+    {
+      title: 'Hostname',
+      field: 'hostname',
+    },
+    {
+      title: 'CPU',
+      field: 'cpu',
+    },
+    {
+      title: 'RAM (GB)',
+      field: 'ram_gb',
+    },
+    {
+      title: 'BU Application Name',
+      field: 'bu_application_name',
+    },
+  ],
+  filterFormatMap: () => formatMap,
 };

@@ -1,6 +1,10 @@
 <template>
   <h1>Welcome to xy-cloud-kit 2.0</h1>
-  <h5>handler with bottom detect and reload</h5>
+  <Filter
+    :dropdownOption="dropdownOption"
+    :filterSelector="filterSelector"
+    :filterFormatMap="formatMap"
+  />
   <!-- below is cardList testing -->
   <!-- <Button @click="clickBell">show shuffle</Button>
   <BellList
@@ -12,6 +16,85 @@
 </template>
 
 <script setup lang="ts">
+import Filter from './components/Filter.vue';
+
+const formatMap = new Map();
+formatMap.set('vip', 'text');
+formatMap.set('bu', 'dropdown');
+formatMap.set('bu_application_name', 'text');
+formatMap.set('hostname', 'text');
+formatMap.set('cpu', 'dropdown');
+formatMap.set('ram_gb', 'dropdown');
+
+const dropdownOption = [
+  {
+    field: 'bu',
+    options: ['188Asia', 'BI', 'CAS', 'CP', 'FYT', 'INFRA-APP', 'INFRA-CEM', 'XJ'],
+  },
+  {
+    field: 'shared_with',
+    options: ['188Asia', 'BI', 'Innovation Lab', 'INFRA-APP', 'INFRA-CEM', 'INFRA-STORM'],
+  },
+  {
+    field: 'cpu',
+    options: ['1gb', '4gb', '8gb'],
+  },
+  {
+    field: 'vm_status',
+    options: ['Proceeding', 'Enable', 'Disable', 'Offline'],
+  },
+  {
+    field: 'ltm_status',
+    options: ['Proceeding', 'Enable', 'Disable', 'Offline'],
+  },
+  {
+    field: 'ram_gb',
+    options: ['1gb', '4gb', '8gb'],
+  },
+  {
+    field: 'os',
+    options: [
+      'CentOs7.0',
+      'CentOs9.0',
+      'Oracle Enterprise Linux 6.6 (UEK)',
+      'W2K12R2 Storage Server',
+    ],
+  },
+  {
+    field: 'server_type',
+    options: ['VM', 'PHY'],
+  },
+  {
+    field: 'env',
+    options: ['UAT', 'Prod'],
+  },
+];
+const filterSelector = [
+  {
+    title: 'VIP',
+    field: 'vip',
+  },
+  {
+    title: 'BU',
+    field: 'bu',
+  },
+  {
+    title: 'Hostname',
+    field: 'hostname',
+  },
+  {
+    title: 'CPU',
+    field: 'cpu',
+  },
+  {
+    title: 'RAM (GB)',
+    field: 'ram_gb',
+  },
+  {
+    title: 'BU Application Name',
+    field: 'bu_application_name',
+  },
+];
 // import { Button } from 'ant-design-vue';
 // import BellList from './components/BellList.vue';
 </script>

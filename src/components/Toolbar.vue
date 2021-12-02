@@ -9,6 +9,9 @@
           @clickCustomizeConfirm="clickCustomizeConfirm"
         />
         <Filter
+          :filterSelector="filterSelector"
+          :filterFormatMap="filterFormatMap"
+          :filterRangePickerFormat="filterRangePickerFormat"
           :dropdownOption="filterDropdownOption"
           :filterDefaultValue="filterDefaultValue"
           @filterChange="filterChange"
@@ -55,6 +58,7 @@ import {
   ExportExcelDropdownData,
   DropdownOption,
   FilterDefaultValue,
+  FilterOption,
 } from './interface';
 
 export default defineComponent({
@@ -87,6 +91,17 @@ export default defineComponent({
     },
     filterDefaultValue: {
       type: Array as PropType<FilterDefaultValue[]>,
+    },
+    filterFormatMap: {
+      required: true,
+      type: Map as PropType<Map<string, string>>,
+    },
+    filterRangePickerFormat: {
+      type: String,
+    },
+    filterSelector: {
+      required: true,
+      type: Array as PropType<FilterOption[]>,
     },
     actionOption: {
       required: true,

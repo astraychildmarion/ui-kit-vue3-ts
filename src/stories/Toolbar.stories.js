@@ -35,6 +35,17 @@ export default {
       type: 'object',
       description: "Filter's field dropdown option data.",
     },
+    filterFormatMap: {
+      description: 'To bind field to datatype, default is CS version.',
+    },
+    filterSelector: {
+      description: 'To set filter selectors, default is CS version.',
+    },
+    filterRangePickerFormat: {
+      description: 'range picker data type',
+      options: ['MMM/DD/YYYY', 'YYYY/MM/DD'],
+      control: { type: 'select' },
+    },
     exportExcelOption: {
       type: 'object',
       description:
