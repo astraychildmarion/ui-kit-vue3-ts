@@ -20,8 +20,8 @@
         </Space>
       </div>
       <template #footer>
-        <Button @click="handleCancel">Cancel</Button>
-        <Button @click="handleOk" :class="typeStyle">Confirm</Button>
+        <Button @click="handleCancel">{{ cancelButtonText }}</Button>
+        <Button @click="handleOk" :class="typeStyle">{{ confirmButtonText }}</Button>
       </template>
     </Modal>
   </div>
@@ -49,6 +49,14 @@ export default defineComponent({
     confirmType: {
       type: String as PropType<'error' | 'success' | 'warning' | 'info'>,
       default: 'error',
+    },
+    cancelButtonText: {
+      type: String,
+      default: 'Cancel',
+    },
+    confirmButtonText: {
+      type: String,
+      default: 'Confirm',
     },
     title: {
       type: String,

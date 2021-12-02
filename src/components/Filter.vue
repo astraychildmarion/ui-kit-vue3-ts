@@ -320,7 +320,6 @@ export default defineComponent({
     watch(
       ()=> visible.value,
       (n: boolean,o: boolean) => {
-        console.log(n,o);
         if (!n&&o) {
         const filterBody = document.querySelector('.xy-filter__body');
         if (filterBody) {
