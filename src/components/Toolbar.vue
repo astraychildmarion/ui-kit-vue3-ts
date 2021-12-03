@@ -10,7 +10,7 @@
         />
         <Filter
           :filterSelector="filterSelector"
-          :filterFormatMap="filterFormatMap"
+          :filterSelectorFormat="filterSelectorFormat"
           :filterRangePickerFormat="filterRangePickerFormat"
           :dropdownOption="filterDropdownOption"
           :filterDefaultValue="filterDefaultValue"
@@ -92,9 +92,9 @@ export default defineComponent({
     filterDefaultValue: {
       type: Array as PropType<FilterDefaultValue[]>,
     },
-    filterFormatMap: {
+    filterSelectorFormat: {
+      type: Object as PropType<object>,
       required: true,
-      type: Map as PropType<Map<string, string>>,
     },
     filterRangePickerFormat: {
       type: String,

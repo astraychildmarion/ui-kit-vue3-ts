@@ -3,6 +3,7 @@ import * as customizeDisplay from './CustomizeDisplay.stories';
 import * as filter from './Filter.stories';
 import * as actionButton from './ActionButton.stories';
 import * as tablePager from './Pagination.stories';
+import { csFilterSelectorMap, csFilterInputFormat } from '../components/filterSelectorMapCS';
 
 export default {
   title: 'UI-Kit/Toolbar',
@@ -35,7 +36,7 @@ export default {
       type: 'object',
       description: "Filter's field dropdown option data.",
     },
-    filterFormatMap: {
+    filterSelectorFormat: {
       description: 'To bind field to datatype, default is CS version.',
     },
     filterSelector: {
@@ -123,4 +124,6 @@ Default.args = {
   },
   isExportLoading: false,
   tablePageSettingDefaultCurrent: tablePager.Default.args.defaultCurrent,
+  filterSelector: csFilterSelectorMap,
+  filterSelectorFormat: csFilterInputFormat,
 };

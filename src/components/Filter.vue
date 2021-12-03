@@ -60,7 +60,7 @@
                   >
                 </Select>
                 <Select
-                  v-if="filterFormatMap.get(filterItem.field) !== 'calendar'"
+                  v-if="formatMap?.get(filterItem.field) !== 'calendar'"
                   v-model:value="filterItem.mode"
                   class="xy-filter__body-item-select filter__sort"
                   dropdownClassName="xy-filter__body-dropdown"
@@ -71,7 +71,7 @@
                     sort.title
                   }}</Option>
                 </Select>
-                <template v-if="filterFormatMap.get(filterItem.field) === 'dropdown'">
+                <template v-if="formatMap?.get(filterItem.field) === 'dropdown'">
                   <Select
                     v-model:value="filterItem.value"
                     mode="multiple"
@@ -87,7 +87,7 @@
                     >
                   </Select>
                 </template>
-                <template v-if="filterFormatMap.get(filterItem.field) === 'calendar'">
+                <template v-if="formatMap?.get(filterItem.field) === 'calendar'">
                   <RangePicker
                     :disabled-date="disabledDate"
                     v-model:value="rangeValue"
@@ -101,8 +101,8 @@
                 </template>
                 <template
                   v-if="
-                    filterFormatMap.get(filterItem.field) === 'text' ||
-                    filterFormatMap.get(filterItem.field) === undefined
+                    formatMap?.get(filterItem.field) === 'text' ||
+                    formatMap?.get(filterItem.field) === undefined
                   "
                 >
                   <Tooltip placement="top" :overlayStyle="handlerOverlayStyle(filterItem.value)">
@@ -162,12 +162,12 @@ import { FilterDefaultValue, FilterOption, DropdownOption } from './interface';
 export default defineComponent({
   name: 'XYFilter',
   props: {
-    filterSelector: {
-      type: Array as PropType<FilterOption[]>,
+    filterSelectorFormat: {
+      type: Object,
       required: true,
     },
-    filterFormatMap: {
-      type: Map as PropType<Map<string, string>>,
+    filterSelector: {
+      type: Array as PropType<FilterOption[]>,
       required: true,
     },
     dropdownOption: {
@@ -187,6 +187,16 @@ export default defineComponent({
     const visible = ref(false);
     const rangeValue = ref<[]>([]);
     const filterItems = ref<FilterDefaultValue[]>([]);
+    type TypeMap = Map<string, string>;
+    function handlerFormatMap(): TypeMap {
+      const keys = Object.keys(props.filterSelectorFormat);
+      const map: TypeMap = new Map();
+      for (let i = 0; i < keys.length; i += 1) {
+        map.set(keys[i], props.filterSelectorFormat[keys[i]]);
+      }
+      return map;
+    }
+    const formatMap = ref<TypeMap>(handlerFormatMap());
     // map field, add format, return an array filterOption
     const filterOption = computed(() =>
       props.filterSelector.map((item: FilterOption) => {
@@ -223,7 +233,7 @@ export default defineComponent({
       if (field === 'disk_partition') {
         return true;
       }
-      const format = props.filterFormatMap.get(field);
+      const format = formatMap.value.get(field);
       return format === 'calendar' || format === 'dropdown';
     };
     /* eslint-disable */
@@ -257,11 +267,14 @@ export default defineComponent({
     const changeFilterSelector = (field: string): void => {
       filterItems.value.forEach((item: FilterDefaultValue) => {
         // eslint-disable-next-line no-param-reassign
-        if (item.field === field) {
+        if (item.field === field && formatMap.value) {
           if (field === 'disk_partition') {
             item.value = '';
             item.mode = 'contain';
-          } else if (props.filterFormatMap.get(field) === 'dropdown' || props.filterFormatMap.get(field) === 'calendar') {
+          } else if (
+            formatMap.value.get(field) === 'dropdown' ||
+            formatMap.value.get(field) === 'calendar'
+          ) {
             item.value = [];
             item.mode = 'in';
           } else {
@@ -273,14 +286,14 @@ export default defineComponent({
     };
     const deleteFilter = (index: number): void => {
       const name = filterItems.value[index]['field'];
-      const type = props.filterFormatMap.get(name);
+      const type = formatMap.value.get(name);
       if (type === 'calendar') rangeValue.value = [];
       filterItems.value.splice(index, 1);
       debounceFilterEmit();
     };
     const getSuboption = (field: string) => {
       const result = filterOption.value.find(
-        (item) => item.field === field && props.filterFormatMap.get(field) !== 'text',
+        (item) => item.field === field && formatMap.value.get(field) !== 'text',
       );
       return result?.options;
     };
@@ -302,7 +315,7 @@ export default defineComponent({
     };
     const handlerGetRange = () => {
       filterItems.value.forEach((item) => {
-        if (props.filterFormatMap.get(item.field) === 'calendar') {
+        if (formatMap.value.get(item.field) === 'calendar') {
           item.value = rangeValue.value;
           item.mode = 'in';
         }
@@ -317,11 +330,11 @@ export default defineComponent({
       if (props.filterDefaultValue && props.filterDefaultValue.length > 0) {
         // specially update range
         filterItems.value = props.filterDefaultValue.map((item) => {
-          if (props.filterFormatMap.get(item.field) === 'calendar') {
+          if (formatMap.value.get(item.field) === 'calendar') {
             rangeValue.value = item.value;
             return { ...item, mode: 'in' };
           }
-          if (item.mode === 'in' && props.filterFormatMap.get(item.field) === 'text') {
+          if (item.mode === 'in' && formatMap.value.get(item.field) === 'text') {
             return { ...item, value: item.value.toString() };
           }
           return { ...item };
@@ -329,20 +342,19 @@ export default defineComponent({
       }
     });
     watch(
-      ()=> visible.value,
-      (n: boolean,o: boolean) => {
-        if (!n&&o) {
-        const filterBody = document.querySelector('.xy-filter__body');
-        if (filterBody) {
-          filterBody?.scroll({
-            top: 0,
-            behavior: 'smooth',
-          });
+      () => visible.value,
+      (n: boolean, o: boolean) => {
+        if (!n && o) {
+          const filterBody = document.querySelector('.xy-filter__body');
+          if (filterBody) {
+            filterBody?.scroll({
+              top: 0,
+              behavior: 'smooth',
+            });
+          }
         }
-
-        }
-      }
-    )
+      },
+    );
 
     const addFilterBtnDisabled = computed(() => {
       return filterItems.value.length >= filterOption.value.length;
@@ -365,6 +377,7 @@ export default defineComponent({
       active,
       titleText,
       filterOption,
+      formatMap,
       handleMenuClick,
       handlerClean,
       handlerGetRange,

@@ -1,27 +1,29 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import moment from 'moment';
 import XYFilter from '../components/Filter.vue';
+import { csFilterSelectorMap, csFilterInputFormat } from '../components/filterSelectorMapCS';
 
 export default {
   title: 'UI-Kit/Filter',
   component: XYFilter,
   argTypes: {
     dropdownOption: {
-      description: "The data source for dropdown's option.",
+      description: "The data source for selector's dropdown option. Get data from Api.",
       control: 'array',
     },
     filterDefaultValue: {
       control: 'array',
-      description: 'To set default filter condition. You can use it in `change log` page.',
+      description: 'To set default filter condition. You may use it in `change log` page.',
     },
     filterSelector: {
-      description: 'To set filter selectors, default is CS version.',
+      description: 'To set filter selectors. Get data from your local ts file.',
     },
     filterFormatMap: {
-      description: 'To bind field to datatype, default is CS version.',
+      description:
+        "To set selector's data type: text, calendar, dropdown. Get data from your local ts file.",
     },
     filterRangePickerFormat: {
-      description: 'range picker data type',
+      description: 'Range picker display type.',
       options: ['MMM/DD/YYYY', 'YYYY/MM/DD'],
       control: { type: 'select' },
     },
@@ -43,14 +45,6 @@ const Template = (args) => ({
   // And then the `args` are bound to your component with `v-bind="args"`
   template: '<x-y-filter v-bind="args" />',
 });
-
-export const formatMap = new Map();
-formatMap.set('vip', 'text');
-formatMap.set('bu', 'dropdown');
-formatMap.set('bu_application_name', 'text');
-formatMap.set('hostname', 'text');
-formatMap.set('cpu', 'dropdown');
-formatMap.set('ram_gb', 'dropdown');
 
 export const Default = Template.bind({});
 Default.args = {
@@ -114,31 +108,6 @@ Default.args = {
       value: [moment('2021-11-08 18:01:44'), moment('2021-11-10 18:01:44')],
     },
   ],
-  filterSelector: [
-    {
-      title: 'VIP',
-      field: 'vip',
-    },
-    {
-      title: 'BU',
-      field: 'bu',
-    },
-    {
-      title: 'Hostname',
-      field: 'hostname',
-    },
-    {
-      title: 'CPU',
-      field: 'cpu',
-    },
-    {
-      title: 'RAM (GB)',
-      field: 'ram_gb',
-    },
-    {
-      title: 'BU Application Name',
-      field: 'bu_application_name',
-    },
-  ],
-  filterFormatMap: () => formatMap,
+  filterSelector: csFilterSelectorMap,
+  filterSelectorFormat: csFilterInputFormat,
 };
