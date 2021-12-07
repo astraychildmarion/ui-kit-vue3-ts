@@ -28,7 +28,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watch, PropType } from 'vue';
+import { defineComponent, ref, watch } from 'vue';
 import { Modal, Space, Button } from 'ant-design-vue';
 import { ExclamationCircleOutlined } from '@ant-design/icons-vue';
 
@@ -47,7 +47,7 @@ export default defineComponent({
       default: false,
     },
     confirmType: {
-      type: String as PropType<'error' | 'success' | 'warning' | 'info'>,
+      type: String,
       default: 'error',
     },
     cancelButtonText: {
