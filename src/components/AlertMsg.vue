@@ -26,7 +26,7 @@ export default defineComponent({
       default: false,
     },
     alertType: {
-      type: String as PropType<'error' | 'success' | 'warning' | 'info'>,
+      type: String as PropType<'error' | 'success'>,
       default: 'success',
     },
     alertMsg: {
@@ -39,29 +39,39 @@ export default defineComponent({
   },
   setup(props: any, { emit }) {
     const secondsToGo = ref<number>(0);
+    const timer = ref<any>(null);
 
-    const countDown = () => {
-      // update seconds each time before start
-      secondsToGo.value = props.seconds;
-      const interval = setInterval(() => {
-        secondsToGo.value -= 1;
-      }, 1000);
-
-      setTimeout(() => {
-        clearInterval(interval);
-        emit('update:isShow', false);
-      }, secondsToGo.value * 1000);
+    const cleanTimer = () => {
+      clearInterval(timer.value);
+      timer.value = null;
     };
 
     const alertClose = () => {
       emit('update:isShow', false);
     };
 
+    const startCount = () => {
+      if (timer.value) {
+        cleanTimer();
+      }
+      secondsToGo.value = props.seconds;
+      timer.value = setInterval(() => {
+        if (secondsToGo.value === 0) {
+          alertClose();
+          cleanTimer();
+        } else {
+          secondsToGo.value -= 1;
+        }
+      }, 1000);
+    };
+
     watch(
       () => props.isShow,
       (n) => {
         if (n && props.alertType === 'success') {
-          countDown();
+          startCount();
+        } else if (!n) {
+          if (timer.value) cleanTimer();
         }
       },
       { immediate: true },
