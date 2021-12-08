@@ -21,6 +21,7 @@
         />
       </Space>
     </div>
+    <slot></slot>
     <div class="xy-toolbar__right">
       <Space size="large">
         <ExportButton
