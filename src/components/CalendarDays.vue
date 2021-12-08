@@ -41,7 +41,7 @@ export default defineComponent({
     },
     defaultRangePickerValue: {
       type: [] as PropType<[]>,
-      default: [],
+      default: () => [],
     },
   },
   emits: ['changeTime'],
