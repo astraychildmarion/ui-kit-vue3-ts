@@ -2,7 +2,7 @@
   <div class="xy-confirm-modal__ref" ref="divref"></div>
   <div>
     <Modal
-      v-model:visible="propsisShow"
+      v-model:visible="propsIsShow"
       :closable="false"
       :maskClosable="false"
       :keyboard="false"
@@ -66,9 +66,8 @@ export default defineComponent({
     },
   },
   setup(props: any, { emit }) {
-    const propsisShow = ref(props.isShow);
+    const propsIsShow = ref(props.isShow);
     const divref = ref(null);
-    const propsConfirmType = ref(props.confirmType);
     const getContainer = () => divref.value;
 
     const handleOk = () => {
@@ -77,9 +76,10 @@ export default defineComponent({
     const handleCancel = () => {
       emit('clickCancel');
     };
+    const typeStyle = ref('confirm-modal__error');
 
-    const ConfirmStyle = (ConfirmType: any) => {
-      switch (ConfirmType) {
+    const SetConfirmStyle = (confirmType: string) => {
+      switch (confirmType) {
         case 'error':
           return 'confirm-modal__error';
         case 'warning':
@@ -92,22 +92,26 @@ export default defineComponent({
           return 'confirm-modal__error';
       }
     };
-    const typeStyle = ConfirmStyle(propsConfirmType.value);
 
     watch(
-      () => props.isShow,
-      (Show) => {
-        propsisShow.value = Show;
+      () => props.confirmType,
+      (n) => {
+        typeStyle.value = SetConfirmStyle(n);
       },
     );
-
+    watch(
+      () => props.isShow,
+      (n) => {
+        propsIsShow.value = n;
+      },
+    );
     return {
       getContainer,
       handleCancel,
       handleOk,
       typeStyle,
       divref,
-      propsisShow,
+      propsIsShow,
     };
   },
 });
