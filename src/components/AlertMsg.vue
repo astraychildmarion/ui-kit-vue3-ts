@@ -3,16 +3,17 @@
     class="xy-alert"
     v-if="isShow"
     :type="alertType"
-    :message="alertMsg"
+    :message="closable"
     :style="alertType === 'success' ? successStyle : errorStyle"
     showIcon
-    closable
+    :closable="closable"
     :afterClose="alertClose"
-  />
+  >
+  </Alert>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watch, PropType } from 'vue';
+import { defineComponent, ref, watch, computed, PropType } from 'vue';
 import { Alert } from 'ant-design-vue';
 
 export default defineComponent({
@@ -40,6 +41,12 @@ export default defineComponent({
   setup(props: any, { emit }) {
     const secondsToGo = ref<number>(0);
     const timer = ref<any>(null);
+    const closable = computed(() => {
+      if (props.alertType === 'success') {
+        return false;
+      }
+      return true;
+    });
 
     const cleanTimer = () => {
       clearInterval(timer.value);
@@ -78,6 +85,7 @@ export default defineComponent({
     );
 
     return {
+      closable,
       alertClose,
       successStyle: {
         backgroundColor: '#c9fff1',
