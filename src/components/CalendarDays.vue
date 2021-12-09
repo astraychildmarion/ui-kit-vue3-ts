@@ -40,8 +40,8 @@ export default defineComponent({
       default: '7',
     },
     defaultRangePickerValue: {
+      required: true,
       type: Array as PropType<Date[]>,
-      default: () => [],
     },
   },
   emits: ['changeTime'],
