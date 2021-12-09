@@ -107,6 +107,10 @@ Default.args = {
       label: 'Environment',
       value: 'env',
     },
+    {
+      label: 'iLo',
+      value: 'ilo',
+    },
   ],
   defaultSelected: [
     {
