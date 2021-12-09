@@ -3,7 +3,7 @@
     class="xy-alert"
     v-if="isShow"
     :type="alertType"
-    :message="closable"
+    :message="alertMsg"
     :style="alertType === 'success' ? successStyle : errorStyle"
     showIcon
     :closable="closable"
