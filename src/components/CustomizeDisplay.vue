@@ -124,7 +124,9 @@ export default defineComponent({
   setup(props: any, { emit }) {
     const visible = ref(false);
     const propsDefaultSelected = ref(props.defaultSelected);
-    const propsItemOption = ref(sortBy(props.itemOption, ['label']));
+    const propsItemOption = ref(
+      sortBy(props.itemOption, [(item) => item.label.toLowerCase()], ['label']),
+    );
     const keyboard = ref<boolean>(false);
     const closable = ref<boolean>(false);
     const maskClosable = ref<boolean>(false);
