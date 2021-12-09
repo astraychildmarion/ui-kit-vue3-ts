@@ -11,10 +11,11 @@
     <div class="xy-calendar-day">
       <RangePicker
         v-model:value="rangeValue"
-        format="MMM/DD/YYYY"
+        :format="timeFormat"
         showTime
         :disabledDate="disabledDate"
         @ok="handlerRangePicker"
+        @change="calendarChange"
       >
         <template #suffixIcon>
           <CalendarOutlined />
@@ -43,6 +44,10 @@ export default defineComponent({
       required: true,
       type: Array as PropType<Date[]>,
     },
+    timeFormat: {
+      type: String,
+      default: 'MMM/DD/YYYY HH:mm:ss',
+    },
   },
   emits: ['changeTime'],
   setup(props, { emit }) {
@@ -62,6 +67,17 @@ export default defineComponent({
       emit('changeTime', data);
     };
     const changeDaysDefault = () => {};
+    const calendarChange = (dates: any) => {
+      if (dates.length < 2) {
+        const emptyDate = {
+          start: null,
+          end: null,
+          dates: [],
+        };
+        emit('changeTime', emptyDate);
+      }
+    };
+
     const handlerRangePicker = () => {
       if (rangeValue.value.length > 0) {
         cleanDayValue.value = true;
@@ -93,6 +109,7 @@ export default defineComponent({
       disabledDate,
       clickDayButton,
       changeDaysDefault,
+      calendarChange,
       handlerRangePicker,
       defaultDaysValueInner,
     };
@@ -109,7 +126,7 @@ export default defineComponent({
   }
 }
 .ant-calendar .ant-calendar-ok-btn {
-  font-size: 0;
+  font-size: 0 !important;
 }
 
 .ant-calendar .ant-calendar-ok-btn:after {
