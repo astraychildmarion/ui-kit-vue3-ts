@@ -109,7 +109,7 @@ export default defineComponent({
   }
 }
 .ant-calendar .ant-calendar-ok-btn {
-  font-size: 0;
+  font-size: 0 !important;
 }
 
 .ant-calendar .ant-calendar-ok-btn:after {
