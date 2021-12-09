@@ -54,7 +54,11 @@ export default defineComponent({
     const clickDayButton = (data: { end: Date; start: Date; dates: any[] }) => {
       cleanDayValue.value = false;
       daysValue.value = data;
-      rangeValue.value = [moment(data.start), moment(data.end)];
+      if (data) {
+        rangeValue.value = [moment(data.start), moment(data.end)];
+      } else {
+        rangeValue.value = [];
+      }
       emit('changeTime', data);
     };
     const changeDaysDefault = () => {};
