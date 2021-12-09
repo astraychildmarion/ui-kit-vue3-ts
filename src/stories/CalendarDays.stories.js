@@ -14,6 +14,10 @@ export default {
       description: 'A value to set the default selected day.',
       type: 'string',
     },
+    timeFormat: {
+      description: 'A value to set date format, default is `MMM/DD/YYYY HH:mm:ss`.',
+      type: 'string',
+    },
     cleanDayValue: {
       description:
         'A props to tell days button to cancel day choice. Inside the days button would listen to `cleanDayValue`, if it is true, then days would clean..',
@@ -55,4 +59,5 @@ Default.args = {
   defaultValue: '7',
   cleanDayValue: false,
   defaultRangePickerValue: [moment('2021-08-01 18:01:44'), moment('2021-08-01 18:01:44')],
+  timeFormat: 'MMM/DD/YYYY HH:mm:ss',
 };
