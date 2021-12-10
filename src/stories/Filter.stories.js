@@ -1,18 +1,31 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import moment from 'moment';
 import XYFilter from '../components/Filter.vue';
+import { csFilterSelectorMap, csFilterInputFormat } from '../components/filterSelectorMapCS';
 
 export default {
   title: 'UI-Kit/Filter',
   component: XYFilter,
   argTypes: {
     dropdownOption: {
-      description: "The data source for dropdown's option.",
+      description: "The data source for selector's dropdown option. Get data from Api.",
       control: 'array',
     },
     filterDefaultValue: {
       control: 'array',
-      description: 'To set default filter condition. You can use it in `change log` page.',
+      description: 'To set default filter condition. You may use it in `change log` page.',
+    },
+    filterSelector: {
+      description: 'To set filter selectors. Get data from your local ts file.',
+    },
+    filterFormatMap: {
+      description:
+        "To set selector's data type: text, calendar, dropdown. Get data from your local ts file.",
+    },
+    filterRangePickerFormat: {
+      description: 'Range picker display type.',
+      options: ['MMM/DD/YYYY', 'YYYY/MM/DD'],
+      control: { type: 'select' },
     },
     onFilterChange: {
       description:
@@ -95,4 +108,6 @@ Default.args = {
       value: [moment('2021-11-08 18:01:44'), moment('2021-11-10 18:01:44')],
     },
   ],
+  filterSelector: csFilterSelectorMap,
+  filterSelectorFormat: csFilterInputFormat,
 };

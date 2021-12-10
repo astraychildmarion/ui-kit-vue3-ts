@@ -1,4 +1,4 @@
-export const dropdownMap = [
+const csFilterSelectorMap = [
   {
     title: 'IP',
     field: 'ip',
@@ -64,22 +64,26 @@ export const dropdownMap = [
     field: 'env',
   },
 ];
-export const formatMap = new Map();
-formatMap.set('ip', 'text');
-formatMap.set('bu', 'dropdown');
-formatMap.set('bu_application_name', 'text');
-formatMap.set('hostname', 'text');
-formatMap.set('cpu', 'dropdown');
-formatMap.set('ram_gb', 'dropdown');
 
-formatMap.set('vm_status', 'dropdown');
-formatMap.set('ltm_status', 'dropdown');
-formatMap.set('disk_capacity_gb', 'text');
-formatMap.set('disk_partition', 'text');
-formatMap.set('os', 'dropdown');
-formatMap.set('last_update_at', 'calendar');
+const csFilterInputFormat = {
+  ip: 'text',
+  bu: 'dropdown',
+  bu_application_name: 'text',
+  hostname: 'text',
+  cpu: 'dropdown',
+  ram_gb: 'dropdown',
 
-formatMap.set('layer', 'text');
-formatMap.set('server_type', 'dropdown');
-formatMap.set('shared_with', 'dropdown');
-formatMap.set('env', 'dropdown');
+  vm_status: 'dropdown',
+  ltm_status: 'dropdown',
+  disk_capacity_gb: 'text',
+  disk_partition: 'text',
+  os: 'dropdown',
+  last_update_at: 'calendar',
+
+  layer: 'text',
+  server_type: 'dropdown',
+  shared_with: 'dropdown',
+  env: 'dropdown',
+};
+
+export { csFilterSelectorMap, csFilterInputFormat };
