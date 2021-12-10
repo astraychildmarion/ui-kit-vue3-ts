@@ -74,6 +74,8 @@ export default defineComponent({
           end: null,
           dates: [],
         };
+        defaultDaysValueInner.value = '';
+        cleanDayValue.value = true;
         emit('changeTime', emptyDate);
       }
     };
