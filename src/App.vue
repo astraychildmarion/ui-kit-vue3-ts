@@ -1,6 +1,5 @@
 <template>
   <h1>Welcome to xy-cloud-kit 2.0</h1>
-  <h5>handler with bottom detect and reload</h5>
   <!-- below is cardList testing -->
   <!-- <Button @click="clickBell">show shuffle</Button>
   <BellList

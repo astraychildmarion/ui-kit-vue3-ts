@@ -3,6 +3,7 @@ import * as customizeDisplay from './CustomizeDisplay.stories';
 import * as filter from './Filter.stories';
 import * as actionButton from './ActionButton.stories';
 import * as tablePager from './Pagination.stories';
+import { csFilterSelectorMap, csFilterInputFormat } from '../components/filterSelectorMapCS';
 
 export default {
   title: 'UI-Kit/Toolbar',
@@ -34,6 +35,17 @@ export default {
     filterDropdownOption: {
       type: 'object',
       description: "Filter's field dropdown option data.",
+    },
+    filterSelectorFormat: {
+      description: 'To bind field to datatype, default is CS version.',
+    },
+    filterSelector: {
+      description: 'To set filter selectors, default is CS version.',
+    },
+    filterRangePickerFormat: {
+      description: 'range picker data type',
+      options: ['MMM/DD/YYYY', 'YYYY/MM/DD'],
+      control: { type: 'select' },
     },
     exportExcelOption: {
       type: 'object',
@@ -112,4 +124,6 @@ Default.args = {
   },
   isExportLoading: false,
   tablePageSettingDefaultCurrent: tablePager.Default.args.defaultCurrent,
+  filterSelector: csFilterSelectorMap,
+  filterSelectorFormat: csFilterInputFormat,
 };
