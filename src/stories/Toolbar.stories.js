@@ -65,6 +65,10 @@ export default {
       type: 'boolean',
       description: 'Set the loading status of export excel button. Default is false.',
     },
+    isShowExportButton: {
+      type: 'boolean',
+      description: 'To hide or show export button. Default is true.',
+    },
     onFilterChange: {
       action: 'filterChange',
       description:
@@ -123,6 +127,7 @@ Default.args = {
     defaultPageSize: tablePager.Default.args.defaultPageSize,
   },
   isExportLoading: false,
+  isShowExportButton: true,
   tablePageSettingDefaultCurrent: tablePager.Default.args.defaultCurrent,
   filterSelector: csFilterSelectorMap,
   filterSelectorFormat: csFilterInputFormat,
