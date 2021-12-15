@@ -28,6 +28,7 @@
     <div class="xy-toolbar__right">
       <Space size="large">
         <ExportButton
+          v-if="isShowExportButton"
           :exportExcelOption="exportExcelOption"
           @clickExport="clickExport"
           :loading="isExportLoading"
@@ -118,6 +119,10 @@ export default defineComponent({
     isExportLoading: {
       type: Boolean,
       default: false,
+    },
+    isShowExportButton: {
+      type: Boolean,
+      default: true,
     },
     tablePageSetting: {
       type: Object,
