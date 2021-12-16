@@ -76,10 +76,20 @@ export default defineComponent({
       () => props.isShow,
       (n) => {
         if (n && props.alertType === 'success') {
-          startCount();
-        } else if (!n) {
           if (timer.value) cleanTimer();
-        }
+          startCount();
+        } else if (timer.value) cleanTimer();
+      },
+      { immediate: true },
+    );
+
+    watch(
+      () => props.alertType,
+      (n) => {
+        if (n === 'success') {
+          if (timer.value) cleanTimer();
+          startCount();
+        } else if (timer.value) cleanTimer();
       },
       { immediate: true },
     );
