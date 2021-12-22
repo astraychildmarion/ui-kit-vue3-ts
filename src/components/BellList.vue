@@ -1,21 +1,24 @@
 <template>
   <div class="xy-bell-list__wrapper" v-show="isShow">
-    <div
-      class="xy-bell-list__card"
-      v-for="card in dataSource"
-      :class="{ 'old-card': card.read }"
-      :key="card.id"
-    >
-      <div class="xy-bell-list__card-title">
-        {{ card.title }}
+    <template v-if="dataSource.length > 0">
+      <div
+        class="xy-bell-list__card"
+        v-for="card in dataSource"
+        :class="{ 'old-card': card.read }"
+        :key="card.id"
+      >
+        <div class="xy-bell-list__card-title">
+          {{ card.title }}
+        </div>
+        <div class="xy-bell-list__card-content">
+          {{ card.content }}
+        </div>
+        <div class="xy-bell-list__card-footer">
+          {{ convertToDate(card.timestamp) }}
+        </div>
       </div>
-      <div class="xy-bell-list__card-content">
-        {{ card.content }}
-      </div>
-      <div class="xy-bell-list__card-footer">
-        {{ card.date }}
-      </div>
-    </div>
+    </template>
+    <div v-else class="xy-bell-list__nodata">No Data</div>
     <transition name="fade">
       <div class="xy-bell-list__loading" v-show="isShowLoading">
         <Skeleton active :loading="isShowLoading" />
@@ -24,7 +27,7 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, PropType, ref, onMounted, onUnmounted, watch, computed } from 'vue';
+import { defineComponent, PropType, onMounted, onUnmounted, watch } from 'vue';
 import { Skeleton } from 'ant-design-vue';
 /* eslint-disable import/no-extraneous-dependencies */
 import debounce from 'lodash/debounce';
@@ -38,9 +41,9 @@ export default defineComponent({
       type: Array as PropType<BellCardDataType[]>,
       default: () => [],
     },
-    status: {
-      type: String as PropType<'compete' | 'ready'>,
-      default: 'ready',
+    isShowLoading: {
+      type: Boolean as PropType<boolean>,
+      default: true,
     },
     isShow: {
       type: Boolean as PropType<boolean>,
@@ -49,11 +52,9 @@ export default defineComponent({
   },
   emits: ['infiniteScroll'],
   setup(props, { emit }) {
-    const STATUS = ref(props.status);
-
     const infiniteScrollEvent = debounce(() => {
       const cardList = document.querySelector('.xy-bell-list__wrapper');
-      if (STATUS.value === 'ready') {
+      if (props.isShowLoading) {
         if (
           cardList &&
           cardList.scrollHeight - cardList?.scrollTop - 150 <= cardList?.clientHeight
@@ -62,15 +63,14 @@ export default defineComponent({
         }
       }
     }, 500);
+    const convertToDate = (newDate: number) => {
+      const thatDate = new Date(newDate);
+      const newArray = thatDate.toISOString().split('T');
+      let formated = newArray[0].replace(/-/i, '/');
+      formated = formated.replace(/-/i, '/');
+      return formated;
+    };
 
-    const isShowLoading = computed(() => STATUS.value !== 'compete');
-    watch(
-      () => props.status,
-      (n) => {
-        STATUS.value = n;
-      },
-      { immediate: true },
-    );
     watch(
       () => props.isShow,
       (n) => {
@@ -95,8 +95,7 @@ export default defineComponent({
       cardList?.removeEventListener('scroll', infiniteScrollEvent);
     });
     return {
-      STATUS,
-      isShowLoading,
+      convertToDate,
     };
   },
 });
@@ -108,7 +107,7 @@ export default defineComponent({
     width: 288px;
     max-height: 400px;
     overflow-y: auto;
-    box-shadow: 0 9px 28px 8px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 5px 9px 4px rgba(0, 0, 0, 0.05);
   }
   &__card {
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
@@ -143,6 +142,13 @@ export default defineComponent({
         color: $bell-list-content-old-color;
       }
     }
+  }
+  &__nodata {
+    color: $bell-list-title-color;
+    font-size: 16px;
+    min-height: 120px;
+    text-align: center;
+    line-height: 120px;
   }
   &__hint {
     text-align: center;
