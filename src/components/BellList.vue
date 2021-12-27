@@ -18,7 +18,7 @@
         </div>
       </div>
     </template>
-    <div v-else class="xy-bell-list__nodata">No Data</div>
+    <div v-if="dataSource.length === 0 && !isShowLoading" class="xy-bell-list__nodata">No Data</div>
     <transition name="fade">
       <div class="xy-bell-list__loading" v-show="isShowLoading">
         <Skeleton active :loading="isShowLoading" />

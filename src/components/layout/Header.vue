@@ -262,3 +262,8 @@ a:hover {
   }
 }
 </style>
+<style>
+.xy-header .ant-badge-count {
+  box-shadow: none;
+}
+</style>
