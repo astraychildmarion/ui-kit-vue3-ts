@@ -6,22 +6,20 @@ export default {
   argTypes: {
     isShow: {
       control: 'boolean',
-      description: 'To show/hide notification list.',
+      description: 'To show/hide bell list.',
     },
-    status: {
-      options: ['compete', 'ready'],
-      control: { type: 'select' },
-      description:
-        'Default status is `ready`. Set to `complete` when loading the last page of data.',
+    isShowLoading: {
+      control: 'boolean',
+      description: 'Default status is `true`. Set to `false` when loading the last page of data.',
     },
     dataSource: {
       control: 'array',
-      description: "Data for bell's notification.",
+      description: "Data for bell's list.",
     },
     onInfiniteScroll: {
       action: 'infiniteScroll',
       description:
-        'Event name is infiniteScroll. It would be triggered when bell cardList in status `ready` and scrolled to the end.',
+        'Event name is infiniteScroll. It would be triggered when bell cardList in status `isShowLoading: true` && scrolled to the end.',
     },
   },
 };
@@ -48,7 +46,7 @@ Default.args = {
       title: 'Decom fail',
       content:
         'Server (IP, Host name) decommission failed, Cloud team will check and get back to you asap. We apologize for any inconvenience caused.',
-      date: '2011/11/13',
+      timestamp: 1640169779329,
       id: '0',
       read: false,
     },
@@ -56,7 +54,7 @@ Default.args = {
       title: 'Decom fail',
       content:
         'Server (IP, Host name) decommission failed, Cloud team will check and get back to you asap. We apologize for any inconvenience caused.',
-      date: '2011/11/13',
+      timestamp: 1640169779329,
       id: '1',
       read: true,
     },
@@ -64,7 +62,7 @@ Default.args = {
       title: 'Decom success',
       content:
         'Server (IP, Host name) is/ are now shut down with monitoring disabled. Infra will decommission the server(s) officially on (yyyy/mm/dd), please be noted.',
-      date: '2011/11/07',
+      timestamp: 1640169779329,
       id: '2',
       read: true,
     },
@@ -72,7 +70,7 @@ Default.args = {
       title: 'Decom success',
       content:
         'Server (IP, Host name) is/ are now shut down with monitoring disabled. Infra will decommission the server(s) officially on (yyyy/mm/dd), please be noted.',
-      date: '2011/11/07',
+      timestamp: 1640169779329,
       id: '3',
       read: true,
     },
@@ -80,10 +78,11 @@ Default.args = {
       title: 'Decom success',
       content:
         'Server (IP, Host name) is/ are now shut down with monitoring disabled. Infra will decommission the server(s) officially on (yyyy/mm/dd), please be noted.',
-      date: '2011/11/05',
+      timestamp: 1640129779329,
       id: '4',
       read: true,
     },
   ],
-  status: 'ready',
+  // dataSource: [],
+  isShowLoading: true,
 };
