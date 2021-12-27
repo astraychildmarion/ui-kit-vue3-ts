@@ -223,7 +223,6 @@ Default.args = {
   appListDrawerData: [...appListData.Default.args.appListDrawerData],
   ver: '2.0.0',
   bellCount: 5,
-  isShowBellList: false,
   bellDataStatus: 'ready',
   bellDataSource: headerData.Default.args.bellDataSource,
 };

@@ -13,7 +13,7 @@ export interface ActionMenuClickType {
 export interface BellCardDataType {
   title: string;
   content: string;
-  date: string | Date;
+  timestamp: number;
   id: string;
   read: boolean;
 }
