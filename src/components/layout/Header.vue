@@ -33,7 +33,7 @@
           </template>
         </Dropdown>
         <div class="xy-header__user-notification" @click="clickBellHandler">
-          <Badge :count="bellCount" :numberStyle="{ fontSize: '10px' }" :offset="[6, 0]">
+          <Badge :count="bellCount" :numberStyle="{ fontSize: '10px' }" :offset="[10, -6]">
             <BellOutlined :style="bellStyle" />
           </Badge>
         </div>
@@ -125,7 +125,7 @@ export default defineComponent({
       default: 0,
     },
   },
-  emits: ['clickTopLeftCorner', 'logOut', 'clickBell', 'scrollBellCardEnd'],
+  emits: ['clickTopLeftCorner', 'logOut', 'clickBell'],
   setup(props, { emit }) {
     const manageMenuVisible = ref(false);
     const isDrawerClose = ref(true);
@@ -199,7 +199,7 @@ a:hover {
     &-notification {
       display: grid;
       align-items: center;
-      padding: 0 20px;
+      padding: 0 30px 0 20px;
       height: 100%;
       cursor: pointer;
       &:hover {
@@ -260,5 +260,10 @@ a:hover {
       }
     }
   }
+}
+</style>
+<style>
+.xy-header .ant-badge-count {
+  box-shadow: none;
 }
 </style>

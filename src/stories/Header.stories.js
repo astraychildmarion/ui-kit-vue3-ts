@@ -34,10 +34,6 @@ export default {
       control: 'number',
       description: 'Number ofthe badge shows, default is 0.',
     },
-    isShowBellList: {
-      control: 'boolean',
-      description: 'To show/hide notification list.',
-    },
     bellDataSource: {
       control: 'array',
       description: "Data for bell's notification.",
@@ -59,11 +55,6 @@ export default {
     onClickBell: {
       action: 'clickBell',
       description: 'Event name is clickBell. It would be triggered when the Bell clicked.',
-    },
-    onScrollBellCardEnd: {
-      action: 'scrollBellCardEnd',
-      description:
-        'Event name is scrollBellCardEnd. It would be triggered when bell cardList in status `ready` and scrolled to the end.',
     },
   },
 };
@@ -103,7 +94,6 @@ Default.args = {
     avatar: 'SU',
   },
   bellCount: 5,
-  isShowBellList: false,
   bellDataStatus: 'ready',
   bellDataSource: [
     {

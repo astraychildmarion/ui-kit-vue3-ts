@@ -132,14 +132,7 @@ export default defineComponent({
       },
     };
   },
-  emits: [
-    'clickAppListDrawerMenu',
-    'clickMenu',
-    'onBreakpoint',
-    'logOut',
-    'clickBell',
-    'scrollBellCardEnd',
-  ],
+  emits: ['clickAppListDrawerMenu', 'clickMenu', 'onBreakpoint', 'logOut', 'clickBell'],
   props: {
     hideUI: {
       type: Boolean,
@@ -194,10 +187,6 @@ export default defineComponent({
       default: () => ({}),
     },
     manageAuth: {
-      type: Boolean,
-      default: false,
-    },
-    isShowBellList: {
       type: Boolean,
       default: false,
     },
