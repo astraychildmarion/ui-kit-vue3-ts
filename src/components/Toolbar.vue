@@ -17,6 +17,7 @@
           @filterChange="filterChange"
         />
         <ActionButton
+          v-if="isShowActionButton"
           :isToolbar="true"
           :actionOption="actionOption"
           :isTableCheckbox="isTableCheckbox"
@@ -119,6 +120,10 @@ export default defineComponent({
     isExportLoading: {
       type: Boolean,
       default: false,
+    },
+    isShowActionButton: {
+      type: Boolean,
+      default: true,
     },
     isShowExportButton: {
       type: Boolean,
