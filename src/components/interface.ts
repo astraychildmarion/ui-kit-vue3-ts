@@ -14,6 +14,7 @@ export interface BellCardDataType {
   title: string;
   content: string;
   timestamp: number;
+  timeStamp?: number;
   id: string;
   read: boolean;
 }
