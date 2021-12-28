@@ -76,7 +76,6 @@ export default defineComponent({
     const handleCancel = () => {
       emit('clickCancel');
     };
-    const typeStyle = ref('confirm-modal__error');
 
     const SetConfirmStyle = (confirmType: string) => {
       switch (confirmType) {
@@ -93,6 +92,7 @@ export default defineComponent({
       }
     };
 
+    const typeStyle = ref(SetConfirmStyle(props.confirmType));
     watch(
       () => props.confirmType,
       (n) => {
