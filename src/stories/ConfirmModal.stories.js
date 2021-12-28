@@ -44,7 +44,7 @@ const Template = (args) => ({
 export const Default = Template.bind({});
 Default.args = {
   isShow: false,
-  confirmType: 'error',
+  confirmType: 'info',
   title: 'message title',
   content: 'message content,message content, message content, message content',
   cancelButtonText: 'Cancel',
