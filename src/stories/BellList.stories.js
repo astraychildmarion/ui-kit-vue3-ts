@@ -4,6 +4,10 @@ export default {
   title: 'UI-KIT/BellList',
   component: BellList,
   argTypes: {
+    isNoData: {
+      control: 'boolean',
+      description: 'To show/hide `No Data` text.',
+    },
     isShow: {
       control: 'boolean',
       description: 'To show/hide bell list.',

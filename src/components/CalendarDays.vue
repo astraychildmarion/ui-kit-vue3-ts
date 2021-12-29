@@ -55,7 +55,12 @@ export default defineComponent({
     const cleanDayValue = ref<boolean>(false);
     const rangeValue = ref<any[]>([]);
     const daysValue = ref<object>([]);
-    const disabledDate = (current: Moment) => current && current > moment().endOf('day');
+    const disabledDate = (current: Moment) => {
+      // Can not select days 2 years ago or after today
+      const today = new Date();
+      const twoYearsAgo = new Date(today.getFullYear() - 2, today.getMonth(), today.getDate());
+      return current < moment(twoYearsAgo) || current > moment().endOf('day');
+    };
     const clickDayButton = (data: { end: Date; start: Date; dates: any[] }) => {
       cleanDayValue.value = false;
       daysValue.value = data;
@@ -93,6 +98,7 @@ export default defineComponent({
         emit('changeTime', editValue);
       }
     };
+
     watch(
       () => props.defaultRangePickerValue,
       (n) => {
