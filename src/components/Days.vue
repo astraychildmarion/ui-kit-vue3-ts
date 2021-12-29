@@ -81,8 +81,15 @@ export default defineComponent({
     };
 
     const onClickDayButtonEvent = (val: string | object) => {
-      const payload = generateEventPayload(val);
-      emit('clickDayButton', payload);
+      if (typeof val === 'string') {
+        const int = parseInt(val, 10);
+        const newString = (int + 1).toString();
+        const payload = generateEventPayload(newString);
+        emit('clickDayButton', payload);
+      } else {
+        const payload = generateEventPayload(val);
+        emit('clickDayButton', payload);
+      }
     };
 
     const clickRadioButton = ({ target }: DayClickRadioButtonEvent) => {
@@ -97,6 +104,7 @@ export default defineComponent({
         }
       }
     };
+    if (props.defaultValue.length > 0) onClickDayButtonEvent(props.defaultValue);
     watch(
       () => props.defaultValue,
       (n) => {

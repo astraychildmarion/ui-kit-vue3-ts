@@ -1,5 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import moment from 'moment';
+// import moment from 'moment';
 import CalendarDays from '../components/CalendarDays.vue';
 
 export default {
@@ -10,7 +10,7 @@ export default {
       description: 'Data to render days button. It has default setting as 1d, 3d,7d.',
       type: 'array',
     },
-    defaultValue: {
+    defaultDaysValue: {
       description: 'A value to set the default selected day.',
       type: 'string',
     },
@@ -56,8 +56,9 @@ Default.args = {
     { title: '5d', value: '5' },
     { title: '7d', value: '7' },
   ],
-  defaultValue: '7',
+  defaultDaysValue: '7',
   cleanDayValue: false,
-  defaultRangePickerValue: [moment('2021-08-01 18:01:44'), moment('2021-08-01 18:01:44')],
+  defaultRangePickerValue: [],
+  // defaultRangePickerValue: [moment('2021-08-01 18:01:44'), moment('2021-08-01 18:01:44')],
   timeFormat: 'MMM/DD/YYYY HH:mm:ss',
 };

@@ -18,7 +18,7 @@
         </div>
       </div>
     </template>
-    <div v-if="dataSource.length === 0 && !isShowLoading" class="xy-bell-list__nodata">No Data</div>
+    <div v-if="isNoData" class="xy-bell-list__nodata">No Data</div>
     <transition name="fade">
       <div class="xy-bell-list__loading" v-show="isShowLoading">
         <Skeleton active :loading="isShowLoading" />
@@ -46,6 +46,10 @@ export default defineComponent({
       default: true,
     },
     isShow: {
+      type: Boolean as PropType<boolean>,
+      default: false,
+    },
+    isNoData: {
       type: Boolean as PropType<boolean>,
       default: false,
     },
