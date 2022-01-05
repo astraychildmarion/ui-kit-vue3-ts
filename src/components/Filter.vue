@@ -7,6 +7,7 @@
     :overlayStyle="{ zIndex: 998 }"
   >
     <Button
+      data-e2e="xy-filter__button"
       className="xy-filter__button"
       @click="
 				(e: any) => {
@@ -26,6 +27,7 @@
           <div className="xy-filter__title">
             {{ titleText }}
             <Button
+              data-e2e="xy-filter__cleanAll"
               @click="handlerClean"
               type="link"
               class="xy-filter__title__button"
@@ -41,6 +43,7 @@
             </p>
             <Form ref="formRef">
               <FormItem
+                data-e2e="xy-filter__item"
                 v-for="(filterItem, index) in filterItems"
                 :key="index"
                 class="xy-filter__body-item"
@@ -118,7 +121,11 @@
                     />
                   </Tooltip>
                 </template>
-                <Button class="xy-filter__body-item-button" @click="deleteFilter(index)">
+                <Button
+                  class="xy-filter__body-item-button"
+                  data-e2e="delete"
+                  @click="deleteFilter(index)"
+                >
                   <template #icon>
                     <DeleteOutlined />
                   </template>
