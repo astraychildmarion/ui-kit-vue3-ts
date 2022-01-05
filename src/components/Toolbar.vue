@@ -3,6 +3,7 @@
     <div class="xy-toolbar__left">
       <Space>
         <CustomizeDisplay
+          v-if="isShowCustomizeDisplay"
           :itemOption="customizeDisplayCheckboxOption"
           :defaultSelected="customizeDisplayDefaultSelected"
           :userSelected="customizeUserSelected"
@@ -122,6 +123,10 @@ export default defineComponent({
       default: false,
     },
     isShowActionButton: {
+      type: Boolean,
+      default: true,
+    },
+    isShowCustomizeDisplay: {
       type: Boolean,
       default: true,
     },

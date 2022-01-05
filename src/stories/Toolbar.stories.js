@@ -69,6 +69,10 @@ export default {
       type: 'boolean',
       description: 'To hide or show action button. Default is true.',
     },
+    isShowCustomizeDisplay: {
+      type: 'boolean',
+      description: 'To hide or show customize display. Default is true.',
+    },
     isShowExportButton: {
       type: 'boolean',
       description: 'To hide or show export button. Default is true.',
@@ -132,6 +136,7 @@ Default.args = {
   },
   isExportLoading: false,
   isShowActionButton: true,
+  isShowCustomizeDisplay: true,
   isShowExportButton: true,
   tablePageSettingDefaultCurrent: tablePager.Default.args.defaultCurrent,
   filterSelector: csFilterSelectorMap,
