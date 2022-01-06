@@ -89,4 +89,5 @@ Default.args = {
   ],
   // dataSource: [],
   isShowLoading: true,
+  isNoData: false,
 };

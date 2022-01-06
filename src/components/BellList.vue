@@ -18,7 +18,9 @@
         </div>
       </div>
     </template>
-    <div v-if="isNoData" class="xy-bell-list__nodata">No Data</div>
+    <div v-if="isNoData" class="xy-bell-list__nodata">
+      <Empty :image="emptyImage" />
+    </div>
     <transition name="fade">
       <div class="xy-bell-list__loading" v-show="isShowLoading">
         <Skeleton active :loading="isShowLoading" />
@@ -28,14 +30,14 @@
 </template>
 <script lang="ts">
 import { defineComponent, PropType, onMounted, onUnmounted, watch } from 'vue';
-import { Skeleton } from 'ant-design-vue';
+import { Skeleton, Empty } from 'ant-design-vue';
 /* eslint-disable import/no-extraneous-dependencies */
 import debounce from 'lodash/debounce';
 import { BellCardDataType } from './interface';
 
 export default defineComponent({
   name: 'XYBellCard',
-  components: { Skeleton },
+  components: { Skeleton, Empty },
   props: {
     dataSource: {
       type: Array as PropType<BellCardDataType[]>,
@@ -98,8 +100,10 @@ export default defineComponent({
       const cardList = document.querySelector('.xy-bell-list__wrapper');
       cardList?.removeEventListener('scroll', infiniteScrollEvent);
     });
+    const emptyImage: any = Empty.PRESENTED_IMAGE_SIMPLE;
     return {
       convertToDate,
+      emptyImage,
     };
   },
 });
@@ -146,13 +150,6 @@ export default defineComponent({
         color: $bell-list-content-old-color;
       }
     }
-  }
-  &__nodata {
-    color: $bell-list-title-color;
-    font-size: 16px;
-    min-height: 120px;
-    text-align: center;
-    line-height: 120px;
   }
   &__hint {
     text-align: center;
