@@ -506,7 +506,7 @@ menu.ant-dropdown-content {
     }
     &__body {
       padding: 24px 24px 0;
-      max-height: 250px;
+      max-height: calc(250px - 0.14px);
       overflow-y: auto;
       &::-webkit-scrollbar {
         width: 8px;
