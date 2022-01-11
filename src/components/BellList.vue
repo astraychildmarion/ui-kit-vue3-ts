@@ -1,32 +1,34 @@
 <template>
-  <div class="xy-bell-list__wrapper" v-show="isShow">
-    <template v-if="dataSource.length > 0">
-      <div
-        class="xy-bell-list__card"
-        v-for="card in dataSource"
-        :class="{ 'old-card': card.read }"
-        :key="card.id"
-      >
-        <div class="xy-bell-list__card-title">
-          {{ card.title }}
+  <transition name="list">
+    <div class="xy-bell-list__wrapper" v-show="isShow">
+      <template v-if="dataSource.length > 0">
+        <div
+          class="xy-bell-list__card"
+          v-for="card in dataSource"
+          :class="{ 'old-card': card.read }"
+          :key="card.id"
+        >
+          <div class="xy-bell-list__card-title">
+            {{ card.title }}
+          </div>
+          <div class="xy-bell-list__card-content">
+            {{ card.content }}
+          </div>
+          <div class="xy-bell-list__card-footer">
+            {{ convertToDate(card.timestamp) }}
+          </div>
         </div>
-        <div class="xy-bell-list__card-content">
-          {{ card.content }}
-        </div>
-        <div class="xy-bell-list__card-footer">
-          {{ convertToDate(card.timestamp) }}
-        </div>
+      </template>
+      <div v-if="isNoData" class="xy-bell-list__nodata">
+        <Empty :image="emptyImage" key="empty" />
       </div>
-    </template>
-    <div v-if="isNoData" class="xy-bell-list__nodata">
-      <Empty :image="emptyImage" />
+      <transition name="fade">
+        <div class="xy-bell-list__loading" v-show="isShowLoading" key="noShow">
+          <Skeleton active :loading="isShowLoading" />
+        </div>
+      </transition>
     </div>
-    <transition name="fade">
-      <div class="xy-bell-list__loading" v-show="isShowLoading">
-        <Skeleton active :loading="isShowLoading" />
-      </div>
-    </transition>
-  </div>
+  </transition>
 </template>
 <script lang="ts">
 import { defineComponent, PropType, onMounted, onUnmounted, watch } from 'vue';
@@ -56,7 +58,7 @@ export default defineComponent({
       default: false,
     },
   },
-  emits: ['infiniteScroll'],
+  emits: ['infiniteScroll', 'clickOutside'],
   setup(props, { emit }) {
     const infiniteScrollEvent = debounce(() => {
       const cardList = document.querySelector('.xy-bell-list__wrapper');
@@ -76,7 +78,16 @@ export default defineComponent({
       formated = formated.replace(/-/i, '/');
       return formated;
     };
-
+    const clickAndCloseBelllist = (event: MouseEvent) => {
+      const list = event.composedPath();
+      const classList = list.filter(
+        (element: any) =>
+          (element.className !== undefined && element.className.indexOf('xy-bell-list') > -1) ||
+          (element.className !== undefined &&
+            element.className.indexOf('xy-header__user-notification') > -1),
+      );
+      if (classList.length < 1) emit('clickOutside');
+    };
     watch(
       () => props.isShow,
       (n) => {
@@ -86,9 +97,11 @@ export default defineComponent({
             cardList?.removeEventListener('scroll', infiniteScrollEvent);
             cardList.scrollTop = 0;
           }
+          document.removeEventListener('click', clickAndCloseBelllist);
         } else {
           const cardList = document.querySelector('.xy-bell-list__wrapper');
           if (cardList) cardList?.addEventListener('scroll', infiniteScrollEvent);
+          document.addEventListener('click', clickAndCloseBelllist);
         }
       },
     );
@@ -109,6 +122,15 @@ export default defineComponent({
 });
 </script>
 <style lang="scss" scoped>
+.list-enter-active,
+.list-leave-active {
+  transition: all 0.2s ease;
+}
+.list-enter-from,
+.list-leave-to {
+  opacity: 0;
+  transform: translateY(-20px);
+}
 .xy-bell-list {
   &__wrapper {
     background-color: white;
