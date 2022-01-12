@@ -9,10 +9,6 @@ export default {
         "Data to render Action's items. `disabled` decide it is clickable, `tooltipShow` decide whether to show tooltip, `tooltipText` is the tooltip text.",
       type: 'array',
     },
-    noCheckboxText: {
-      description: 'Text to display when non checkbox is selected on table.',
-      type: 'string',
-    },
     isToolbar: {
       description:
         "An inner setting to saparate toolbar complex component and simple display. Basically you don't need to handle this.",
