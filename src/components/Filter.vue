@@ -352,6 +352,11 @@ export default defineComponent({
               behavior: 'smooth',
             });
           }
+          // if field is '', then delete this
+          filterItems.value = filterItems.value.filter(item => {
+            return item.field !== ''
+          })
+          emit('filterChange', filterItems.value)
         }
       },
     );
