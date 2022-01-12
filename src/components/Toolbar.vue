@@ -22,6 +22,7 @@
           :isToolbar="true"
           :actionOption="actionOption"
           :isTableCheckbox="isTableCheckbox"
+          :noCheckboxText="noCheckboxText"
           @clickAction="clickAction"
         />
       </Space>
@@ -112,6 +113,10 @@ export default defineComponent({
     },
     exportExcelOption: {
       type: Array as PropType<ExportExcelDropdownData[]>,
+    },
+    noCheckboxText: {
+      default: 'One or more items from server list must be selected.',
+      type: String as PropType<string>,
     },
     isTableCheckbox: {
       type: Boolean,
