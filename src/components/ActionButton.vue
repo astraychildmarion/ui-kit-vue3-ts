@@ -40,7 +40,7 @@
               <div class="action_tooltip">
                 <Tooltip placement="left" :getPopupContainer="getPopupContainer">
                   <template #title>
-                    <span>{{ isCheckboxSelectedText }}</span>
+                    <span>{{ noCheckboxText }}</span>
                   </template>
                   <MenuItem :title="option.title" class="itemDisable">
                     {{ option.title }}
@@ -78,10 +78,13 @@ export default defineComponent({
       default: true,
       type: Boolean as PropType<boolean>,
     },
+    noCheckboxText: {
+      default: 'One or more items from server list must be selected.',
+      type: String as PropType<string>,
+    },
   },
   emits: ['clickAction'],
   setup(props, { emit }) {
-    const isCheckboxSelectedText = 'One or more items from server list must be selected.';
     const actionInnerOption = ref(props.actionOption);
     const isTableInnerChecked = ref(props.isTableCheckbox);
 
@@ -120,7 +123,6 @@ export default defineComponent({
       handlerOverlayStyle,
       actionInnerOption,
       isTableInnerChecked,
-      isCheckboxSelectedText,
       getPopupContainer,
     };
   },
