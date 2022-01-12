@@ -57,10 +57,6 @@ export default {
       description:
         'Props data for Paginition component in Object format.<br>The object include 2 attributes: total, defaultPageSize. For more info pls see Paginition.',
     },
-    noCheckboxText: {
-      default: 'One or more items from server list must be selected.',
-      type: 'string',
-    },
     tablePageSettingDefaultCurrent: {
       type: 'string',
       description: 'Default page number.',
@@ -145,5 +141,4 @@ Default.args = {
   tablePageSettingDefaultCurrent: tablePager.Default.args.defaultCurrent,
   filterSelector: csFilterSelectorMap,
   filterSelectorFormat: csFilterInputFormat,
-  noCheckboxText: 'You can customize the text when no checkbox.',
 };
