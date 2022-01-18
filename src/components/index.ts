@@ -17,4 +17,5 @@ export { default as XYPagination } from './Pagination.vue';
 export { default as XYPencilInput } from './Pencil.vue';
 export { default as XYSearchBar } from './SearchBar.vue';
 export { default as XYToolbar } from './Toolbar.vue';
+export { default as XYNotFoundPage } from './NotFound.vue';
 export * from './interface';

@@ -353,10 +353,17 @@ export default defineComponent({
             });
           }
           // if field is '', then delete this
-          filterItems.value = filterItems.value.filter(item => {
-            return item.field !== ''
-          })
-          emit('filterChange', filterItems.value)
+          const filtered = filterItems.value.filter((item) => {
+            return item.field !== '';
+          });
+          filtered.forEach((item) => {
+            if (item.mode === 'in' && typeof item.value === 'string' &&item.value.length > 0) {
+              const newArray = item.value.split(',');
+              item.value = newArray;
+            }
+          });
+          filterItems.value = filtered;
+          emit('filterChange', filterItems.value);
         }
       },
     );
