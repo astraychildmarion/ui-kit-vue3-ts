@@ -9,7 +9,11 @@ export interface ActionMenuClickType {
   key: string;
   keyPath: string;
 }
-
+export interface AlertPropType {
+  alertMsg: string;
+  alertType?: string;
+  seconds?: number;
+}
 export interface BellCardDataType {
   title: string;
   content: string;

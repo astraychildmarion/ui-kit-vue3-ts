@@ -12,10 +12,6 @@ export default {
       description: 'To set seconds till Alert disappear. Default is 3.',
       type: 'number',
     },
-    isShow: {
-      description: '`iShow(v-model)` The alert is show or not.',
-      control: 'boolean',
-    },
   },
 };
 
@@ -29,13 +25,20 @@ const Template = (args) => ({
   // And then the `args` are bound to your component with `v-bind="args"`
   template: `
     <div style="padding: 1rem">
+    <p>You can use alert by api method. </p>
+    <pre>
+    import { XYAlertMsgApi } from '@xycloud/xycloud-ui-kit-2';
+    AlertMsgApi({
+      alertMsg: 'a message to show',
+      alertType: 'error',
+    });
+    </pre>
       <AlertMsg v-bind="args" />
     </div>
     `,
 });
 export const Default = Template.bind({});
 Default.args = {
-  isShow: false,
   alertMsg: 'alert message',
   alertType: 'success',
   seconds: 3,
