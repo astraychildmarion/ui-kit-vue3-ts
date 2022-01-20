@@ -1,19 +1,17 @@
 <template>
   <Alert
     class="xy-alert"
-    v-if="isShow"
     :type="alertType"
     :message="alertMsg"
     :style="alertType === 'success' ? successStyle : errorStyle"
     showIcon
     :closable="closable"
-    :afterClose="alertClose"
   >
   </Alert>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watch, computed, PropType } from 'vue';
+import { defineComponent, computed, PropType } from 'vue';
 import { Alert } from 'ant-design-vue';
 
 export default defineComponent({
@@ -22,10 +20,6 @@ export default defineComponent({
     Alert,
   },
   props: {
-    isShow: {
-      type: Boolean,
-      default: false,
-    },
     alertType: {
       type: String as PropType<'error' | 'success'>,
       default: 'success',
@@ -33,70 +27,18 @@ export default defineComponent({
     alertMsg: {
       type: String,
     },
-    seconds: {
-      type: Number,
-      default: 3,
-    },
   },
-  setup(props: any, { emit }) {
-    const secondsToGo = ref<number>(0);
-    const timer = ref<any>(null);
+  setup(props: any) {
     const closable = computed(() => {
       if (props.alertType === 'success') {
         return false;
       }
       return true;
     });
-
-    const cleanTimer = () => {
-      clearInterval(timer.value);
-      timer.value = null;
-    };
-
-    const alertClose = () => {
-      emit('update:isShow', false);
-    };
-
-    const startCount = () => {
-      if (timer.value) {
-        cleanTimer();
-      }
-      secondsToGo.value = props.seconds;
-      timer.value = setInterval(() => {
-        if (secondsToGo.value === 0) {
-          alertClose();
-          cleanTimer();
-        } else {
-          secondsToGo.value -= 1;
-        }
-      }, 1000);
-    };
-
-    watch(
-      () => props.isShow,
-      (n) => {
-        if (n && props.alertType === 'success') {
-          if (timer.value) cleanTimer();
-          startCount();
-        } else if (timer.value) cleanTimer();
-      },
-      { immediate: true },
-    );
-
-    watch(
-      () => props.alertType,
-      (n) => {
-        if (n === 'success') {
-          if (timer.value) cleanTimer();
-          startCount();
-        } else if (timer.value) cleanTimer();
-      },
-      { immediate: true },
-    );
-
+    const indexClass = `alert-${props.alertIndex}`;
     return {
+      indexClass,
       closable,
-      alertClose,
       successStyle: {
         backgroundColor: '#c9fff1',
         borderColor: '#37c5a0',
@@ -113,9 +55,22 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+@keyframes remove {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
 .xy-alert {
   width: 395px;
   align-items: start;
+  margin-top: 16px;
+  &.remove {
+    animation: remove 0.5s;
+  }
   :deep(.ant-alert-close-icon) {
     padding-top: 4px;
   }
@@ -138,5 +93,14 @@ export default defineComponent({
   :deep(.ant-alert-error .ant-alert-icon) {
     color: #fac7d3;
   }
+}
+</style>
+<style lang="scss">
+.xy-alert-wrapper {
+  position: fixed;
+  left: 50%;
+  top: 48px;
+  z-index: 1000;
+  transform: translateX(-50%);
 }
 </style>

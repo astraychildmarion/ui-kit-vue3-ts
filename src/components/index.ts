@@ -19,3 +19,4 @@ export { default as XYSearchBar } from './SearchBar.vue';
 export { default as XYToolbar } from './Toolbar.vue';
 export { default as XYNotFoundPage } from './NotFound.vue';
 export * from './interface';
+export { default as XYAlertMsgApi } from './AlertMsg';
