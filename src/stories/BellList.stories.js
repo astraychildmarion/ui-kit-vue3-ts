@@ -25,6 +25,11 @@ export default {
       description:
         'Event name is infiniteScroll. It would be triggered when bell cardList in status `isShowLoading: true` && scrolled to the end.',
     },
+    onClickOutside: {
+      action: 'clickOutside',
+      description:
+        'Event name is updateIsshow. It would be triggered when user click outside of the list and return false ',
+    },
   },
 };
 
