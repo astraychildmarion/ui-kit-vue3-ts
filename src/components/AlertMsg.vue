@@ -100,7 +100,7 @@ export default defineComponent({
   position: fixed;
   left: 50%;
   top: 48px;
-  z-index: 1000;
+  z-index: 1010;
   transform: translateX(-50%);
 }
 </style>
