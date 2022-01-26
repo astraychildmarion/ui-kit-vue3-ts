@@ -4,10 +4,11 @@ import alertTemplate from './AlertMsg.vue';
 import { AlertPropType } from './interface';
 
 export interface ResultParams {
-  destory?: () => void;
+  destory: () => void;
+  removeAll: () => void;
 }
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const XYAlertMsgApi = (options: AlertPropType): ResultParams => {
+const XYAlertMsgApi = (options: AlertPropType | null = null): ResultParams => {
   // create a div to fix alerts
   if (!document.querySelector('.xy-alert-wrapper')) {
     const container = document.createElement('div');
@@ -19,7 +20,7 @@ const XYAlertMsgApi = (options: AlertPropType): ResultParams => {
   const vmUniqueName = Date.now().toString();
   const opt = { ...options };
   // create alert vertual and insert
-  if (alertContainer) {
+  if (alertContainer && options !== undefined) {
     const wrapper = document.createElement('div');
     wrapper.className = `alert-${vmUniqueName}`;
     const vm = createVNode(alertTemplate, opt);
@@ -49,6 +50,11 @@ const XYAlertMsgApi = (options: AlertPropType): ResultParams => {
       }
     }
   };
+  const removeAll = () => {
+    if (alertContainer) {
+      document.body.removeChild(alertContainer);
+    }
+  };
   // green: auto close after 3 sec or customize seconds
   // red: manual close
   if (opt.seconds) {
@@ -69,6 +75,7 @@ const XYAlertMsgApi = (options: AlertPropType): ResultParams => {
   }
   return {
     destory,
+    removeAll,
   };
 };
 export default XYAlertMsgApi;
