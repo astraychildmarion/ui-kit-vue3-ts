@@ -80,13 +80,13 @@ export default defineComponent({
     };
     const clickAndCloseBelllist = (event: MouseEvent) => {
       const list = event.composedPath();
-      const classList = list.filter(
+      const classList = list.filter((item: any) => typeof item.className === 'string');
+      const checkedList = classList.filter(
         (element: any) =>
-          (element.className !== undefined && element.className.indexOf('xy-bell-list') > -1) ||
-          (element.className !== undefined &&
-            element.className.indexOf('xy-header__user-notification') > -1),
+          element.className.indexOf('xy-bell-list') > -1 ||
+          element.className.indexOf('xy-header__user-notification') > -1,
       );
-      if (classList.length < 1) emit('clickOutside');
+      if (checkedList.length < 1) emit('clickOutside');
     };
     watch(
       () => props.isShow,
