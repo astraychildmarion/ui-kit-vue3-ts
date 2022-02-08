@@ -12,6 +12,7 @@ export { default as XYConfirmModal } from './ConfirmModal.vue';
 export { default as XYDaysButton } from './Days.vue';
 export { default as XYExportButton } from './ExportButton.vue';
 export { default as XYFilter } from './Filter.vue';
+export { default as XYIpInput } from './IpInput.vue';
 export { default as XYNumberInput } from './NumberInput.vue';
 export { default as XYPagination } from './Pagination.vue';
 export { default as XYPencilInput } from './Pencil.vue';
