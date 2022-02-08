@@ -47,7 +47,7 @@
 </template>
 <script setup lang="ts">
 import { Input, Row, Col } from 'ant-design-vue';
-import { ref, toRefs, watch } from 'vue';
+import { ref, toRefs } from 'vue';
 
 interface Props {
   defaultIp?: string;
@@ -77,11 +77,13 @@ const value3 = ref('');
 
 const setImportIp = (ipString: string) => {
   const ipArray = ipString.split('.');
-  const [v0, v1, v2, v3] = ipArray;
-  value0.value = v0;
-  value1.value = v1;
-  value2.value = v2;
-  value3.value = v3;
+  if (ipArray.length === 4 && ipArray.indexOf('') === -1) {
+    const [v0, v1, v2, v3] = ipArray;
+    value0.value = v0;
+    value1.value = v1;
+    value2.value = v2;
+    value3.value = v3;
+  }
 };
 setImportIp(defaultIp.value);
 
@@ -118,14 +120,6 @@ const inputChange = () => {
     emits('changeIp', data);
   }
 };
-watch(defaultIp, (n) => {
-  const ipArray = n.split('.');
-  if (ipArray.length === 4) {
-    setImportIp(n);
-  } else {
-    console.log('[Cloud-kit warning: IpInput] Length of default Ip is wrong.');
-  }
-});
 </script>
 <style lang="scss">
 .xy-ip__validation {
