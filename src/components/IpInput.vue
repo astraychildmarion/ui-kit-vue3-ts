@@ -1,42 +1,46 @@
 <template>
   <div class="xy-ip__wrapper">
     <Row :gutter="8">
-      <Col :span="4">
+      <Col :span="6">
         <Input
           type="number"
           max="255"
           min="0"
           @change="inputChange"
+          @keydown="checkKeydown"
           name="value1"
           v-model:value="value0"
         />
       </Col>
-      <Col :span="4">
+      <Col :span="6">
         <Input
           type="number"
           max="255"
           min="0"
           @change="inputChange"
+          @keydown="checkKeydown"
           name="value2"
           v-model:value="value1"
         />
       </Col>
-      <Col :span="4">
+      <Col :span="6">
         <Input
           type="number"
           max="255"
           min="0"
           @change="inputChange"
+          @keydown="checkKeydown"
           name="value3"
           v-model:value="value2"
         />
       </Col>
-      <Col :span="4">
+      <Col :span="6">
         <Input
           type="number"
           max="255"
           min="0"
           @change="inputChange"
+          @keydown="checkKeydown"
           name="value4"
           v-model:value="value3"
         />
@@ -77,12 +81,21 @@ const value3 = ref('');
 
 const setImportIp = (ipString: string) => {
   const ipArray = ipString.split('.');
-  if (ipArray.length === 4 && ipArray.indexOf('') === -1) {
+  const exclusiveCharacters = ['.', 'e', '+', '-'];
+  let noExclusiveCharacters = true;
+  exclusiveCharacters.forEach((item) => {
+    ipArray.forEach((ip) => {
+      if (ip.indexOf(item) !== -1) noExclusiveCharacters = false;
+    });
+  });
+  if (noExclusiveCharacters && ipArray.length === 4 && ipArray.indexOf('') === -1) {
     const [v0, v1, v2, v3] = ipArray;
     value0.value = v0;
     value1.value = v1;
     value2.value = v2;
     value3.value = v3;
+  } else {
+    console.log('[cloud-kit ipInput]: default ip form error');
   }
 };
 setImportIp(defaultIp.value);
@@ -118,6 +131,12 @@ const inputChange = () => {
   if (checkList.indexOf('') === -1 && checkList.indexOf('NaN') === -1) {
     const data = `${value0.value}.${value1.value}.${value2.value}.${value3.value}`;
     emits('changeIp', data);
+  }
+};
+const checkKeydown = (e: any) => {
+  const exclusiveCharacters = ['.', 'e', '+', '-'];
+  if (exclusiveCharacters.includes(e.key)) {
+    e.preventDefault();
   }
 };
 </script>

@@ -41,7 +41,7 @@ const Template = (args) => ({
 });
 export const Default = Template.bind({});
 Default.args = {
-  // defaultIp: '123.34.56.4',
+  defaultIp: '123.34.56.4',
   showValidation: false,
   validationText: 'Please fill Ip.',
 };
