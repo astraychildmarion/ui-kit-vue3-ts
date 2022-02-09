@@ -131,6 +131,8 @@ const inputChange = () => {
   if (checkList.indexOf('') === -1 && checkList.indexOf('NaN') === -1) {
     const data = `${value0.value}.${value1.value}.${value2.value}.${value3.value}`;
     emits('changeIp', data);
+  } else {
+    emits('changeIp', '');
   }
 };
 const checkKeydown = (e: any) => {
