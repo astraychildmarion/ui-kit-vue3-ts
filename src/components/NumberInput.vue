@@ -1,30 +1,28 @@
 <template>
   <div class="xy-number-input-wrapper">
-    <Space :size="40">
+    <div class="xy-number-input-content">
       <Button class="iconbtn" :disabled="!decreasable" @click="decrease">
         <template #icon>
           <MinusSquareOutlined />
         </template>
       </Button>
-      <Space :size="40">
-        <span class="vmqty">{{ inputValue }} VM</span>
-        <Button class="iconbtn" @click="increase">
-          <template #icon>
-            <PlusSquareOutlined />
-          </template>
-        </Button>
-      </Space>
-    </Space>
+      <span class="vmqty">{{ inputValue }} VM</span>
+      <Button class="iconbtn" @click="increase">
+        <template #icon>
+          <PlusSquareOutlined />
+        </template>
+      </Button>
+    </div>
   </div>
 </template>
 <script lang="ts">
 import { defineComponent, ref, watch, computed } from 'vue';
-import { Button, Space } from 'ant-design-vue';
+import { Button } from 'ant-design-vue';
 import { PlusSquareOutlined, MinusSquareOutlined } from '@ant-design/icons-vue';
 
 export default defineComponent({
   name: 'NumberInput',
-  components: { Button, Space, PlusSquareOutlined, MinusSquareOutlined },
+  components: { Button, PlusSquareOutlined, MinusSquareOutlined },
   props: {
     max: {
       type: Number,
@@ -98,9 +96,9 @@ export default defineComponent({
   }
   .vmqty {
     display: inline-block;
-    width: 3rem;
+    width: 5rem;
     height: 22px;
-    flex-grow: 0;
+    flex-grow: 1;
     margin: 0 9px;
     font-weight: 500;
     font-stretch: normal;
@@ -121,6 +119,10 @@ export default defineComponent({
     width: 16px;
     height: 16px;
     background: none;
+  }
+  .xy-number-input-content {
+    display: flex;
+    align-items: center;
   }
 }
 </style>
