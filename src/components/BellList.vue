@@ -78,7 +78,7 @@ export default defineComponent({
       formated = formated.replace(/-/i, '/');
       return formated;
     };
-    const clickAndCloseBelllist = (event: MouseEvent) => {
+    const clickAndCloseBelllist = (event: any) => {
       const list = event.composedPath();
       const classList = list.filter((item: any) => typeof item.className === 'string');
       const checkedList = classList.filter(
@@ -98,10 +98,12 @@ export default defineComponent({
             cardList.scrollTop = 0;
           }
           document.removeEventListener('click', clickAndCloseBelllist);
+          document.removeEventListener('change', clickAndCloseBelllist);
         } else {
           const cardList = document.querySelector('.xy-bell-list__wrapper');
           if (cardList) cardList?.addEventListener('scroll', infiniteScrollEvent);
           document.addEventListener('click', clickAndCloseBelllist);
+          document.addEventListener('change', clickAndCloseBelllist);
         }
       },
     );
