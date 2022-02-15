@@ -211,8 +211,8 @@ Default.args = {
   logoUrl: '/logo.svg',
   logoLink: 'https://alpha.xycloud.org/',
   manageMenu: [
-    { name: 'Role Manage (IAM)', url: '#', icon: 'sketch' },
-    { name: 'XY IAM', url: '#', icon: 'heat-map' },
+    { name: 'Role Manage (IAM)', url: '#', icon: 'smile' },
+    { name: 'XY IAM', url: '#', icon: 'smile' },
   ],
   userMenu: [{ name: 'Member', url: '#', icon: 'team' }],
   userInfo: {

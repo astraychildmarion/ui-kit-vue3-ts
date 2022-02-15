@@ -24,7 +24,7 @@
                 class="xy-header__user-manage__menu-item"
               >
                 <a :href="item.url">
-                  <span>{{ item.name }}</span>
+                  <span class="xy-header__user-manage__menu-item__span">{{ item.name }}</span>
                   <slot v-if="item.icon" :name="`manageMenu_${item.icon}`" />
                   <img v-if="item.iconPath" :src="item.iconPath" class="anticon" />
                 </a>
@@ -52,14 +52,14 @@
                 class="xy-header__user-manage__menu-item"
               >
                 <a :href="item.url">
-                  <span>{{ item.name }}</span>
+                  <span class="xy-header__user-manage__menu-item__span">{{ item.name }}</span>
                   <slot v-if="item.icon" :name="`userMenu_${item.icon}`" />
                   <img v-if="item.iconPath" :src="item.iconPath" class="anticon" />
                 </a>
               </div>
               <div class="xy-header__user-manage__menu-item" @click="$emit('logOut')">
                 <div>
-                  <span>Log Out</span>
+                  <span class="xy-header__user-manage__menu-item__span">Log Out</span>
                   <LogoutOutlined />
                 </div>
               </div>
@@ -260,6 +260,9 @@ a:hover {
       }
     }
   }
+}
+.xy-header__user-manage__menu-item__span {
+  padding-right: 16px;
 }
 </style>
 <style>

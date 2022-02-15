@@ -85,8 +85,9 @@ Default.args = {
   manageAuth: true,
   logoUrl: '/logo.svg',
   manageMenu: [
-    { name: 'XY IAM', url: '#' },
-    { name: 'WooshPush', url: '#' },
+    { name: 'XY IAM', url: '#', icon: 'smile' },
+    { name: 'WooshPush', url: '#', icon: 'smile' },
+    { name: 'Role Manage (I AM)', url: '#', icon: 'smile' },
   ],
   userMenu: [{ name: 'Member', url: '#' }],
   userInfo: {
