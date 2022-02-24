@@ -1,5 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import moment from 'moment';
+// import moment from 'moment';
 import XYFilter from '../components/Filter.vue';
 import { csFilterSelectorMap, csFilterInputFormat } from '../components/filterSelectorMapCS';
 
@@ -97,16 +97,16 @@ Default.args = {
       mode: 'contain',
       value: 'host123',
     },
-    {
-      field: 'server_type',
-      mode: 'in',
-      value: ['PHY'],
-    },
-    {
-      field: 'last_update_at',
-      mode: 'in',
-      value: [moment('2021-11-08 18:01:44'), moment('2021-11-10 18:01:44')],
-    },
+    // {
+    //   field: 'server_type',
+    //   mode: 'in',
+    //   value: ['PHY'],
+    // },
+    // {
+    //   field: 'last_update_at',
+    //   mode: 'in',
+    //   value: [moment('2021-11-08 18:01:44'), moment('2021-11-10 18:01:44')],
+    // },
   ],
   filterSelector: csFilterSelectorMap,
   filterSelectorFormat: csFilterInputFormat,

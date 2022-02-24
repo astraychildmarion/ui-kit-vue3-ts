@@ -1,30 +1,32 @@
-<template>
-  <h1>Welcome to xy-cloud-kit 2.0</h1>
-</template>
+<script setup lang="ts">
+import { computed, onMounted, ref } from 'vue';
+import Filter from './view/filter_test.vue';
+import Home from './view/home.vue';
+import NotFound from './components/NotFound.vue';
 
-<script setup lang="ts"></script>
-<script lang="ts">
-// import AlertMsgApi from '@/components/AlertMsg.ts';
-export default {
-  data() {
-    return {};
-  },
-  methods: {},
-  mounted() {
-    // setInterval(() => {
-    //   AlertMsgApi({
-    //     alertMsg: 'hihihi',
-    //   });
-    // }, 7000);
-    // setInterval(() => {
-    //   AlertMsgApi({
-    //     alertMsg: 'hihihi 3',
-    //     alertType: 'error',
-    //   });
-    // }, 7000);
-  },
+interface Routes {
+  [index: string]: any;
+}
+const routes: Routes = {
+  '/filter': Filter,
+  '/': Home,
 };
+const currentPath: any = ref(window.location.hash);
+const currentView = computed(() => routes[currentPath.value.slice(1) || '/'] || NotFound);
+onMounted(() => {
+  window.addEventListener('hashchange', () => {
+    currentPath.value = window.location.hash;
+  });
+});
 </script>
+
+<template>
+  <div style="padding: 20px">
+    <a href="#/">Home</a> |
+    <a href="#/filter">Filter</a>
+  </div>
+  <component :is="currentView" />
+</template>
 
 <style lang="scss">
 #app {
